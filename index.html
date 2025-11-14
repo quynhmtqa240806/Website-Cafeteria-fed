@@ -2,274 +2,177 @@
 <html lang="vi">
 <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <title>Review Giảng Viên Khoa Khoa học và Công nghệ giáo dục ĐH Bách Khoa Hà Nội</title>
+    <title>Review Giảng Viên BK - Bookstore Style</title>
     <link rel="stylesheet" href="styles.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"/>
 </head>
 <body>
-    <header>
-        <div class="container-hero">
-            <div class="container hero">
-                <div class="container-logo">
-                    <i class="fa-solid fa-graduation-cap"></i>
-                    <h1 class="logo"><a href="/">REVIEW GIẢNG VIÊN FED HUST</a></h1>
-                </div>
-            </div>
+    <header class="site-header">
+        <div class="logo-zone">
+            <img src="img/logo-bk.png" alt="Logo BK" height="38"/>
+            <span class="brand">BK LECTURER STORE</span>
         </div>
-        <div class="container-navbar">
-            <nav class="navbar container">
-                <i class="fa-solid fa-bars"></i>
-                <ul class="menu">
-                    <li><a href="#">Trang chủ</a></li>
-                    <li><a href="#">Giảng viên</a></li>
-                    <li><a href="#">Review</a></li>
-                    <li><a href="#">Chatbot tâm sự</a></li>
-                    <li><a href="#">Liên hệ</a></li>
-                </ul>
-            </nav>
+        <nav>
+            <a href="#">Trang chủ</a>
+            <a href="#">Giảng viên</a>
+            <a href="#">Review</a>
+            <a href="#">Chatbot</a>
+            <a href="#">Liên hệ</a>
+        </nav>
+        <div class="search-bar">
+            <input type="text" placeholder="Tìm giảng viên..." />
+            <button><i class="fa-solid fa-search"></i></button>
         </div>
     </header>
-
-    <main class="main-content">
-        <section class="review-lecturers container">
-            <h2 class="heading-1">Danh sách giảng viên tiêu biểu</h2>
-
-            <!-- Giảng viên: PGS.TS. Lê Hiếu Học -->
-            <div class="lecturer-card">
-                <div class="lecturer-info">
-                    <img src="img/lehieuhoc.jpg" alt="PGS.TS. Lê Hiếu Học" class="lecturer-photo"/>
-                    <div class="lecturer-details">
-                        <h3>PGS.TS. Lê Hiếu Học</h3>
-                        <p><b>Chức danh:</b> Trưởng khoa</p>
-                        <p><b>Đơn vị công tác:</b> Khoa Khoa học & Công nghệ Giáo dục, Đại học Bách Khoa Hà Nội</p>
-                        <p><b>Phòng làm việc:</b> (đang cập nhật)</p>
-                        <p><b>Email:</b> hoc.lehieu@hust.edu.vn</p>
-                        <p><b>Điện thoại:</b> (+84) 24 3868 1432</p>
-                    </div>
+    <main>
+        <section class="card-list">
+            <!-- CARD GIẢNG VIÊN -->
+            <div class="lecturer-card" onclick="openLecturerDetail('lehieuhoc')">
+                <img src="img/lehieuhoc.jpg" alt="PGS.TS. Lê Hiếu Học" />
+                <div class="star-rating">
+                    <!-- 5 sao -->
+                    <i class="fa-solid fa-star"></i>
+                    <i class="fa-solid fa-star"></i>
+                    <i class="fa-solid fa-star"></i>
+                    <i class="fa-solid fa-star"></i>
+                    <i class="fa-regular fa-star"></i>
+                    <span class="star-score">4.6</span>
                 </div>
-                <div class="lecturer-columns">
-                    <div>
-                        <h4>Quá trình đào tạo</h4>
-                        <ul>
-                            <li>2001 – 2005: Tiến sĩ Xã hội học & Nghiên cứu Xã hội (chuyên ngành Khoa học Quản lý), Đại học Trento, Ý</li>
-                            <li>1999 – 2000: Thạc sĩ Quản trị Kinh doanh (Quản lý Công nghệ), Asian Institute of Technology (AIT), Bangkok, Thái Lan</li>
-                            <li>1998 – 1999: Văn bằng Sau đại học Quản trị Kinh doanh, Swiss AIT Vietnam Management Development Program, TP.HCM</li>
-                            <li>1994 – 1996: Cử nhân Ngữ văn Anh, Đại học Mở Hà Nội</li>
-                            <li>1991 – 1996: Cử nhân Kinh tế Xây dựng & Quản lý, Đại học Xây dựng Hà Nội</li>
-                            <li>1989 – 1991: Tốt nghiệp THPT, Trường THPT Thăng Long</li>
-                        </ul>
-                    </div>
-                    <div>
-                        <h4>Quá trình công tác</h4>
-                        <ul>
-                            <li>04/2022 – nay: Trưởng khoa Khoa học & Công nghệ Giáo dục, ĐHBK Hà Nội</li>
-                            <li>06/2019 – 03/2022: Phó Hiệu trưởng, Trường Đại học Phenikaa</li>
-                            <li>06/2019 – 09/2020: PGS, Trưởng khoa Kinh tế & Kinh doanh, Trường Đại học Phenikaa</li>
-                            <li>05/2018 – 05/2019: PGS, Trường Kinh tế & Quản lý, Trường ĐHBK Hà Nội</li>
-                            <li>09/2000 – 05/2018: Giảng viên, Trường Kinh tế & Quản lý, Trường ĐHBK Hà Nội</li>
-                            <li>12/2013 – 05/2019: Giám đốc Trung tâm Truyền thông & Quan hệ công chúng, Trường ĐHBK Hà Nội</li>
-                            <li>...</li>
-                        </ul>
-                    </div>
-                    <div>
-                        <h4>Lĩnh vực nghiên cứu</h4>
-                        <ul>
-                            <li>Quản trị, Quản lý chất lượng (TQM/ISO)</li>
-                            <li>Đạo đức kinh doanh & Trách nhiệm xã hội doanh nghiệp (CSR)</li>
-                            <li>Liên kết Đại học – Doanh nghiệp, chuyển giao công nghệ</li>
-                            <li>Quản lý giáo dục & phát triển chương trình đào tạo</li>
-                        </ul>
-                    </div>
-                </div>
-                <!-- Ô Review/Chấm điểm -->
-                <div class="review-section">
-                    <h4>Đánh giá/Chấm điểm giảng viên này</h4>
-                    <form class="review-form">
-                        <label for="rating_lehieuhoc">Chấm điểm:</label>
-                        <select id="rating_lehieuhoc">
-                            <option value="5">5 - Xuất sắc</option>
-                            <option value="4">4 - Tốt</option>
-                            <option value="3">3 - Trung bình</option>
-                            <option value="2">2 - Yếu</option>
-                            <option value="1">1 - Rất kém</option>
-                        </select>
-                        <br>
-                        <label for="comment_lehieuhoc">Nhận xét:</label>
-                        <textarea id="comment_lehieuhoc" rows="2" placeholder="Nhập nhận xét..."></textarea>
-                        <br>
-                        <button type="button" onclick="submitReview('lehieuhoc')">Gửi đánh giá</button>
-                    </form>
-                    <div id="reviews_lehieuhoc" class="list-reviews"></div>
+                <div class="card-info">
+                    <h3>PGS.TS. Lê Hiếu Học</h3>
+                    <span class="card-title">Trưởng khoa</span>
+                    <span class="dept">Khoa KH&CN Giáo dục</span>
                 </div>
             </div>
-
-            <!-- Giảng viên: PGS.TS. Phạm Thị Thanh Hải -->
-            <div class="lecturer-card">
-                <div class="lecturer-info">
-                    <img src="img/haiphamthithanh.jpg" alt="PGS.TS. Phạm Thị Thanh Hải" class="lecturer-photo"/>
-                    <div class="lecturer-details">
-                        <h3>PGS.TS. Phạm Thị Thanh Hải</h3>
-                        <p><b>Chức danh:</b> Phó Trưởng khoa, Giảng viên cao cấp</p>
-                        <p><b>Đơn vị công tác:</b> Khoa Khoa học & Công nghệ Giáo dục, Đại học Bách Khoa Hà Nội</p>
-                        <p><b>Phòng làm việc:</b> 325, C7, Đại học Bách Khoa Hà Nội</p>
-                        <p><b>Email:</b> hai.phamthithanh@hust.edu.vn</p>
-                        <p><b>Điện thoại:</b> (đang cập nhật)</p>
-                    </div>
+            <div class="lecturer-card" onclick="openLecturerDetail('haiphamthithanh')">
+                <img src="img/haiphamthithanh.jpg" alt="PGS.TS. Phạm Thị Thanh Hải" />
+                <div class="star-rating">
+                    <!-- 4 sao -->
+                    <i class="fa-solid fa-star"></i>
+                    <i class="fa-solid fa-star"></i>
+                    <i class="fa-solid fa-star"></i>
+                    <i class="fa-solid fa-star"></i>
+                    <i class="fa-regular fa-star"></i>
+                    <span class="star-score">4.1</span>
                 </div>
-                <div class="lecturer-columns">
-                    <div>
-                        <h4>Quá trình đào tạo</h4>
-                        <ul>
-                            <li>2013: Tiến sĩ Quản lý giáo dục, Trường Đại học Sư phạm Hà Nội</li>
-                            <li>2005: Thạc sĩ Quản lý giáo dục, Trường Đại học Vinh</li>
-                            <li>1993: Cử nhân Tiếng Anh, Trường Sư phạm Ngoại ngữ, Đại học Quốc gia</li>
-                            <li>1993: Cử nhân Tiếng Nga, Trường Sư phạm Ngoại ngữ, Đại học Quốc gia</li>
-                        </ul>
-                    </div>
-                    <div>
-                        <h4>Quá trình công tác</h4>
-                        <ul>
-                            <li>2023 – nay: Giảng viên, Khoa Khoa học & Công nghệ Giáo dục, ĐHBK Hà Nội</li>
-                            <li>2015 – 2022: Giảng viên cao cấp; Trưởng phòng Khoa học – Hợp tác phát triển, Trường ĐH Giáo dục (ĐHQGHN)</li>
-                            <li>2014 – 2015: Phó Trưởng phòng phụ trách Phòng Khoa học & Quan hệ Quốc tế, Trường ĐH Giáo dục (ĐHQGHN)</li>
-                            <li>2007 – 2014: Điều phối viên Giám sát & Đánh giá, Dự án Giáo dục Đại học 2; Dự án Mô hình Trường học Mới Việt Nam (MOET)</li>
-                            <li>1997 – 2007: Điều phối viên các dự án nghiên cứu quốc tế, Trường Đại học Vinh</li>
-                        </ul>
-                    </div>
-                    <div>
-                        <h4>Lĩnh vực nghiên cứu</h4>
-                        <ul>
-                            <li>Công nghệ giáo dục</li>
-                            <li>Đánh giá tác động Dự án Mô hình Trường học Mới Việt Nam (VNEN), Đề tài quốc tế</li>
-                            <li>Tăng cường năng lực nghiên cứu khoa học của nghiên cứu viên & giảng viên Trường ĐH Giáo dục – ĐHQGHN, Trường ĐH Giáo dục (ĐHQGHN)</li>
-                        </ul>
-                    </div>
-                </div>
-                <!-- Ô Review/Chấm điểm -->
-                <div class="review-section">
-                    <h4>Đánh giá/Chấm điểm giảng viên này</h4>
-                    <form class="review-form">
-                        <label for="rating_haipham">Chấm điểm:</label>
-                        <select id="rating_haipham">
-                            <option value="5">5 - Xuất sắc</option>
-                            <option value="4">4 - Tốt</option>
-                            <option value="3">3 - Trung bình</option>
-                            <option value="2">2 - Yếu</option>
-                            <option value="1">1 - Rất kém</option>
-                        </select>
-                        <br>
-                        <label for="comment_haipham">Nhận xét:</label>
-                        <textarea id="comment_haipham" rows="2" placeholder="Nhập nhận xét..."></textarea>
-                        <br>
-                        <button type="button" onclick="submitReview('haipham')">Gửi đánh giá</button>
-                    </form>
-                    <div id="reviews_haipham" class="list-reviews"></div>
+                <div class="card-info">
+                    <h3>PGS.TS. Phạm Thị Thanh Hải</h3>
+                    <span class="card-title">Phó trưởng khoa</span>
+                    <span class="dept">Khoa KH&CN Giáo dục</span>
                 </div>
             </div>
-
-            <!-- Giảng viên: TS. Nguyễn Thị Huyền -->
-            <div class="lecturer-card">
-                <div class="lecturer-info">
-                    <img src="img/nguyenthihuyen.jpg" alt="TS. Nguyễn Thị Huyền" class="lecturer-photo"/>
-                    <div class="lecturer-details">
-                        <h3>TS. Nguyễn Thị Huyền</h3>
-                        <p><b>Chức danh:</b> Giảng viên / Giám đốc CTĐT ngành Công nghệ Giáo dục</p>
-                        <p><b>Đơn vị công tác:</b> Khoa Khoa học & Công nghệ Giáo dục, Đại học Bách Khoa Hà Nội</p>
-                        <p><b>Phòng làm việc:</b> M329, Nhà C7, Trường Đại học Bách Khoa Hà Nội</p>
-                        <p><b>Email:</b> huyen.nguyenthi2@hust.edu.vn</p>
-                        <p><b>Điện thoại:</b> (+84) 24 3868 2451</p>
-                    </div>
-                </div>
-                <div class="lecturer-columns">
-                    <div>
-                        <h4>Quá trình đào tạo</h4>
-                        <ul>
-                            <li>2019: Tiến sĩ Công nghệ Giáo dục, National Central University, Taiwan</li>
-                            <li>2014: Thạc sĩ Khoa học Máy tính, National Central University, Taiwan</li>
-                            <li>2009: Kỹ sư Công nghệ Thực phẩm, Học viện Nông nghiệp Việt Nam</li>
-                        </ul>
-                    </div>
-                    <div>
-                        <h4>Quá trình công tác</h4>
-                        <ul>
-                            <li>05/2020 – nay: Giảng viên, Trường Đại học Bách Khoa Hà Nội</li>
-                            <li>03/2019 – 04/2021: Kỹ sư Phân tích Nghiệp vụ & R&D Công nghệ, Viettel Business Solution</li>
-                            <li>09/2010 – 09/2015: Kỹ sư Phần mềm, Tập đoàn Wistron, Taipei, Taiwan</li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="review-section">
-                    <h4>Đánh giá/Chấm điểm giảng viên này</h4>
-                    <form class="review-form">
-                        <label for="rating_huyen">Chấm điểm:</label>
-                        <select id="rating_huyen">
-                            <option value="5">5 - Xuất sắc</option>
-                            <option value="4">4 - Tốt</option>
-                            <option value="3">3 - Trung bình</option>
-                            <option value="2">2 - Yếu</option>
-                            <option value="1">1 - Rất kém</option>
-                        </select>
-                        <br>
-                        <label for="comment_huyen">Nhận xét:</label>
-                        <textarea id="comment_huyen" rows="2" placeholder="Nhập nhận xét..."></textarea>
-                        <br>
-                        <button type="button" onclick="submitReview('huyen')">Gửi đánh giá</button>
-                    </form>
-                    <div id="reviews_huyen" class="list-reviews"></div>
-                </div>
-            </div>
-            <!-- ---- Copy .lecturer-card cho các giảng viên khác ---- -->
-        </section>
-
-        <!-- Ô Chatbot tâm sự -->
-        <section class="chatbot-section container">
-            <h2 class="heading-1">Chatbot cà phê tâm sự với giảng viên</h2>
-            <div id="chatbot-window" class="chatbot-window">
-                <div class="chatbot-message bot">Xin chào! Bạn muốn tâm sự gì với giảng viên? 😊</div>
-            </div>
-            <div class="chatbot-input">
-                <input type="text" id="chatbot-input" placeholder="Nhập nội dung...">
-                <button type="button" onclick="sendChatbotMsg()">Gửi</button>
-            </div>
+            <!-- ... Copy block cho nhiều giảng viên ... -->
         </section>
     </main>
 
-    <footer class="footer">
-        <div class="container container-footer">
-            <p>© 2025 Review Giảng Viên ĐHBK Hà Nội</p>
+    <!-- MODAL POPUP THÔNG TIN GIẢNG VIÊN -->
+    <div class="modal-bg" id="detail-modal-bg" onclick="closeModal()" style="display:none;"></div>
+    <div class="modal" id="lecturer-modal" style="display:none;">
+        <span class="close-btn" onclick="closeModal()">&times;</span>
+        <div id="modal-content"></div>
+    </div>
+
+    <!-- CHATBOT SIDEBAR -->
+    <div class="chatbot-widget">
+        <button onclick="toggleChatbot()" class="chatbot-btn"><i class="fa-solid fa-robot"></i> Trợ lý</button>
+        <div class="chatbot-box" id="chatbot-box">
+            <div class="chatbot-head">Chatbot Tâm sự Giảng Viên</div>
+            <div class="chatbot-messages" id="chatbot-messages">
+                <div class="chatbot-message bot">Chào bạn! Hãy hỏi hoặc chia sẻ nhé.</div>
+            </div>
+            <div class="chatbot-action">
+                <input type="text" id="chatbot-input" placeholder="Nhập nội dung..." />
+                <button onclick="sendChatbotMsg()">Gửi</button>
+            </div>
         </div>
-    </footer>
-
-<script>
-// Đánh giá/chấm điểm - chỉ lưu trên trình duyệt
-function submitReview(lecturerKey) {
-    const rating = document.getElementById('rating_' + lecturerKey).value;
-    const comment = document.getElementById('comment_' + lecturerKey).value.trim();
-    const reviewsDiv = document.getElementById('reviews_' + lecturerKey);
-
-    if (comment.length === 0) return alert('Vui lòng nhập nhận xét!');
-    const review = `<div class="review-item"><b>Điểm:</b> ${rating}/5 &nbsp; <b>Nhận xét:</b> ${comment}</div>`;
-    reviewsDiv.innerHTML += review;
-    document.getElementById('comment_' + lecturerKey).value = '';
-}
-
-// Chatbot demo đơn giản
-function sendChatbotMsg() {
-    const input = document.getElementById('chatbot-input');
-    const msg = input.value.trim();
-    const windowDiv = document.getElementById('chatbot-window');
-
-    if (msg.length === 0) return;
-    windowDiv.innerHTML += `<div class="chatbot-message user">${msg}</div>`;
-    // demo: trả lời cố định
-    setTimeout(() => {
-        windowDiv.innerHTML += `<div class="chatbot-message bot">Cám ơn bạn đã chia sẻ! Nếu có thắc mắc về giảng viên, mình sẵn sàng giúp!</div>`;
-        windowDiv.scrollTop = windowDiv.scrollHeight;
-    }, 600);
-    input.value = '';
-    windowDiv.scrollTop = windowDiv.scrollHeight;
-}
-</script>
+    </div>
+    <script>
+    // LECTURER DETAIL POPUP
+    const lecturers = {
+        lehieuhoc: {
+            img: "img/lehieuhoc.jpg",
+            name: "PGS.TS. Lê Hiếu Học",
+            title: "Trưởng khoa",
+            dept: "Khoa KH&CN Giáo dục - ĐH Bách Khoa Hà Nội",
+            email: "hoc.lehieu@hust.edu.vn",
+            phone: "(+84) 24 3868 1432",
+            train: [
+                "2001 – 2005: TS Xã hội học, ĐH Trento, Ý",
+                "1999 – 2000: ThS Quản trị Kinh doanh, AIT Thái Lan"
+            ],
+            work: [
+                "2022 – nay: Trưởng khoa ĐHBK Hà Nội",
+                "2019 – 2022: Phó Hiệu trưởng Đại học Phenikaa"
+            ],
+            area: [
+                "Quản trị, Quản lý chất lượng (TQM/ISO)",
+                "Đạo đức kinh doanh & Trách nhiệm xã hội"
+            ]
+        },
+        haiphamthithanh: {
+            img: "img/haiphamthithanh.jpg",
+            name: "PGS.TS. Phạm Thị Thanh Hải",
+            title: "Phó trưởng khoa, Giảng viên cao cấp",
+            dept: "Khoa KH&CN Giáo dục - ĐHBK Hà Nội",
+            email: "hai.phamthithanh@hust.edu.vn",
+            phone: "",
+            train: [
+                "2013: TS Quản lý giáo dục, ĐHSP HN",
+                "2005: ThS Quản lý giáo dục, ĐH Vinh"
+            ],
+            work: [
+                "2023 – nay: Giảng viên ĐHBK Hà Nội",
+                "2015 – 2022: Trưởng phòng KH, ĐHGD ĐHQGHN"
+            ]
+        }
+        // ... thêm object cho nhiều giảng viên ...
+    };
+    function openLecturerDetail(key){
+        const lec = lecturers[key];
+        if(!lec) return;
+        let html = `<div class="modal-profile">
+           <img src="${lec.img}" alt="${lec.name}" class="modal-img"/>
+           <div>
+              <h2>${lec.name}</h2>
+              <div><b>${lec.title}</b></div>
+              <div><b>${lec.dept}</b></div>
+              <div><b>Email:</b> ${lec.email}</div>
+              ${lec.phone ? `<div><b>Điện thoại:</b> ${lec.phone}</div>` : ""}
+              <div class="modal-tab">
+                 <b>Đào tạo:</b>
+                 <ul>${lec.train?.map(item=>`<li>${item}</li>`).join('')}</ul>
+                 <b>Kinh nghiệm:</b>
+                 <ul>${lec.work?.map(item=>`<li>${item}</li>`).join('')}</ul>
+                 ${lec.area ? `<b>Lĩnh vực:</b><ul>${lec.area?.map(item=>`<li>${item}</li>`).join('')}</ul>`:""}
+              </div>
+           </div>
+        </div>`;
+        document.getElementById('modal-content').innerHTML = html;
+        document.getElementById('detail-modal-bg').style.display = "block";
+        document.getElementById('lecturer-modal').style.display = "block";
+    }
+    function closeModal(){
+        document.getElementById('detail-modal-bg').style.display = "none";
+        document.getElementById('lecturer-modal').style.display = "none";
+    }
+    // CHATBOT
+    function toggleChatbot(){
+        let box = document.getElementById('chatbot-box');
+        box.style.display = (box.style.display=="block") ? "none":"block";
+    }
+    function sendChatbotMsg(){
+        const input = document.getElementById('chatbot-input');
+        const msg = input.value.trim();
+        const messages = document.getElementById('chatbot-messages');
+        if(msg.length===0) return;
+        messages.innerHTML += `<div class="chatbot-message user">${msg}</div>`;
+        setTimeout(function(){
+            messages.innerHTML += `<div class="chatbot-message bot">Cảm ơn bạn đã chia sẻ! Nếu cần thông tin về giảng viên hãy hỏi nhé.</div>`;
+            messages.scrollTop = messages.scrollHeight;
+        },500);
+        input.value = "";
+        messages.scrollTop = messages.scrollHeight;
+    }
+    </script>
 </body>
 </html>
