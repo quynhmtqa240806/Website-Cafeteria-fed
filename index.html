@@ -1,178 +1,347 @@
-<!DOCTYPE html>
-<html lang="vi">
-<head>
-    <meta charset="UTF-8" />
-    <title>Review Giảng Viên BK - Bookstore Style</title>
-    <link rel="stylesheet" href="styles.css" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"/>
-</head>
-<body>
-    <header class="site-header">
-        <div class="logo-zone">
-            <img src="img/logo-bk.png" alt="Logo BK" height="38"/>
-            <span class="brand">BK LECTURER STORE</span>
-        </div>
-        <nav>
-            <a href="#">Trang chủ</a>
-            <a href="#">Giảng viên</a>
-            <a href="#">Review</a>
-            <a href="#">Chatbot</a>
-            <a href="#">Liên hệ</a>
-        </nav>
-        <div class="search-bar">
-            <input type="text" placeholder="Tìm giảng viên..." />
-            <button><i class="fa-solid fa-search"></i></button>
-        </div>
-    </header>
-    <main>
-        <section class="card-list">
-            <!-- CARD GIẢNG VIÊN -->
-            <div class="lecturer-card" onclick="openLecturerDetail('lehieuhoc')">
-                <img src="img/lehieuhoc.jpg" alt="PGS.TS. Lê Hiếu Học" />
-                <div class="star-rating">
-                    <!-- 5 sao -->
-                    <i class="fa-solid fa-star"></i>
-                    <i class="fa-solid fa-star"></i>
-                    <i class="fa-solid fa-star"></i>
-                    <i class="fa-solid fa-star"></i>
-                    <i class="fa-regular fa-star"></i>
-                    <span class="star-score">4.6</span>
-                </div>
-                <div class="card-info">
-                    <h3>PGS.TS. Lê Hiếu Học</h3>
-                    <span class="card-title">Trưởng khoa</span>
-                    <span class="dept">Khoa KH&CN Giáo dục</span>
-                </div>
-            </div>
-            <div class="lecturer-card" onclick="openLecturerDetail('haiphamthithanh')">
-                <img src="img/haiphamthithanh.jpg" alt="PGS.TS. Phạm Thị Thanh Hải" />
-                <div class="star-rating">
-                    <!-- 4 sao -->
-                    <i class="fa-solid fa-star"></i>
-                    <i class="fa-solid fa-star"></i>
-                    <i class="fa-solid fa-star"></i>
-                    <i class="fa-solid fa-star"></i>
-                    <i class="fa-regular fa-star"></i>
-                    <span class="star-score">4.1</span>
-                </div>
-                <div class="card-info">
-                    <h3>PGS.TS. Phạm Thị Thanh Hải</h3>
-                    <span class="card-title">Phó trưởng khoa</span>
-                    <span class="dept">Khoa KH&CN Giáo dục</span>
-                </div>
-            </div>
-            <!-- ... Copy block cho nhiều giảng viên ... -->
-        </section>
-    </main>
+<!-- ... Tiêu đề, header, menu ... -->
 
-    <!-- MODAL POPUP THÔNG TIN GIẢNG VIÊN -->
-    <div class="modal-bg" id="detail-modal-bg" onclick="closeModal()" style="display:none;"></div>
-    <div class="modal" id="lecturer-modal" style="display:none;">
-        <span class="close-btn" onclick="closeModal()">&times;</span>
-        <div id="modal-content"></div>
-    </div>
-
-    <!-- CHATBOT SIDEBAR -->
-    <div class="chatbot-widget">
-        <button onclick="toggleChatbot()" class="chatbot-btn"><i class="fa-solid fa-robot"></i> Trợ lý</button>
-        <div class="chatbot-box" id="chatbot-box">
-            <div class="chatbot-head">Chatbot Tâm sự Giảng Viên</div>
-            <div class="chatbot-messages" id="chatbot-messages">
-                <div class="chatbot-message bot">Chào bạn! Hãy hỏi hoặc chia sẻ nhé.</div>
-            </div>
-            <div class="chatbot-action">
-                <input type="text" id="chatbot-input" placeholder="Nhập nội dung..." />
-                <button onclick="sendChatbotMsg()">Gửi</button>
-            </div>
+<section class="card-list">
+    <!-- PGS.TS. Lê Hiếu Học -->
+    <div class="lecturer-card" onclick="openLecturerDetail('lehieuhoc')">
+        <img src="img/lehieuhoc.jpg" alt="PGS.TS. Lê Hiếu Học" />
+        <div class="star-rating">
+            <i class="fa-solid fa-star"></i>
+            <i class="fa-solid fa-star"></i>
+            <i class="fa-solid fa-star"></i>
+            <i class="fa-solid fa-star"></i>
+            <i class="fa-regular fa-star"></i>
+            <span class="star-score">4.6</span>
+        </div>
+        <div class="card-info">
+            <h3>PGS.TS. Lê Hiếu Học</h3>
+            <span class="card-title">Trưởng khoa</span>
+            <span class="dept">Khoa Khoa học & Công nghệ Giáo dục</span>
         </div>
     </div>
-    <script>
-    // LECTURER DETAIL POPUP
-    const lecturers = {
-        lehieuhoc: {
-            img: "img/lehieuhoc.jpg",
-            name: "PGS.TS. Lê Hiếu Học",
-            title: "Trưởng khoa",
-            dept: "Khoa KH&CN Giáo dục - ĐH Bách Khoa Hà Nội",
-            email: "hoc.lehieu@hust.edu.vn",
-            phone: "(+84) 24 3868 1432",
-            train: [
-                "2001 – 2005: TS Xã hội học, ĐH Trento, Ý",
-                "1999 – 2000: ThS Quản trị Kinh doanh, AIT Thái Lan"
-            ],
-            work: [
-                "2022 – nay: Trưởng khoa ĐHBK Hà Nội",
-                "2019 – 2022: Phó Hiệu trưởng Đại học Phenikaa"
-            ],
-            area: [
-                "Quản trị, Quản lý chất lượng (TQM/ISO)",
-                "Đạo đức kinh doanh & Trách nhiệm xã hội"
-            ]
-        },
-        haiphamthithanh: {
-            img: "img/haiphamthithanh.jpg",
-            name: "PGS.TS. Phạm Thị Thanh Hải",
-            title: "Phó trưởng khoa, Giảng viên cao cấp",
-            dept: "Khoa KH&CN Giáo dục - ĐHBK Hà Nội",
-            email: "hai.phamthithanh@hust.edu.vn",
-            phone: "",
-            train: [
-                "2013: TS Quản lý giáo dục, ĐHSP HN",
-                "2005: ThS Quản lý giáo dục, ĐH Vinh"
-            ],
-            work: [
-                "2023 – nay: Giảng viên ĐHBK Hà Nội",
-                "2015 – 2022: Trưởng phòng KH, ĐHGD ĐHQGHN"
-            ]
-        }
-        // ... thêm object cho nhiều giảng viên ...
-    };
-    function openLecturerDetail(key){
-        const lec = lecturers[key];
-        if(!lec) return;
-        let html = `<div class="modal-profile">
-           <img src="${lec.img}" alt="${lec.name}" class="modal-img"/>
-           <div>
-              <h2>${lec.name}</h2>
-              <div><b>${lec.title}</b></div>
-              <div><b>${lec.dept}</b></div>
-              <div><b>Email:</b> ${lec.email}</div>
-              ${lec.phone ? `<div><b>Điện thoại:</b> ${lec.phone}</div>` : ""}
-              <div class="modal-tab">
-                 <b>Đào tạo:</b>
-                 <ul>${lec.train?.map(item=>`<li>${item}</li>`).join('')}</ul>
-                 <b>Kinh nghiệm:</b>
-                 <ul>${lec.work?.map(item=>`<li>${item}</li>`).join('')}</ul>
-                 ${lec.area ? `<b>Lĩnh vực:</b><ul>${lec.area?.map(item=>`<li>${item}</li>`).join('')}</ul>`:""}
-              </div>
-           </div>
-        </div>`;
-        document.getElementById('modal-content').innerHTML = html;
-        document.getElementById('detail-modal-bg').style.display = "block";
-        document.getElementById('lecturer-modal').style.display = "block";
-    }
-    function closeModal(){
-        document.getElementById('detail-modal-bg').style.display = "none";
-        document.getElementById('lecturer-modal').style.display = "none";
-    }
-    // CHATBOT
-    function toggleChatbot(){
-        let box = document.getElementById('chatbot-box');
-        box.style.display = (box.style.display=="block") ? "none":"block";
-    }
-    function sendChatbotMsg(){
-        const input = document.getElementById('chatbot-input');
-        const msg = input.value.trim();
-        const messages = document.getElementById('chatbot-messages');
-        if(msg.length===0) return;
-        messages.innerHTML += `<div class="chatbot-message user">${msg}</div>`;
-        setTimeout(function(){
-            messages.innerHTML += `<div class="chatbot-message bot">Cảm ơn bạn đã chia sẻ! Nếu cần thông tin về giảng viên hãy hỏi nhé.</div>`;
-            messages.scrollTop = messages.scrollHeight;
-        },500);
-        input.value = "";
-        messages.scrollTop = messages.scrollHeight;
-    }
-    </script>
-</body>
-</html>
+    <!-- PGS.TS. Phạm Thị Thanh Hải -->
+    <div class="lecturer-card" onclick="openLecturerDetail('haiphamthithanh')">
+        <img src="img/haiphamthithanh.jpg" alt="PGS.TS. Phạm Thị Thanh Hải" />
+        <div class="star-rating">
+            <i class="fa-solid fa-star"></i>
+            <i class="fa-solid fa-star"></i>
+            <i class="fa-solid fa-star"></i>
+            <i class="fa-solid fa-star"></i>
+            <i class="fa-regular fa-star"></i>
+            <span class="star-score">4.1</span>
+        </div>
+        <div class="card-info">
+            <h3>PGS.TS. Phạm Thị Thanh Hải</h3>
+            <span class="card-title">Phó trưởng khoa, Giảng viên cao cấp</span>
+            <span class="dept">Khoa Khoa học & Công nghệ Giáo dục</span>
+        </div>
+    </div>
+    <!-- TS. Nguyễn Thị Huyền -->
+    <div class="lecturer-card" onclick="openLecturerDetail('nguyenthihuyen')">
+        <img src="img/nguyenthihuyen.jpg" alt="TS. Nguyễn Thị Huyền" />
+        <div class="star-rating">
+            <i class="fa-solid fa-star"></i>
+            <i class="fa-solid fa-star"></i>
+            <i class="fa-solid fa-star"></i>
+            <i class="fa-solid fa-star"></i>
+            <i class="fa-regular fa-star"></i>
+            <span class="star-score">4.2</span>
+        </div>
+        <div class="card-info">
+            <h3>TS. Nguyễn Thị Huyền</h3>
+            <span class="card-title">Giảng viên, Giám đốc CTĐT ngành Công nghệ Giáo dục</span>
+            <span class="dept">Khoa Khoa học & Công nghệ Giáo dục</span>
+        </div>
+    </div>
+    <!-- ThS. Bùi Ngọc Sơn -->
+    <div class="lecturer-card" onclick="openLecturerDetail('buingocson')">
+        <img src="img/buingocson.jpg" alt="ThS. Bùi Ngọc Sơn" />
+        <div class="star-rating">
+            <i class="fa-solid fa-star"></i>
+            <i class="fa-solid fa-star"></i>
+            <i class="fa-solid fa-star"></i>
+            <i class="fa-regular fa-star"></i>
+            <i class="fa-regular fa-star"></i>
+            <span class="star-score">3.8</span>
+        </div>
+        <div class="card-info">
+            <h3>ThS. Bùi Ngọc Sơn</h3>
+            <span class="card-title">Giảng viên</span>
+            <span class="dept">Bộ môn Sư phạm các ngành kỹ thuật</span>
+        </div>
+    </div>
+    <!-- TS. Nguyễn Thị Thanh Tú -->
+    <div class="lecturer-card" onclick="openLecturerDetail('nguyenthithanhtu')">
+        <img src="img/nguyenthithanhtu.jpg" alt="TS. Nguyễn Thị Thanh Tú" />
+        <div class="star-rating">
+            <i class="fa-solid fa-star"></i>
+            <i class="fa-solid fa-star"></i>
+            <i class="fa-solid fa-star"></i>
+            <i class="fa-solid fa-star"></i>
+            <i class="fa-regular fa-star"></i>
+            <span class="star-score">4.3</span>
+        </div>
+        <div class="card-info">
+            <h3>TS. Nguyễn Thị Thanh Tú</h3>
+            <span class="card-title">Giảng viên</span>
+            <span class="dept">Bộ môn Sư phạm các ngành kỹ thuật</span>
+        </div>
+    </div>
+    <!-- TS. Vũ Đình Minh -->
+    <div class="lecturer-card" onclick="openLecturerDetail('vudinhminh')">
+        <img src="img/vudinhminh.jpg" alt="TS. Vũ Đình Minh" />
+        <div class="star-rating">
+            <i class="fa-solid fa-star"></i>
+            <i class="fa-solid fa-star"></i>
+            <i class="fa-solid fa-star"></i>
+            <i class="fa-regular fa-star"></i>
+            <i class="fa-regular fa-star"></i>
+            <span class="star-score">3.9</span>
+        </div>
+        <div class="card-info">
+            <h3>TS. Vũ Đình Minh</h3>
+            <span class="card-title">Giảng viên</span>
+            <span class="dept">Bộ môn Sư phạm các ngành kỹ thuật</span>
+        </div>
+    </div>
+    <!-- Tiếp tục COPY cho các giảng viên khác, đổi tên cho đúng file ảnh -->
+    <!-- TS. Nguyễn Thị Thanh Thủy -->
+    <div class="lecturer-card" onclick="openLecturerDetail('nguyenthithanhthuy')">
+        <img src="img/nguyenthithanhthuy.jpg" alt="TS. Nguyễn Thị Thanh Thủy" />
+        <div class="star-rating">
+            <i class="fa-solid fa-star"></i>
+            <i class="fa-solid fa-star"></i>
+            <i class="fa-solid fa-star"></i>
+            <i class="fa-regular fa-star"></i>
+            <i class="fa-regular fa-star"></i>
+            <span class="star-score">3.8</span>
+        </div>
+        <div class="card-info">
+            <h3>TS. Nguyễn Thị Thanh Thủy</h3>
+            <span class="card-title">Giảng viên</span>
+            <span class="dept">Bộ môn Sư phạm các ngành kỹ thuật</span>
+        </div>
+    </div>
+    <!-- ThS. Đặng Thu Hương -->
+    <div class="lecturer-card" onclick="openLecturerDetail('dangthuhuong')">
+        <img src="img/dangthuhuong.jpg" alt="ThS. Đặng Thu Hương" />
+        <div class="star-rating">
+            <i class="fa-solid fa-star"></i>
+            <i class="fa-solid fa-star"></i>
+            <i class="fa-solid fa-star"></i>
+            <i class="fa-regular fa-star"></i>
+            <i class="fa-regular fa-star"></i>
+            <span class="star-score">3.7</span>
+        </div>
+        <div class="card-info">
+            <h3>ThS. Đặng Thu Hương</h3>
+            <span class="card-title">Giảng viên thực hành</span>
+            <span class="dept">Khoa Khoa học & Công nghệ Giáo dục</span>
+        </div>
+    </div>
+    <!-- ThS. Nguyễn Yến Chi -->
+    <div class="lecturer-card" onclick="openLecturerDetail('nguyenyenchi')">
+        <img src="img/nguyenyenchi.jpg" alt="ThS. Nguyễn Yến Chi" />
+        <div class="star-rating">
+            <i class="fa-solid fa-star"></i>
+            <i class="fa-solid fa-star"></i>
+            <i class="fa-solid fa-star"></i>
+            <i class="fa-regular fa-star"></i>
+            <i class="fa-regular fa-star"></i>
+            <span class="star-score">3.7</span>
+        </div>
+        <div class="card-info">
+            <h3>ThS. Nguyễn Yến Chi</h3>
+            <span class="card-title">Giảng viên</span>
+            <span class="dept">Khoa Khoa học & Công nghệ Giáo dục</span>
+        </div>
+    </div>
+    <!-- CN. Nguyễn Trần Khánh Phương -->
+    <div class="lecturer-card" onclick="openLecturerDetail('nguyentrankhanhphuong')">
+        <img src="img/nguyentrankhanhphuong.jpg" alt="CN. Nguyễn Trần Khánh Phương" />
+        <div class="star-rating">
+            <i class="fa-solid fa-star"></i>
+            <i class="fa-solid fa-star"></i>
+            <i class="fa-solid fa-star"></i>
+            <i class="fa-regular fa-star"></i>
+            <i class="fa-regular fa-star"></i>
+            <span class="star-score">3.5</span>
+        </div>
+        <div class="card-info">
+            <h3>CN. Nguyễn Trần Khánh Phương</h3>
+            <span class="card-title">Giảng viên tạo nguồn</span>
+            <span class="dept">Khoa Khoa học & Công nghệ Giáo dục</span>
+        </div>
+    </div>
+    <!-- TS. Nguyễn Thị Duyên -->
+    <div class="lecturer-card" onclick="openLecturerDetail('nguyenthiduyen')">
+        <img src="img/nguyenthiduyen.jpg" alt="TS. Nguyễn Thị Duyên" />
+        <div class="star-rating">
+            <i class="fa-solid fa-star"></i>
+            <i class="fa-solid fa-star"></i>
+            <i class="fa-solid fa-star"></i>
+            <i class="fa-solid fa-star"></i>
+            <i class="fa-regular fa-star"></i>
+            <span class="star-score">4.2</span>
+        </div>
+        <div class="card-info">
+            <h3>TS. Nguyễn Thị Duyên</h3>
+            <span class="card-title">Giảng viên</span>
+            <span class="dept">Bộ môn Khoa học & Công nghệ giáo dục</span>
+        </div>
+    </div>
+    <!-- TS. Nguyễn Văn Hạnh -->
+    <div class="lecturer-card" onclick="openLecturerDetail('nguyenvanhanh')">
+        <img src="img/nguyenvanhanh.jpg" alt="TS. Nguyễn Văn Hạnh" />
+        <div class="star-rating">
+            <i class="fa-solid fa-star"></i>
+            <i class="fa-solid fa-star"></i>
+            <i class="fa-solid fa-star"></i>
+            <i class="fa-regular fa-star"></i>
+            <i class="fa-regular fa-star"></i>
+            <span class="star-score">3.9</span>
+        </div>
+        <div class="card-info">
+            <h3>TS. Nguyễn Văn Hạnh</h3>
+            <span class="card-title">Giảng viên</span>
+            <span class="dept">Bộ môn Khoa học & Công nghệ giáo dục</span>
+        </div>
+    </div>
+    <!-- PGS.TS. Bùi Thị Thúy Hằng -->
+    <div class="lecturer-card" onclick="openLecturerDetail('buithithuyhang')">
+        <img src="img/buithithuyhang.jpg" alt="PGS.TS. Bùi Thị Thúy Hằng" />
+        <div class="star-rating">
+            <i class="fa-solid fa-star"></i>
+            <i class="fa-solid fa-star"></i>
+            <i class="fa-solid fa-star"></i>
+            <i class="fa-solid fa-star"></i>
+            <i class="fa-regular fa-star"></i>
+            <span class="star-score">4.3</span>
+        </div>
+        <div class="card-info">
+            <h3>PGS.TS. Bùi Thị Thúy Hằng</h3>
+            <span class="card-title">Giảng viên cao cấp</span>
+            <span class="dept">Khoa Khoa học & Công nghệ Giáo dục</span>
+        </div>
+    </div>
+    <!-- PGS.TS. Lê Huy Tùng -->
+    <div class="lecturer-card" onclick="openLecturerDetail('lehuytung')">
+        <img src="img/lehuytung.jpg" alt="PGS.TS. Lê Huy Tùng" />
+        <div class="star-rating">
+            <i class="fa-solid fa-star"></i>
+            <i class="fa-solid fa-star"></i>
+            <i class="fa-solid fa-star"></i>
+            <i class="fa-solid fa-star"></i>
+            <i class="fa-regular fa-star"></i>
+            <span class="star-score">4.2</span>
+        </div>
+        <div class="card-info">
+            <h3>PGS.TS. Lê Huy Tùng</h3>
+            <span class="card-title">Giảng viên chính; Phó Viện trưởng Viện Đào tạo Liên tục</span>
+            <span class="dept">Viện Sư phạm Kỹ thuật</span>
+        </div>
+    </div>
+    <!-- PGS.TS. Phạm Mạnh Hà -->
+    <div class="lecturer-card" onclick="openLecturerDetail('phammanhha')">
+        <img src="img/phammanhha.jpg" alt="PGS.TS. Phạm Mạnh Hà" />
+        <div class="star-rating">
+            <i class="fa-solid fa-star"></i>
+            <i class="fa-solid fa-star"></i>
+            <i class="fa-solid fa-star"></i>
+            <i class="fa-solid fa-star"></i>
+            <i class="fa-regular fa-star"></i>
+            <span class="star-score">4.2</span>
+        </div>
+        <div class="card-info">
+            <h3>PGS.TS. Phạm Mạnh Hà</h3>
+            <span class="card-title">Giảng viên cao cấp</span>
+            <span class="dept">Khoa Khoa học & Công nghệ Giáo dục</span>
+        </div>
+    </div>
+    <!-- TS. Dương Thị Thùy Mai -->
+    <div class="lecturer-card" onclick="openLecturerDetail('duongthithuymai')">
+        <img src="img/duongthithuymai.jpg" alt="TS. Dương Thị Thùy Mai" />
+        <div class="star-rating">
+            <i class="fa-solid fa-star"></i>
+            <i class="fa-solid fa-star"></i>
+            <i class="fa-solid fa-star"></i>
+            <i class="fa-regular fa-star"></i>
+            <i class="fa-regular fa-star"></i>
+            <span class="star-score">3.8</span>
+        </div>
+        <div class="card-info">
+            <h3>TS. Dương Thị Thùy Mai</h3>
+            <span class="card-title">Giảng viên; Phó Giám đốc Trung tâm Đào tạo Liên tục</span>
+            <span class="dept">Viện Sư phạm Kỹ thuật</span>
+        </div>
+    </div>
+    <!-- TS. Nguyễn Tiến Long -->
+    <div class="lecturer-card" onclick="openLecturerDetail('nguyentienlong')">
+        <img src="img/nguyentienlong.jpg" alt="TS. Nguyễn Tiến Long" />
+        <div class="star-rating">
+            <i class="fa-solid fa-star"></i>
+            <i class="fa-solid fa-star"></i>
+            <i class="fa-solid fa-star"></i>
+            <i class="fa-solid fa-star"></i>
+            <i class="fa-regular fa-star"></i>
+            <span class="star-score">4.0</span>
+        </div>
+        <div class="card-info">
+            <h3>TS. Nguyễn Tiến Long</h3>
+            <span class="card-title">Giảng viên; Phó Viện trưởng</span>
+            <span class="dept">Viện Sư phạm Kỹ thuật</span>
+        </div>
+    </div>
+    <!-- ThS. Phạm Hồng Hạnh -->
+    <div class="lecturer-card" onclick="openLecturerDetail('phamhonghanh')">
+        <img src="img/phamhonghanh.jpg" alt="ThS. Phạm Hồng Hạnh" />
+        <div class="star-rating">
+            <i class="fa-solid fa-star"></i>
+            <i class="fa-solid fa-star"></i>
+            <i class="fa-solid fa-star"></i>
+            <i class="fa-regular fa-star"></i>
+            <i class="fa-regular fa-star"></i>
+            <span class="star-score">3.7</span>
+        </div>
+        <div class="card-info">
+            <h3>ThS. Phạm Hồng Hạnh</h3>
+            <span class="card-title">Giảng viên</span>
+            <span class="dept">Viện Sư phạm Kỹ thuật</span>
+        </div>
+    </div>
+    <!-- TS. Hoàng Thị Quỳnh Lan -->
+    <div class="lecturer-card" onclick="openLecturerDetail('hoangthiquynhlan')">
+        <img src="img/hoangthiquynhlan.jpg" alt="TS. Hoàng Thị Quỳnh Lan" />
+        <div class="star-rating">
+            <i class="fa-solid fa-star"></i>
+            <i class="fa-solid fa-star"></i>
+            <i class="fa-solid fa-star"></i>
+            <i class="fa-regular fa-star"></i>
+            <i class="fa-regular fa-star"></i>
+            <span class="star-score">3.8</span>
+        </div>
+        <div class="card-info">
+            <h3>TS. Hoàng Thị Quỳnh Lan</h3>
+            <span class="card-title">Giảng viên</span>
+            <span class="dept">Bộ môn Khoa học & Công nghệ Giáo dục</span>
+        </div>
+    </div>
+    <!-- TS. Trần Thị Thanh Hà -->
+    <div class="lecturer-card" onclick="openLecturerDetail('tranthithanhha')">
+        <img src="img/tranthithanhha.jpg" alt="TS. Trần Thị Thanh Hà" />
+        <div class="star-rating">
+            <i class="fa-solid fa-star"></i>
+            <i class="fa-solid fa-star"></i>
+            <i class="fa-solid fa-star"></i>
+            <i class="fa-regular fa-star"></i>
+            <i class="fa-regular fa-star"></i>
+            <span class="star-score">3.8</span>
+        </div>
+        <div class="card-info">
+            <h3>TS. Trần Thị Thanh Hà</h3>
+            <span class="card-title">Giảng viên</span>
+            <span class="dept">Khoa Khoa học & Công nghệ Giáo dục</span>
+        </div>
+    </div>
+</section>
+
+<!-- ... Tiếp tục phần MODAL, JS, chatbot... -->
