@@ -2,270 +2,83 @@
 <html lang="vi">
 <head>
     <meta charset="UTF-8" />
-    <title>BK Lecturer Store</title>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>BK Lecturer Store</title>
 
-    <!-- Font Awesome -->
+    <link rel="stylesheet" href="styles.css" />
     <link rel="stylesheet"
-          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"/>
-
-    <!-- INTERNAL CSS (you can move to styles.css if you prefer) -->
-    <style>
-        /* ========== BASE ========== */
-        :root{
-            --primary:#1b4de4;
-            --muted:#576189;
-            --card-bg:#fff;
-            --soft:#eef3ff;
-        }
-        *{box-sizing:border-box}
-        body{
-            margin:0;
-            font-family: 'Poppins', Arial, sans-serif;
-            background:#f7f9fc;
-            color:#21385f;
-        }
-
-        /* ========== HEADER ========== */
-        .site-header{
-            background:#fff;
-            box-shadow:0 2px 12px rgba(11,24,58,0.06);
-            display:flex;
-            align-items:center;
-            gap:18px;
-            padding:14px 3vw;
-            position:sticky;
-            top:0;
-            z-index:40;
-        }
-        .logo-zone{
-            display:flex;
-            align-items:center;
-            gap:10px;
-            font-weight:700;
-            color:var(--primary);
-            font-size:20px;
-        }
-        .logo-zone img{height:36px}
-
-        nav{margin-left:12px; display:flex; gap:14px; align-items:center}
-        nav a{
-            text-decoration:none;
-            color:#48517e;
-            padding:6px 12px;
-            border-radius:8px;
-            font-weight:600;
-        }
-        nav a.active,
-        nav a:hover{ background:#eef3ff; color:var(--primary) }
-
-        .search-bar{ margin-left:auto; display:flex; gap:8px; align-items:center }
-        .search-bar input{
-            padding:8px 12px;
-            border-radius:18px;
-            border:1.2px solid #d6dbee;
-            width:240px;
-            outline:none;
-        }
-        .search-bar button{
-            background:#f2f6ff;
-            border:none;
-            padding:8px 10px;
-            border-radius:10px;
-            color:var(--primary);
-            cursor:pointer;
-        }
-
-        /* ========== PAGE TITLE ========== */
-        .page-head{
-            max-width:1200px;
-            margin:22px auto 6px;
-            padding:0 3vw;
-        }
-        .page-head h1{ margin:0; font-size:1.4rem; color:#1b2c6d }
-        .page-head p{ margin:6px 0 0; color:var(--muted) }
-
-        /* ========== GRID (3 per page) ========== */
-        #lecturer-grid{
-            max-width:1200px;
-            margin:20px auto;
-            padding:0 3vw 12px;
-            display:grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap:26px;
-        }
-
-        .card{
-            background:var(--card-bg);
-            border-radius:14px;
-            padding:14px;
-            box-shadow:0 3px 18px rgba(22,45,120,0.06);
-            border:2px solid #f0f4ff;
-            transition: transform .16s, box-shadow .16s;
-            cursor:pointer;
-            display:flex;
-            flex-direction:column;
-            align-items:center;
-            text-align:center;
-        }
-        .card:hover{ transform:translateY(-6px); box-shadow:0 10px 30px rgba(21,46,122,0.08); border-color: #9fb9ff; }
-
-        .card img{
-            width:160px;
-            height:210px;
-            object-fit:cover;
-            border-radius:12px;
-            box-shadow:0 6px 20px rgba(20,60,130,0.06);
-            background:#eef2fa;
-        }
-        .card h3{ margin:12px 0 6px; font-size:1rem; color:#12224f }
-        .card .role{ color:var(--primary); font-weight:600; font-size:.95rem; margin-bottom:8px }
-        .card .dept-tag{
-            background:#eef5ff; color:var(--primary);
-            padding:6px 10px; border-radius:8px; font-size:.92rem;
-            display:inline-block; margin-top:auto;
-        }
-
-        /* star rating small */
-        .star-row{ display:flex; align-items:center; gap:6px; margin-top:8px; }
-        .star-row .fa-star{ color:#ffd056; }
-
-        /* ========== PAGINATION ========== */
-        .pagination{
-            max-width:1200px;
-            margin:22px auto 60px;
-            padding:0 3vw;
-            display:flex;
-            justify-content:center;
-            gap:8px;
-        }
-        .page-btn{
-            padding:8px 12px;
-            border-radius:10px;
-            border:1px solid #d6def6;
-            background:#fff;
-            cursor:pointer;
-            font-weight:600;
-        }
-        .page-btn.active{ background:var(--primary); color:#fff; border-color:var(--primary) }
-
-        /* ========== MODAL ========== */
-        .modal-bg{
-            position:fixed; inset:0; background:rgba(11,24,58,0.18);
-            display:none; z-index:90;
-        }
-        .modal{
-            position:fixed;
-            left:50%; top:50%;
-            transform:translate(-50%,-50%);
-            width:720px; max-width:92vw;
-            max-height:82vh; overflow:auto;
-            background:#fff; border-radius:12px; padding:20px;
-            box-shadow:0 8px 60px rgba(11,24,58,0.2);
-            display:none; z-index:100;
-        }
-        .modal .modal-img{ width:140px; height:190px; object-fit:cover; border-radius:8px; float:left; margin-right:18px; }
-        .modal h2{ margin-top:0; color:#1b2c6d }
-        .modal .close-btn{ position:absolute; right:18px; top:12px; font-size:22px; cursor:pointer; color:var(--primary) }
-
-        /* ========== CHATBOT ========== */
-        .chatbot-widget{
-            position:fixed; right:26px; bottom:26px; z-index:110;
-            display:flex; flex-direction:column; align-items:flex-end;
-        }
-        .chatbot-btn{
-            background:var(--primary); color:#fff; padding:10px 16px;
-            border-radius:10px; border:none; cursor:pointer; font-weight:700;
-        }
-        .chatbot-box{
-            width:320px; background:#fff; border-radius:12px; box-shadow:0 8px 30px rgba(11,24,58,0.12);
-            margin-top:8px; display:none; overflow:hidden; display:flex; flex-direction:column;
-        }
-        .chatbot-head{ background:var(--primary); color:#fff; padding:10px 12px; font-weight:700 }
-        .chatbot-messages{ padding:10px; max-height:240px; overflow:auto; background:#f2f7ff; flex:1 }
-        .chatbot-message{ margin:8px 0; padding:8px 12px; border-radius:12px; max-width:78%; font-size:.95rem }
-        .chatbot-message.bot{ background:#eaf2ff; color:var(--primary) }
-        .chatbot-message.user{ background:var(--primary); color:#fff; margin-left:auto }
-        .chatbot-action{ display:flex; gap:8px; padding:10px; background:#f0f6ff }
-        .chatbot-action input{ flex:1; padding:8px; border-radius:8px; border:1px solid #d7e0fb }
-
-        /* ========== RESPONSIVE ========== */
-        @media (max-width: 1000px){
-            #lecturer-grid{ grid-template-columns: repeat(2, 1fr) }
-            .modal{ width:90vw }
-        }
-        @media (max-width: 640px){
-            #lecturer-grid{ grid-template-columns: 1fr }
-            .search-bar input{ width:150px }
-            .chatbot-box{ width:92vw; right:16px }
-        }
-    </style>
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 </head>
 
 <body>
-    <!-- HEADER -->
-    <header class="site-header">
-        <div class="logo-zone">
-            <img src="img/logo-bk.png" alt="Logo BK"/>
-            <div>BK LECTURER STORE</div>
-        </div>
 
-        <nav>
-            <a class="active" href="#">Trang chủ</a>
-            <a href="#">Giảng viên</a>
-            <a href="#">Review</a>
-            <a href="#">Chatbot</a>
-            <a href="#">Liên hệ</a>
-        </nav>
-
-        <div class="search-bar">
-            <input id="search" type="text" placeholder="Tìm giảng viên theo tên / lĩnh vực..." />
-            <button onclick="searchLecturers()"><i class="fa fa-search"></i></button>
-        </div>
-    </header>
-
-    <!-- PAGE HEAD -->
-    <div class="page-head">
-        <h1>Danh sách giảng viên — Khoa Khoa học & Công nghệ Giáo dục</h1>
-        <p>Click thẻ để xem thông tin chi tiết. Phân trang hiển thị 3 giảng viên / trang.</p>
+<!-- ================= HEADER ================ -->
+<header class="site-header">
+    <div class="logo-zone">
+        <img src="img/logo-bk.png" alt="Logo BK" />
+        <span class="brand">BK LECTURER STORE</span>
     </div>
 
-    <!-- LECTURER GRID (JS sẽ render vào đây) -->
-    <div id="lecturer-grid"></div>
+    <nav>
+        <a href="index.html" class="active">Trang chủ</a>
+        <a href="#">Giảng viên</a>
+        <a href="#">Review</a>
+        <a href="#">Chatbot</a>
+        <a href="#">Liên hệ</a>
+    </nav>
+
+    <div class="search-bar">
+        <input id="search-input" type="text" placeholder="Tìm giảng viên..." />
+        <button id="search-btn"><i class="fa fa-search"></i></button>
+    </div>
+</header>
+
+<!-- ================= MAIN UI ================ -->
+
+<main class="container">
+    <h2 class="title">Danh sách giảng viên — Khoa KH&CN Giáo dục</h2>
+    <p class="subtitle">Click thẻ để xem thông tin chi tiết. Hiện 4 giảng viên / 1 trang.</p>
+
+    <!-- nơi render card -->
+    <div id="lecturer-grid" class="grid"></div>
 
     <!-- PAGINATION -->
-    <div class="pagination" id="pagination"></div>
+    <div id="pagination" class="pagination"></div>
+</main>
 
-    <!-- MODAL -->
-    <div id="modal-bg" class="modal-bg" onclick="closeModal()"></div>
-    <div id="modal" class="modal" role="dialog" aria-modal="true">
-        <span class="close-btn" onclick="closeModal()">&times;</span>
-        <div id="modal-content"></div>
-    </div>
+<!-- ================= MODAL (chi tiết giảng viên) ================ -->
+<div id="modal-bg" class="modal-bg" style="display:none" onclick="closeModal()"></div>
 
-    <!-- CHATBOT -->
-    <div class="chatbot-widget">
-        <button class="chatbot-btn" onclick="toggleChatbot()">
-            <i class="fa-solid fa-robot"></i> Trợ lý
-        </button>
+<div id="modal-box" class="modal-box" style="display:none">
+    <span class="modal-close" onclick="closeModal()">&times;</span>
+    <div id="modal-content"></div>
+</div>
 
-        <div id="chatbot-box" class="chatbot-box" aria-hidden="true">
-            <div class="chatbot-head">Chatbot Tâm sự Giảng Viên</div>
-            <div id="chatbot-messages" class="chatbot-messages">
-                <div class="chatbot-message bot">Chào bạn! Bạn muốn tìm giảng viên nào?</div>
-            </div>
-            <div class="chatbot-action">
-                <input id="chatbot-input" placeholder="Nhập tin nhắn..." />
-                <button onclick="sendChatbotMessage()">Gửi</button>
-            </div>
+<!-- ================= CHATBOT ================ -->
+<div class="chatbot-widget">
+    <button class="chatbot-btn" onclick="toggleChatbot()">
+        <i class="fa-solid fa-robot"></i> Trợ lý
+    </button>
+
+    <div id="chatbot-box" class="chatbot-box">
+        <div class="chatbot-header">Chatbot Tâm sự Giảng Viên</div>
+
+        <div id="chat-messages" class="chatbot-messages">
+            <div class="msg bot">Chào bạn! Bạn muốn tìm giảng viên nào?</div>
+        </div>
+
+        <div class="chatbot-input-area">
+            <input id="chat-input" type="text" placeholder="Nhập tin nhắn..." />
+            <button onclick="sendChatMsg()">Gửi</button>
         </div>
     </div>
+</div>
 
-    <!-- SCRIPTS: PHẦN 2/4 (dữ liệu) sẽ bắt đầu tiếp theo -->
-<script>
-// =========================
-//   PHẦN 2/4 — DỮ LIỆU GIẢNG VIÊN
-// =========================
+<script src="app.js"></script>
+
+</body>
+</html>
+// ======================= DỮ LIỆU 20+ GIẢNG VIÊN =========================
 
 const lecturers = [
     {
@@ -273,59 +86,57 @@ const lecturers = [
         img: "img/le_hieu_hoc.jpg",
         name: "PGS.TS. Lê Hiếu Học",
         title: "Trưởng khoa",
-        dept: "Khoa Khoa học & Công nghệ Giáo dục",
-        office: "(đang cập nhật)",
+        dept: "Khoa KH&CN Giáo dục",
         email: "hoc.lehieu@hust.edu.vn",
         phone: "(+84) 24 3868 1432",
+        office: "(đang cập nhật)",
         train: [
-            "2001 – 2005: Tiến sĩ Xã hội học & Nghiên cứu Xã hội, Đại học Trento, Ý",
-            "1999 – 2000: Thạc sĩ Quản trị Kinh doanh (Quản lý Công nghệ), AIT, Bangkok"
+            "Tiến sĩ Xã hội học & Nghiên cứu Xã hội – ĐH Trento, Ý",
+            "MBA – AIT Bangkok"
         ],
         work: [
-            "04/2022 – nay: Trưởng khoa Khoa học & Công nghệ Giáo dục, ĐHBK Hà Nội",
-            "06/2019 – 03/2022: Phó Hiệu trưởng, Trường Đại học Phenikaa"
+            "2022 – nay: Trưởng khoa KH&CN Giáo dục",
+            "2019 – 2022: Phó Hiệu trưởng ĐH Phenikaa"
         ],
-        area: ["Quản trị","Quản lý chất lượng","CSR","Liên kết ĐH-Doanh nghiệp"]
+        area: ["Quản trị", "Quản lý chất lượng", "CSR"]
     },
 
     {
         key: "pham_thi_thanh_hai",
         img: "img/pham_thi_thanh_hai.jpg",
         name: "PGS.TS. Phạm Thị Thanh Hải",
-        title: "Phó Trưởng khoa, Giảng viên cao cấp",
-        dept: "Khoa Khoa học & Công nghệ Giáo dục",
-        office: "Phòng 325, C7",
+        title: "Phó Trưởng khoa",
+        dept: "Khoa KH&CN Giáo dục",
         email: "hai.phamthithanh@hust.edu.vn",
-        phone: "(đang cập nhật)",
+        office: "Phòng 325, C7",
         train: [
-            "2013: Tiến sĩ Quản lý giáo dục, Trường ĐHSP Hà Nội",
-            "2005: Thạc sĩ Quản lý giáo dục, Trường Đại học Vinh"
+            "2013: Tiến sĩ Quản lý giáo dục",
+            "2005: Thạc sĩ Quản lý giáo dục"
         ],
         work: [
-            "2023 – nay: Giảng viên, Khoa Khoa học & Công nghệ Giáo dục, ĐHBK Hà Nội",
-            "2015 – 2022: Trưởng phòng Khoa học – Hợp tác phát triển, Trường ĐH Giáo dục (ĐHQGHN)"
+            "2023 – nay: Giảng viên ĐHBK",
+            "2015 – 2022: Trưởng phòng KH-Hợp tác phát triển"
         ],
-        area: ["Công nghệ giáo dục","Đánh giá chương trình đào tạo"]
+        area: ["Công nghệ giáo dục", "Đánh giá CTĐT"]
     },
 
     {
         key: "nguyen_thi_huyen",
         img: "img/nguyen_thi_huyen.jpg",
         name: "TS. Nguyễn Thị Huyền",
-        title: "Giảng viên / Giám đốc CTĐT ngành Công nghệ Giáo dục",
-        dept: "Nhóm Công nghệ Giáo dục, Khoa KH&CN Giáo dục",
-        office: "M329, C7",
+        title: "Giám đốc CTĐT Công nghệ Giáo dục",
+        dept: "Khoa KH&CN Giáo dục",
         email: "huyen.nguyenthi2@hust.edu.vn",
-        phone: "(+84) 24 3868 2451",
+        office: "M329, C7",
         train: [
-            "2019: Tiến sĩ Công nghệ Giáo dục, National Central University, Taiwan",
-            "2014: Thạc sĩ Khoa học Máy tính, National Central University"
+            "2019: Tiến sĩ Công nghệ Giáo dục – Taiwan",
+            "2014: Thạc sĩ Khoa học máy tính – Taiwan"
         ],
         work: [
-            "05/2020 – nay: Giảng viên, Trường Đại học Bách Khoa Hà Nội",
-            "03/2019 – 04/2021: Kỹ sư Phân tích Nghiệp vụ & R&D, Viettel Business Solution"
+            "2020 – nay: Giảng viên ĐHBK",
+            "2019 – 2021: R&D Viettel"
         ],
-        area: ["Mobile Learning","Interactive Learning Systems","GenAI & Learning Design"]
+        area: ["Mobile Learning", "Interactive Systems", "GenAI Learning"]
     },
 
     {
@@ -333,18 +144,15 @@ const lecturers = [
         img: "img/bui_ngoc_son.jpg",
         name: "ThS. Bùi Ngọc Sơn",
         title: "Giảng viên",
-        dept: "Bộ môn Sư phạm các ngành kỹ thuật, Viện Sư phạm Kỹ thuật",
-        office: "402, D5",
+        dept: "Viện Sư phạm Kỹ thuật",
         email: "son.buingoc@hust.edu.vn",
-        phone: "+84-24 38681432",
+        office: "402, D5",
         train: [
-            "2004: Thạc sĩ Sư phạm Dạy nghề, ĐHBK Hà Nội; Trường Đại học Kỹ thuật Tổng hợp Dresden, CHLB Đức",
-            "2000: Kỹ sư Điều khiển học kỹ thuật, ĐHBK Hà Nội"
+            "ThS. Sư phạm Dạy nghề – ĐHBK & ĐH Dresden",
+            "KS. Điều khiển học – ĐHBK"
         ],
-        work: [
-            "2000 – nay: Cán bộ giảng dạy, Viện Sư phạm Kỹ thuật, ĐHBK Hà Nội"
-        ],
-        area: ["Kiểm tra, đánh giá","Phát triển chương trình đào tạo","Công nghệ giáo dục (VR/AR, E-learning)"]
+        work: ["2000 – nay: Giảng viên Viện SPKT"],
+        area: ["Đánh giá", "Phát triển CTĐT", "Công nghệ giáo dục"]
     },
 
     {
@@ -352,19 +160,15 @@ const lecturers = [
         img: "img/nguyen_thi_thanh_tu.jpg",
         name: "TS. Nguyễn Thị Thanh Tú",
         title: "Giảng viên",
-        dept: "Bộ môn Sư phạm các ngành kỹ thuật, Viện Sư phạm Kỹ thuật",
-        office: "302, D3–D5",
+        dept: "Viện Sư phạm Kỹ thuật",
         email: "tu.nguyenthithanh@hust.edu.vn",
-        phone: "+84-24 38682451",
+        office: "302, D3-5",
         train: [
-            "2014: Tiến sĩ Công nghệ thông tin, Trường Đại học Bách Khoa Hà Nội",
-            "2007: Thạc sĩ Công nghệ thông tin, Trường Đại học Ulsan, Hàn Quốc"
+            "2014: Tiến sĩ CNTT – ĐHBK",
+            "2007: Thạc sĩ CNTT – ĐH Ulsan"
         ],
-        work: [
-            "06/2020 – nay: Giảng viên, Bộ môn Sư phạm các ngành kỹ thuật, ĐHBK Hà Nội",
-            "2004 – 05/2020: Cán bộ, Trung tâm Mạng Thông tin, Trường ĐHBK Hà Nội"
-        ],
-        area: ["Phát triển khóa học trực tuyến","Đại học thông minh"]
+        work: ["2020 – nay: Giảng viên Viện SPKT"],
+        area: ["Khóa học trực tuyến", "Đại học thông minh"]
     },
 
     {
@@ -372,19 +176,15 @@ const lecturers = [
         img: "img/vu_dinh_minh.jpg",
         name: "TS. Vũ Đình Minh",
         title: "Giảng viên",
-        dept: "Bộ môn Sư phạm các ngành kỹ thuật, Viện Sư phạm Kỹ thuật",
-        office: "M329, C7",
+        dept: "Viện Sư phạm Kỹ thuật",
         email: "minh.vudinh@hust.edu.vn",
-        phone: "(+84) 24 3868 2451",
+        office: "M329, C7",
         train: [
-            "2020: Tiến sĩ CNTT, Shibaura Institute of Technology, Nhật Bản",
-            "2014: Thạc sĩ CNTT, Đại học Bách Khoa Hà Nội"
+            "2020: Tiến sĩ CNTT – Nhật Bản",
+            "2014: Thạc sĩ CNTT – ĐHBK"
         ],
-        work: [
-            "05/2022 – nay: Giảng viên Bộ môn Sư phạm các ngành kỹ thuật, ĐHBK Hà Nội",
-            "03/2011 – 04/2020: Cán bộ Trung tâm Mạng Thông tin, ĐHBK Hà Nội"
-        ],
-        area: ["Phân tích dữ liệu","Công nghệ giáo dục","Hệ thống trao đổi trực tuyến"]
+        work: ["2022 – nay: Giảng viên"],
+        area: ["Phân tích dữ liệu", "Công nghệ giáo dục"]
     },
 
     {
@@ -392,19 +192,12 @@ const lecturers = [
         img: "img/nguyen_thi_thanh_thuy.jpg",
         name: "TS. Nguyễn Thị Thanh Thủy",
         title: "Giảng viên",
-        dept: "Bộ môn Sư phạm các ngành kỹ thuật, Viện Sư phạm Kỹ thuật",
-        office: "M329, C7",
+        dept: "Viện Sư phạm Kỹ thuật",
         email: "thuy.nguyenthithanh@hust.edu.vn",
-        phone: "+84-24 38682451",
-        train: [
-            "2021: Tiến sĩ Quản lý giáo dục, Viện Khoa học Giáo dục Việt Nam",
-            "2014: Thạc sĩ Quản trị kinh doanh"
-        ],
-        work: [
-            "05/2022 – nay: Giảng viên, Bộ môn Sư phạm các ngành kỹ thuật, ĐHBK Hà Nội",
-            "2012 – 04/2023: Nghiên cứu viên, Viện Khoa học Giáo dục Việt Nam"
-        ],
-        area: ["Khoa học giáo dục","Quản lý giáo dục","Phân tích nhu cầu đào tạo"]
+        office: "M329, C7",
+        train: ["Tiến sĩ Quản lý giáo dục", "Thạc sĩ Quản trị kinh doanh"],
+        work: ["2022 – nay: Giảng viên"],
+        area: ["Khoa học giáo dục", "Quản lý giáo dục"]
     },
 
     {
@@ -412,19 +205,15 @@ const lecturers = [
         img: "img/nguyen_yen_chi.jpg",
         name: "ThS. Nguyễn Yến Chi",
         title: "Giảng viên",
-        dept: "Khoa Khoa học & Công nghệ Giáo dục",
-        office: "M329, C7",
+        dept: "Khoa KH&CN Giáo dục",
         email: "chi.nguyenyen@hust.edu.vn",
-        phone: "(+84) 912 997 301",
+        office: "M329, C7",
         train: [
-            "2019: Thạc sĩ Quản lý giáo dục, University of Bristol, Vương quốc Anh",
-            "2016: Cử nhân Kinh tế đối ngoại, Đại học Ngoại thương"
+            "2019: ThS. Quản lý giáo dục – Bristol",
+            "2016: Cử nhân Kinh tế đối ngoại – FTU"
         ],
-        work: [
-            "10/2023 – nay: Trợ giảng, Khoa KH&CN Giá dục, ĐHBK Hà Nội",
-            "05/2020 – 10/2023: Chuyên viên, Văn phòng Đại học, ĐHBK Hà Nội"
-        ],
-        area: ["Quản lý giáo dục","Công nghệ giáo dục","Học tập tự điều chỉnh"]
+        work: ["2023 – nay: Trợ giảng"],
+        area: ["Quản lý giáo dục", "Công nghệ giáo dục"]
     },
 
     {
@@ -432,18 +221,12 @@ const lecturers = [
         img: "img/nguyen_tran_khanh_phuong.jpg",
         name: "CN. Nguyễn Trần Khánh Phương",
         title: "Giảng viên tạo nguồn",
-        dept: "Nhóm Công nghệ Giáo dục, Khoa KH&CN Giá dục",
-        office: "M329, C7",
+        dept: "Khoa KH&CN Giáo dục",
         email: "phuong.nguyentrankhanh@hust.edu.vn",
-        phone: "",
-        train: [
-            "2024: Cử nhân Nghệ thuật số / Nghiên cứu Truyền thông và Thông tin, Đại học Stetson, Hoa Kỳ"
-        ],
-        work: [
-            "07/2025 – nay: Giảng viên tạo nguồn, Khoa KH&CN Giá dục, ĐHBK Hà Nội",
-            "09/2024 – 06/2025: Cán bộ, Trung tâm Truyền thông & Tri thức số, ĐHBK Hà Nội"
-        ],
-        area: ["Công nghệ giáo dục","Thiết kế số","Phát triển học liệu số"]
+        office: "M329, C7",
+        train: ["Cử nhân Nghệ thuật số – Mỹ"],
+        work: ["2025 – nay: Giảng viên tạo nguồn"],
+        area: ["Thiết kế số", "Công nghệ giáo dục"]
     },
 
     {
@@ -451,19 +234,12 @@ const lecturers = [
         img: "img/nguyen_thi_duyen.jpg",
         name: "TS. Nguyễn Thị Duyên",
         title: "Giảng viên",
-        dept: "Bộ môn Khoa học & Công nghệ giáo dục, Viện Sư phạm Kỹ thuật",
-        office: "M327, C7",
+        dept: "Viện Sư phạm Kỹ thuật",
         email: "duyen.nguyenthi@hust.edu.vn",
-        phone: "+84-24 38682451",
-        train: [
-            "2021: Tiến sĩ Lý luận & lịch sử giáo dục, Viện Khoa học Giáo dục Việt Nam",
-            "2014: Thạc sĩ Lý luận & lịch sử giáo dục, Trường ĐHSP Hà Nội"
-        ],
-        work: [
-            "05/2023 – nay: Giảng viên, Bộ môn Khoa học & Công nghệ Giá dục, ĐHBK Hà Nội",
-            "2004 – 05/2020: Giảng viên, Trường Đại học Sư phạm Kỹ thuật Hưng Yên"
-        ],
-        area: ["Tâm lý ứng dụng","Giáo dục nghề nghiệp","Kỹ năng mềm"]
+        office: "M327, C7",
+        train: ["Tiến sĩ LL&LS giáo dục", "Thạc sĩ LL&LS giáo dục"],
+        work: ["2023 – nay: Giảng viên"],
+        area: ["Tâm lý ứng dụng", "Giáo dục nghề nghiệp"]
     },
 
     {
@@ -471,56 +247,38 @@ const lecturers = [
         img: "img/nguyen_van_hanh.jpg",
         name: "TS. Nguyễn Văn Hạnh",
         title: "Giảng viên",
-        dept: "Bộ môn Khoa học và Công nghệ giáo dục, Viện Sư phạm Kỹ thuật",
-        office: "302, D3-5",
+        dept: "Viện Sư phạm Kỹ thuật",
         email: "hanh.nguyenvan@hust.edu.vn",
-        phone: "+84-24 38681432",
-        train: [
-            "2017: Tiến sĩ Khoa học Giáo dục, Trường ĐHBKSP Hà Nội",
-            "2013: Thạc sĩ Kỹ thuật Cơ khí Động lực, Trường ĐHBK Hà Nội"
-        ],
-        work: [
-            "11/2018 – nay: Giảng viên, Bộ môn Khoa học & Công nghệ Giá dục, ĐHBK Hà Nội",
-            "11/2008 – 10/2018: Giảng viên, Khoa Sư phạm Kỹ thuật, Trường ĐHSPKT Hưng Yên"
-        ],
-        area: ["Công nghệ giáo dục","Giáo dục STEM","Giáo dục trải nghiệm"]
+        office: "302, D3-5",
+        train: ["Tiến sĩ KHGD", "Thạc sĩ Cơ khí"],
+        work: ["2018 – nay: Giảng viên"],
+        area: ["Công nghệ giáo dục", "STEM"]
     },
 
     {
         key: "bui_thi_thuy_hang",
         img: "img/bui_thi_thuy_hang.jpg",
-        name: "PGS.TS. Bùi Thị Thúy Hằng",
+        name: "PGS.TS. Bùi Thị Thuý Hằng",
         title: "Giảng viên cao cấp",
-        dept: "Nhóm Quản lý Giáo dục, Khoa KH&CN Giá dục",
-        office: "M327-C7",
+        dept: "Khoa KH&CN Giáo dục",
         email: "hang.buithithuy@hust.edu.vn",
-        phone: "+84-24 38681432",
-        train: [
-            "2007: Tiến sĩ, Khoa học Giáo dục, Trường Đại học Paris X, Nanterre, Pháp",
-            "2002: Thạc sĩ, Khoa học Giáo dục, Trường ĐH Paris X"
-        ],
-        work: [
-            "2013–2019: Giảng viên, Viện Sư phạm Kỹ thuật, Trường ĐHBK Hà Nội"
-        ],
-        area: ["Động cơ học tập","Giáo dục đại học","Siêu nhận thức"]
+        office: "M327, C7",
+        train: ["Tiến sĩ KHGD – Paris X", "Thạc sĩ KHGD"],
+        work: ["2013 – nay: Giảng viên"],
+        area: ["Động cơ học tập", "Giáo dục đại học"]
     },
 
     {
         key: "le_huy_tung",
         img: "img/le_huy_tung.jpg",
         name: "PGS.TS. Lê Huy Tùng",
-        title: "Giảng viên chính; Phó Viện trưởng Viện Đào tạo Liên tục",
-        dept: "Bộ môn Sư phạm các ngành kỹ thuật, Viện Sư phạm Kỹ thuật",
-        office: "302, D5-5",
+        title: "Giảng viên chính",
+        dept: "Viện Sư phạm Kỹ thuật",
         email: "tung.lehuy@hust.edu.vn",
-        phone: "+84-24 38682451",
-        train: [
-            "2012: Tiến sĩ Điều khiển hệ thống và Tự động hóa, Đại học Quốc gia Kyungpook, Hàn Quốc"
-        ],
-        work: [
-            "11/2018 – nay: Giảng viên Viện SPKT; Phó Viện trưởng Viện Đào tạo Liên tục"
-        ],
-        area: ["Quản lý chất lượng","Phương pháp luận nghiên cứu"]
+        office: "302, D5-5",
+        train: ["Tiến sĩ Điều khiển – Hàn Quốc"],
+        work: ["2018 – nay: Phó Viện trưởng + Giảng viên"],
+        area: ["Quản lý chất lượng", "PP nghiên cứu"]
     },
 
     {
@@ -528,56 +286,38 @@ const lecturers = [
         img: "img/pham_manh_ha.jpg",
         name: "PGS.TS. Phạm Mạnh Hà",
         title: "Giảng viên cao cấp",
-        dept: "Khoa Khoa học & Công nghệ Giáo dục",
-        office: "M330, C7",
+        dept: "Khoa KH&CN Giáo dục",
         email: "ha.phammanh@hust.edu.vn",
         phone: "0904801212",
-        train: [
-            "1993 – 1997: Cử nhân Tâm lý học, Trường ĐHKHXH&NV, ĐHQGHN",
-            "2006 – 2011: Tiến sĩ Tâm lý học"
-        ],
-        work: [
-            "2018 – 2025: Giảng viên, Trường Đại học Giáo dục (ghi chú mốc 2025 theo dữ liệu)"
-        ],
-        area: ["Tâm lý học giáo dục","Tư vấn tâm lý","Phát triển kỹ năng sống"]
+        office: "M330, C7",
+        train: ["Cử nhân Tâm lý học", "Tiến sĩ Tâm lý học"],
+        work: ["2018 – nay: Giảng viên"],
+        area: ["Tâm lý học giáo dục", "Tư vấn tâm lý"]
     },
 
     {
         key: "duong_thi_thuy_mai",
         img: "img/duong_thi_thuy_mai.jpg",
         name: "TS. Dương Thị Thùy Mai",
-        title: "Giảng viên; Phó Giám đốc Trung tâm Đào tạo Liên tục",
-        dept: "Bộ môn Công nghệ Giáo dục, Viện Sư phạm Kỹ thuật",
-        office: "",
+        title: "Phó Giám đốc Trung tâm ĐT Liên tục",
+        dept: "Viện Sư phạm Kỹ thuật",
         email: "mai.duongthithuy@hust.edu.vn",
-        phone: "",
-        train: [
-            "2018: Tiến sĩ Ngôn ngữ học, Viện Hàn Lâm KHXH Việt Nam",
-            "2006: Thạc sĩ Ngôn ngữ học ứng dụng, ĐH Northumbria, Vương quốc Anh"
-        ],
-        work: [
-            "11/2023 – nay: Phó Giám đốc Trung tâm Đào tạo Liên tục, ĐHBK Hà Nội",
-            "06/2019 – nay: Giảng viên, Viện Sư phạm Kỹ thuật"
-        ],
-        area: ["Công nghệ giáo dục","Giảng dạy ngoại ngữ","CLIL"]
+        train: ["Tiến sĩ Ngôn ngữ học", "Thạc sĩ Ngôn ngữ học ứng dụng"],
+        work: ["2023 – nay: Phó Giám đốc TTĐT Liên tục"],
+        area: ["Công nghệ giáo dục", "Giảng dạy ngoại ngữ"]
     },
 
     {
         key: "nguyen_tien_long",
         img: "img/nguyen_tien_long.jpg",
         name: "TS. Nguyễn Tiến Long",
-        title: "Giảng viên; Phó Viện trưởng",
-        dept: "Bộ môn Khoa học & Công nghệ Giáo dục, Viện Sư phạm Kỹ thuật",
-        office: "Phòng 302, nhà D3-5",
+        title: "Phó Viện trưởng",
+        dept: "Viện Sư phạm Kỹ thuật",
         email: "long.nguyentien@hust.edu.vn",
-        phone: "0918953535",
-        train: [
-            "2013: Tiến sĩ Cơ khí, Đại học Cát Lâm (Jilin University), Trung Quốc"
-        ],
-        work: [
-            "2000 – nay: Giảng viên, Bộ môn Khoa học & Công nghệ Giáo dục, ĐHBK Hà Nội"
-        ],
-        area: ["Kỹ năng mềm","Thiết kế & phát triển CTĐT"]
+        office: "302, D3-5",
+        train: ["Tiến sĩ Cơ khí – Trung Quốc"],
+        work: ["2000 – nay: Giảng viên"],
+        area: ["Kỹ năng mềm", "Thiết kế CTĐT"]
     },
 
     {
@@ -586,17 +326,11 @@ const lecturers = [
         name: "ThS. Phạm Hồng Hạnh",
         title: "Giảng viên",
         dept: "Viện Sư phạm Kỹ thuật",
-        office: "402, D5",
         email: "hanh.phamhong@hust.edu.vn",
-        phone: "+84-24 38681432",
-        train: [
-            "2002: Thạc sĩ Đo lường và Hệ thống điều khiển, Trường ĐHBK Hà Nội",
-            "1999: Kỹ sư Điều khiển học kỹ thuật, Trường ĐHBK Hà Nội"
-        ],
-        work: [
-            "2000 – nay: Giảng viên, Viện Sư phạm Kỹ thuật, ĐHBK Hà Nội"
-        ],
-        area: ["Lý luận và phương pháp dạy học","Ứng dụng công nghệ trong dạy học"]
+        office: "402, D5",
+        train: ["ThS. Đo lường – ĐH Bách Khoa"],
+        work: ["2000 – nay: Giảng viên"],
+        area: ["Ứng dụng CNTT trong dạy học"]
     },
 
     {
@@ -604,18 +338,12 @@ const lecturers = [
         img: "img/hoang_thi_quynh_lan.jpg",
         name: "TS. Hoàng Thị Quỳnh Lan",
         title: "Giảng viên",
-        dept: "Bộ môn Khoa học & Công nghệ Giáo dục",
-        office: "302, nhà D3-5",
+        dept: "Viện Sư phạm Kỹ thuật",
         email: "lan.hoangthiquynh@hust.edu.vn",
-        phone: "+84-24 38681432",
-        train: [
-            "2016: Tiến sĩ Tâm lý học, Học viện Khoa học Xã hội Việt Nam",
-            "1999: Thạc sĩ Tâm lý học, Trường ĐHSP Hà Nội"
-        ],
-        work: [
-            "2018 – nay: Giảng viên, Bộ môn Khoa học & Công nghệ Giáo dục"
-        ],
-        area: ["Giáo dục kỹ năng sống","Tư vấn hướng nghiệp"]
+        office: "302, D3-5",
+        train: ["Tiến sĩ Tâm lý học", "Thạc sĩ Tâm lý học"],
+        work: ["2018 – nay: Giảng viên"],
+        area: ["Giáo dục kỹ năng sống", "Tư vấn hướng nghiệp"]
     },
 
     {
@@ -623,355 +351,162 @@ const lecturers = [
         img: "img/tran_thi_thanh_ha.jpg",
         name: "TS. Trần Thị Thanh Hà",
         title: "Giảng viên",
-        dept: "Khoa Khoa học & Công nghệ Giáo dục",
-        office: "Số 1 Đại Cồ Việt, Quận Hai Bà Trưng, Hà Nội",
+        dept: "Khoa KH&CN Giáo dục",
         email: "ha.tranthithanh@hust.edu.vn",
-        phone: "0966 140 480",
+        office: "Đại Cồ Việt",
         train: [
-            "2021: Tiến sĩ Giáo dục học, University of Western Sydney",
-            "2010: Thạc sĩ Địa lý học (Địa lý kinh tế – xã hội)"
+            "Tiến sĩ Giáo dục học – Western Sydney",
+            "Thạc sĩ Địa lý – ĐH Sư Phạm"
         ],
-        work: [
-            "10/2024 – nay: Giảng viên, Khoa Khoa học & Công nghệ Giáo dục, ĐHBK Hà Nội",
-            "2010 – 10/2021: Giảng viên, Trường Cao đẳng Yên Bái"
-        ],
-        area: ["Lãnh đạo giáo dục","Bình đẳng giáo dục","Phát triển chuyên môn"]
+        work: ["2024 – nay: Giảng viên"],
+        area: ["Lãnh đạo giáo dục", "Bình đẳng giáo dục"]
     }
-
 ];
-</script>
-<script>
-// =========================
-//   PHẦN 3/4 — RENDER + PHÂN TRANG
-// =========================
+// ======================= PHÂN TRANG + RENDER =======================
 
-// Số người mỗi trang
-const PER_PAGE = 3;
+// 4 giảng viên / 1 trang
+const ITEMS_PER_PAGE = 4;
 
-// DOM
-const listContainer = document.getElementById("lecturer-list");
-const paginationContainer = document.getElementById("pagination");
+let currentPage = 1;
+let filteredList = [...lecturers];
 
-// --------------------
-// Render trang
-// --------------------
+// Render danh sách lên dạng grid 2x2
 function renderPage(page = 1) {
-    const start = (page - 1) * PER_PAGE;
-    const end = start + PER_PAGE;
+    currentPage = page;
 
-    const pageData = lecturers.slice(start, end);
+    const grid = document.getElementById('lecturer-grid');
+    grid.innerHTML = "";
 
-    listContainer.innerHTML = "";
+    const start = (page - 1) * ITEMS_PER_PAGE;
+    const end = start + ITEMS_PER_PAGE;
+    const pageItems = filteredList.slice(start, end);
 
-    pageData.forEach((lec) => {
+    pageItems.forEach(lec => {
         const card = document.createElement("div");
-        card.className = "lecturer-card";
-        card.onclick = () => openDetail(lec);
+        card.className = "card";
+        card.onclick = () => openModal(lec);
 
         card.innerHTML = `
-            <img src="${lec.img}" alt="${lec.name}" />
-            <div class="info">
+            <img src="${lec.img}" alt="${lec.name}" class="card-img" />
+
+            <div class="card-info">
                 <h3>${lec.name}</h3>
                 <p class="title">${lec.title}</p>
                 <p class="dept">${lec.dept}</p>
             </div>
         `;
-
-        listContainer.appendChild(card);
+        grid.appendChild(card);
     });
 
-    renderPagination(page);
+    renderPagination();
 }
 
-// --------------------
-// Phân trang
-// --------------------
-function renderPagination(currentPage) {
-    const totalPages = Math.ceil(lecturers.length / PER_PAGE);
+// ======================= PAGINATION BUTTONS ========================
 
-    paginationContainer.innerHTML = "";
+function renderPagination() {
+    const totalPages = Math.ceil(filteredList.length / ITEMS_PER_PAGE);
+    const pag = document.getElementById("pagination");
+    pag.innerHTML = "";
 
-    // Prev
-    if (currentPage > 1) {
-        paginationContainer.innerHTML += `<button class="page-btn" onclick="renderPage(${currentPage - 1})">←</button>`;
-    }
+    // Nút <
+    const prev
+<!-- =================== MODAL CHI TIẾT GIẢNG VIÊN =================== -->
+<div id="detail-modal-bg" class="modal-bg" onclick="closeModal()" style="display:none;"></div>
 
-    // Page numbers
-    for (let i = 1; i <= totalPages; i++) {
-        paginationContainer.innerHTML += `
-            <button class="page-btn ${i === currentPage ? "active" : ""}" onclick="renderPage(${i})">${i}</button>
-        `;
-    }
+<div id="detail-modal" class="modal" style="display:none;">
+    <span class="close-btn" onclick="closeModal()">&times;</span>
+    <div id="modal-content"></div>
+</div>
 
-    // Next
-    if (currentPage < totalPages) {
-        paginationContainer.innerHTML += `<button class="page-btn" onclick="renderPage(${currentPage + 1})">→</button>`;
-    }
-}
+<script>
+// ----- MỞ MODAL -----
+function openDetail(id){
+    const lec = lecturers[id];
+    if(!lec) return;
 
-// --------------------
-// Modal chi tiết
-// --------------------
-function openDetail(lec) {
-    const modal = document.getElementById("detail-modal");
-    const modalBg = document.getElementById("modal-bg");
-    const content = document.getElementById("modal-content");
-
-    content.innerHTML = `
-        <div class="modal-flex">
-            <img src="${lec.img}" class="modal-img"/>
+    const html = `
+        <div class="modal-profile">
+            <img src="${lec.img}" class="modal-img" alt="${lec.name}">
             <div class="modal-info">
                 <h2>${lec.name}</h2>
                 <p><b>${lec.title}</b></p>
                 <p>${lec.dept}</p>
-                <p><b>Phòng:</b> ${lec.office || "(đang cập nhật)"}</p>
+                <p><b>Phòng:</b> ${lec.office || "Đang cập nhật"}</p>
                 <p><b>Email:</b> ${lec.email}</p>
                 ${lec.phone ? `<p><b>Điện thoại:</b> ${lec.phone}</p>` : ""}
-                
+
                 <h3>🎓 Quá trình đào tạo</h3>
                 <ul>${lec.train.map(t => `<li>${t}</li>`).join("")}</ul>
 
                 <h3>💼 Quá trình công tác</h3>
                 <ul>${lec.work.map(w => `<li>${w}</li>`).join("")}</ul>
 
-                <h3>🔬 Lĩnh vực nghiên cứu</h3>
-                <ul>${lec.area.map(a => `<li>${a}</li>`).join("")}</ul>
+                ${lec.area ? `
+                    <h3>📚 Lĩnh vực nghiên cứu</h3>
+                    <ul>${lec.area.map(a => `<li>${a}</li>`).join("")}</ul>
+                ` : ""}
             </div>
         </div>
     `;
 
-    modal.style.display = "block";
-    modalBg.style.display = "block";
+    document.getElementById("modal-content").innerHTML = html;
+    document.getElementById("detail-modal-bg").style.display = "block";
+    document.getElementById("detail-modal").style.display = "block";
 }
 
-function closeModal() {
-    document.getElementById("detail-modal").style.display = "none";
-    document.getElementById("modal-bg").style.display = "none";
-}
-
-// Auto load trang 1
-renderPage(1);
-
-</script>
-<script>
-// =============================
-// PHẦN 4/4 — FIX + SEARCH + CHATBOT
-// =============================
-
-// --- Utility: get element safely
-const $ = (id) => document.getElementById(id);
-
-// --- Config
-const PER_PAGE = 3; // 3 giảng viên / trang
-
-// --- Render (ghi đè nếu đã tồn tại)
-function renderPage(page = 1, keyword = "") {
-    const grid = $("lecturer-grid");
-    const pag = $("pagination");
-    if(!grid || !pag) return;
-
-    const q = (keyword || "").toLowerCase().trim();
-
-    // Lọc theo từ khoá (tìm trong name, dept, area)
-    const filtered = lecturers.filter(l => {
-        const hay = (l.name + " " + (l.dept||"") + " " + (l.area||[]).join(" ")).toLowerCase();
-        return !q || hay.includes(q);
-    });
-
-    const totalItems = filtered.length;
-    const totalPages = Math.max(1, Math.ceil(totalItems / PER_PAGE));
-    if(page < 1) page = 1;
-    if(page > totalPages) page = totalPages;
-
-    const start = (page - 1) * PER_PAGE;
-    const pageData = filtered.slice(start, start + PER_PAGE);
-
-    // Clear and render cards
-    grid.innerHTML = "";
-    pageData.forEach(lec => {
-        const el = document.createElement("div");
-        el.className = "card";
-        // clicking card opens modal by key
-        el.onclick = () => openDetail(lec.key);
-        el.innerHTML = `
-            <img src="${lec.img}" alt="${escapeHtml(lec.name)}" />
-            <h3>${escapeHtml(lec.name)}</h3>
-            <div class="title">${escapeHtml(lec.title)}</div>
-            <div class="dept-tag">${escapeHtml(lec.dept)}</div>
-        `;
-        grid.appendChild(el);
-    });
-
-    // Render pagination
-    pag.innerHTML = "";
-    // Prev
-    if (page > 1) {
-        const b = document.createElement("button");
-        b.className = "page-btn";
-        b.innerText = "←";
-        b.onclick = () => renderPage(page - 1, q);
-        pag.appendChild(b);
-    }
-
-    for (let i = 1; i <= totalPages; i++) {
-        const b = document.createElement("button");
-        b.className = "page-btn" + (i === page ? " active" : "");
-        b.innerText = i;
-        b.onclick = ((p) => () => renderPage(p, q))(i);
-        pag.appendChild(b);
-    }
-
-    // Next
-    if (page < totalPages) {
-        const b = document.createElement("button");
-        b.className = "page-btn";
-        b.innerText = "→";
-        b.onclick = () => renderPage(page + 1, q);
-        pag.appendChild(b);
-    }
-}
-
-// --- Escape simple HTML to avoid accidental markup injection
-function escapeHtml(str){
-    if(!str && str!==0) return "";
-    return String(str)
-        .replace(/&/g, "&amp;")
-        .replace(/</g, "&lt;")
-        .replace(/>/g, "&gt;")
-        .replace(/"/g, "&quot;");
-}
-
-// --- Open detail modal by key
-function openDetail(key){
-    // accept either key string or lecturer object
-    const lec = (typeof key === "string") ? lecturers.find(x => x.key === key) : key;
-    if(!lec) return;
-
-    const modal = $("modal") || $("detail-modal") || $("lecturer-modal");
-    const modalBg = $("modal-bg") || $("detail-modal-bg");
-
-    const content = $("modal-content") || $("modalContent") || $("modal-body");
-    if(!modal || !modalBg || !content) return;
-
-    content.innerHTML = `
-        <div style="display:flex;gap:18px;align-items:flex-start;flex-wrap:wrap;">
-            <img src="${lec.img}" class="modal-img" style="width:140px;height:190px;border-radius:10px;object-fit:cover" />
-            <div style="flex:1;min-width:200px">
-                <h2>${escapeHtml(lec.name)}</h2>
-                <div><b>${escapeHtml(lec.title)}</b></div>
-                <div style="color:#2b3b7a;margin:6px 0">${escapeHtml(lec.dept)}</div>
-                <div><b>Phòng:</b> ${escapeHtml(lec.office || "(đang cập nhật)")}</div>
-                <div><b>Email:</b> ${escapeHtml(lec.email || "")}</div>
-                ${lec.phone ? `<div><b>Điện thoại:</b> ${escapeHtml(lec.phone)}</div>` : ""}
-                <div style="margin-top:12px;">
-                    <h4 style="margin:8px 0 6px">🎓 Quá trình đào tạo</h4>
-                    <ul>${(lec.train||[]).map(t=>`<li>${escapeHtml(t)}</li>`).join("")}</ul>
-                </div>
-                <div style="margin-top:6px;">
-                    <h4 style="margin:8px 0 6px">💼 Quá trình công tác</h4>
-                    <ul>${(lec.work||[]).map(w=>`<li>${escapeHtml(w)}</li>`).join("")}</ul>
-                </div>
-                ${lec.area ? `<div style="margin-top:6px;"><h4 style="margin:8px 0 6px">🔬 Lĩnh vực nghiên cứu</h4><ul>${lec.area.map(a=>`<li>${escapeHtml(a)}</li>`).join("")}</ul></div>` : ""}
-            </div>
-        </div>
-    `;
-
-    modal.style.display = "block";
-    modalBg.style.display = "block";
-
-    // close on bg click handled already if BG has onclick
-}
-
-// --- Close modal (hide all known modal ids)
 function closeModal(){
-    const ids = ["modal","detail-modal","lecturer-modal"];
-    ids.forEach(id => {
-        const el = $(id);
-        if(el) el.style.display = "none";
-    });
-    const bg = $("modal-bg") || $("detail-modal-bg") || $("detail-modal-bg");
-    if(bg) bg.style.display = "none";
+    document.getElementById("detail-modal-bg").style.display = "none";
+    document.getElementById("detail-modal").style.display = "none";
 }
-
-// --- Search handler (button onclick in header calls this)
-function searchLecturers(){
-    const q = ($("search") && $("search").value) || "";
-    renderPage(1, q);
-}
-
-// Hook Enter key on search input
-(function(){
-    const s = $("search");
-    if(s){
-        s.addEventListener("keydown", (e) => {
-            if(e.key === "Enter") searchLecturers();
-        });
-    }
-})();
+</script>
 
 
-// =====================
-// CHATBOT (toggle + simple replies + open modal shortcut)
-// =====================
+<!-- =================== CHATBOT MINI =================== -->
+<div class="chatbot-widget">
+    <button onclick="toggleChatbot()" class="chatbot-btn">
+        <i class="fa-solid fa-robot"></i> Trợ lý
+    </button>
 
+    <div class="chatbot-box" id="chatbot-box">
+        <div class="chatbot-head">Chatbot Tâm sự Giảng Viên</div>
+
+        <div class="chatbot-messages" id="chatbot-messages">
+            <div class="chatbot-message bot">Chào bạn! Bạn muốn tìm giảng viên nào?</div>
+        </div>
+
+        <div class="chatbot-action">
+            <input type="text" id="chatbot-input" placeholder="Nhập câu hỏi...">
+            <button onclick="sendChat()">Gửi</button>
+        </div>
+    </div>
+</div>
+
+<script>
 function toggleChatbot(){
-    const box = $("chatbot-box");
-    if(!box) return;
-    box.style.display = (box.style.display === "block") ? "none" : "block";
+    const box = document.getElementById("chatbot-box");
+    box.style.display = box.style.display === "block" ? "none" : "block";
 }
 
-function sendChatbotMessage(){
-    const input = $("chatbot-input");
-    const messages = $("chatbot-messages");
-    if(!input || !messages) return;
-    const text = input.value.trim();
-    if(!text) return;
+function sendChat(){
+    const input = document.getElementById("chatbot-input");
+    const msg = input.value.trim();
+    if(!msg) return;
 
-    // Append user message
-    messages.innerHTML += `<div class="chatbot-message user">${escapeHtml(text)}</div>`;
-    messages.scrollTop = messages.scrollHeight;
-    input.value = "";
+    const messages = document.getElementById("chatbot-messages");
 
-    // Bot thinking...
+    messages.innerHTML += `<div class="chatbot-message user">${msg}</div>`;
+
+    // Auto reply
     setTimeout(() => {
-        // try to find best match by name
-        const q = text.toLowerCase();
-        const match = lecturers.find(l => l.name.toLowerCase().includes(q) || (l.area||[]).join(" ").toLowerCase().includes(q));
-
-        if(match){
-            // If found, give option to open detail
-            messages.innerHTML += `<div class="chatbot-message bot">Tìm thấy: <b>${escapeHtml(match.name)}</b>. <a href="#" onclick="openDetail('${match.key}'); return false;" style="color:var(--primary);font-weight:700">Xem chi tiết</a></div>`;
-        } else if (/trang|page|số/i.test(text) ){
-            messages.innerHTML += `<div class="chatbot-message bot">Bạn có thể nhập số trang hoặc dùng phân trang phía dưới để chuyển trang.</div>`;
-        } else {
-            // generic reply with a few suggestions
-            const suggestions = lecturers.slice(0,3).map(l=>`<a href="#" onclick="openDetail('${l.key}'); return false;">${escapeHtml(l.name)}</a>`).join(' · ');
-            messages.innerHTML += `<div class="chatbot-message bot">Mình chưa hiểu hoàn toàn. Bạn có thể thử gõ tên giảng viên (ví dụ: "Lê Hiếu Học") hoặc chọn: ${suggestions}</div>`;
-        }
+        messages.innerHTML += `
+            <div class="chatbot-message bot">
+                Mình nhận được rồi! Bạn có thể thử tìm theo tên giảng viên ở ô tìm kiếm phía trên nhé.
+            </div>
+        `;
         messages.scrollTop = messages.scrollHeight;
-    }, 450);
+    }, 500);
+
+    input.value = "";
+    messages.scrollTop = messages.scrollHeight;
 }
-
-// allow pressing Enter in chatbot input
-(function(){
-    const ci = $("chatbot-input");
-    if(ci){
-        ci.addEventListener("keydown", (e) => {
-            if(e.key === "Enter") sendChatbotMessage();
-        });
-    }
-})();
-
-
-// =====================
-// Initialize (override previous broken initializations)
-// =====================
-window.addEventListener('DOMContentLoaded', ()=> {
-    // ensure modal bg closes modal when clicked
-    const modalBg = $("modal-bg") || $("detail-modal-bg") || null;
-    if(modalBg) modalBg.addEventListener('click', closeModal);
-
-    // initial render
-    renderPage(1, $("search") ? $("search").value : "");
-});
 </script>
