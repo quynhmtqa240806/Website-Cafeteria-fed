@@ -1,227 +1,271 @@
 <!DOCTYPE html>
 <html lang="vi">
 <head>
-    <meta charset="UTF-8">
+    <meta charset="UTF-8" />
     <title>Danh sách giảng viên — BK</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="styles.css">
-    <link rel="stylesheet" 
-          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+
+    <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"/>
 </head>
 
 <body>
 
+<!-- HEADER -->
 <header class="site-header">
     <div class="logo-zone">
-        <img src="img/logo-bk.png" height="38">
+        <img src="img/logo-bk.png" alt="Logo BK" height="38"/>
         <span class="brand">BK LECTURER STORE</span>
     </div>
 
     <nav>
-        <a class="active" href="index.html">Trang chủ</a>
+        <a href="index.html" class="active">Trang chủ</a>
         <a href="#">Review</a>
         <a href="#">Chatbot</a>
         <a href="#">Liên hệ</a>
     </nav>
 
     <div class="search-bar">
-        <input id="search-input" type="text" placeholder="Tìm theo tên hoặc lĩnh vực...">
+        <input id="search-input" type="text" placeholder="Tìm giảng viên..." />
         <button id="search-btn"><i class="fa-solid fa-search"></i></button>
     </div>
 </header>
 
 <main>
     <section style="padding:20px 2vw; max-width:1200px; margin:auto;">
-        <h2 style="color:#1b2c6d">Danh sách giảng viên</h2>
-        <p style="color:#576189">Chọn giảng viên để xem chi tiết.</p>
+        <h2 class="page-title">Danh sách giảng viên — Khoa KH&CN Giáo dục</h2>
+        <p class="page-sub">Click vào ảnh hoặc tên để xem chi tiết.</p>
 
-        <section id="full-list" class="card-list"></section>
+        <section id="lecturer-list" class="card-list"></section>
 
-        <div id="pagination" style="text-align:center; margin:25px 0;"></div>
+        <!-- PAGINATION -->
+        <div id="pagination" class="pagination"></div>
     </section>
 </main>
 
 <!-- MODAL -->
-<div id="detail-modal-bg" class="modal-bg" onclick="closeModal()" style="display:none;"></div>
-<div id="lecturer-modal" class="modal" style="display:none;">
+<div id="modal-bg" class="modal-bg" onclick="closeModal()"></div>
+
+<div id="modal" class="modal">
     <span class="close-btn" onclick="closeModal()">&times;</span>
     <div id="modal-content"></div>
 </div>
 
-<script>
-/* ========================== PHẦN 2 — DỮ LIỆU GIẢNG VIÊN =============================== */
+<!-- CHATBOT -->
+<div class="chatbot-widget">
+    <button class="chatbot-btn" onclick="toggleChatbot()">
+        <i class="fa-solid fa-robot"></i> Trợ lý
+    </button>
 
-const lecturers = {
-    le_hieu_hoc: {
+    <div class="chatbot-box" id="chatbot-box">
+        <div class="chatbot-head">Chatbot Tâm sự Giảng Viên</div>
+
+        <div class="chatbot-messages" id="chatbot-messages">
+            <div class="chatbot-message bot">
+                Chào bạn! Hãy hỏi hoặc chia sẻ nhé.
+            </div>
+        </div>
+
+        <div class="chatbot-action">
+            <input type="text" id="chat-input" placeholder="Nhập nội dung..." />
+            <button onclick="sendChat()">Gửi</button>
+        </div>
+    </div>
+</div>
+
+
+<script>
+/* ===========================
+        DỮ LIỆU GIẢNG VIÊN
+   =========================== */
+const lecturers = [
+    {
+        key: "le_hieu_hoc",
         img: "img/le_hieu_hoc.jpg",
         name: "PGS.TS. Lê Hiếu Học",
         title: "Trưởng khoa",
-        dept: "Khoa Khoa học & Công nghệ Giáo dục",
-        office: "(đang cập nhật)",
-        email: "hoc.lehieu@hust.edu.vn",
-        phone: "(+84) 24 3868 1432",
-        train: [
-            "2001 – 2005: Tiến sĩ Xã hội học & Nghiên cứu Xã hội, Đại học Trento, Ý",
-            "1999 – 2000: Thạc sĩ MBA, AIT Bangkok"
-        ],
-        work: [
-            "2022 – nay: Trưởng khoa KH&CN Giáo dục, ĐHBK Hà Nội",
-            "2019 – 2022: Phó Hiệu trưởng ĐH Phenikaa"
-        ],
-        area: ["Quản trị", "Quản lý chất lượng", "CSR", "Liên kết đại học - doanh nghiệp"]
+        dept: "Khoa KH&CN Giáo dục",
+        desc: "Phòng: đang cập nhật<br>Email: hoc.lehieu@hust.edu.vn"
     },
-
-    pham_thi_thanh_hai: {
+    {
+        key: "pham_thi_thanh_hai",
         img: "img/pham_thi_thanh_hai.jpg",
         name: "PGS.TS. Phạm Thị Thanh Hải",
-        title: "Phó Trưởng khoa, Giảng viên cao cấp",
-        dept: "Khoa Khoa học & Công nghệ Giáo dục",
-        office: "Phòng 325, C7",
-        email: "hai.phamthithanh@hust.edu.vn",
-        train: ["2013: Tiến sĩ Quản lý giáo dục", "2005: Thạc sĩ Quản lý giáo dục"],
-        work: ["2023 – nay: Giảng viên ĐHBK Hà Nội"],
-        area: ["Công nghệ giáo dục", "Đánh giá chương trình đào tạo"]
+        title: "Phó Trưởng khoa",
+        dept: "Khoa KH&CN Giáo dục",
+        desc: "Phòng 325 C7<br>Email: hai.phamthithanh@hust.edu.vn"
     },
-
-    nguyen_thi_huyen: {
+    {
+        key: "nguyen_thi_huyen",
         img: "img/nguyen_thi_huyen.jpg",
         name: "TS. Nguyễn Thị Huyền",
-        title: "Giảng viên",
-        dept: "Khoa KH&CN Giáo dục",
-        office: "M329, C7",
-        email: "huyen.nguyenthi2@hust.edu.vn",
-        train: ["2019: Tiến sĩ Công nghệ Giáo dục – NCU Taiwan"],
-        work: ["2020 – nay: Giảng viên ĐHBK Hà Nội"],
-        area: ["Mobile learning", "Interactive learning", "GenAI Learning Design"]
+        title: "Giảng viên / Giám đốc CTĐT",
+        dept: "Công nghệ Giáo dục",
+        desc: "Phòng M329 C7<br>Email: huyen.nguyenthi2@hust.edu.vn"
     },
-
-    bui_ngoc_son: {
+    {
+        key: "bui_ngoc_son",
         img: "img/bui_ngoc_son.jpg",
         name: "ThS. Bùi Ngọc Sơn",
         title: "Giảng viên",
-        dept: "Viện Sư phạm Kỹ thuật",
-        office: "402 D5",
-        email: "son.buingoc@hust.edu.vn",
-        train: ["2004: Thạc sĩ SP Dạy nghề"],
-        work: ["2000 – nay: Giảng viên ĐHBK Hà Nội"],
-        area: ["Kiểm tra đánh giá", "Phát triển CTĐT"]
+        dept: "Viện SPKT",
+        desc: "Phòng 402 D5<br>Email: son.buingoc@hust.edu.vn"
+    },
+    {
+        key: "nguyen_thi_thanh_tu",
+        img: "img/nguyen_thi_thanh_tu.jpg",
+        name: "TS. Nguyễn Thị Thanh Tú",
+        title: "Giảng viên",
+        dept: "Viện SPKT",
+        desc: "Phòng 302 D3-D5<br>Email: tu.nguyenthithanh@hust.edu.vn"
+    },
+    {
+        key: "vu_dinh_minh",
+        img: "img/vu_dinh_minh.jpg",
+        name: "TS. Vũ Đình Minh",
+        title: "Giảng viên",
+        dept: "Viện SPKT",
+        desc: "Email: minh.vudinh@hust.edu.vn"
+    },
+    {
+        key: "nguyen_thi_thanh_thuy",
+        img: "img/nguyen_thi_thanh_thuy.jpg",
+        name: "TS. Nguyễn Thị Thanh Thủy",
+        title: "Giảng viên",
+        dept: "Viện SPKT",
+        desc: "Email: thuy.nguyenthithanh@hust.edu.vn"
+    },
+    {
+        key: "nguyen_yen_chi",
+        img: "img/nguyen_yen_chi.jpg",
+        name: "ThS. Nguyễn Yến Chi",
+        title: "Giảng viên",
+        dept: "Khoa KH&CN Giáo dục",
+        desc: "Email: chi.nguyenyen@hust.edu.vn"
     }
-};
+];
 
-/* ===================== PHẦN 3 + 4 — HIỂN THỊ + PHÂN TRANG + MODAL ===================== */
+/* ===========================
+        RENDER + PHÂN TRANG
+   =========================== */
 
-const itemsPerPage = 4;  
+const itemsPerPage = 4;
 let currentPage = 1;
 
-const listContainer = document.getElementById("full-list");
-const paginationContainer = document.getElementById("pagination");
-
-function renderList(filter = "") {
-    const q = filter.trim().toLowerCase();
-
-    const data = Object.keys(lecturers).filter(key => {
-        const lec = lecturers[key];
-        const s = (lec.name + " " + lec.dept + " " + (lec.area || []).join(" ")).toLowerCase();
-        return !q || s.includes(q);
-    });
-
-    const totalPages = Math.ceil(data.length / itemsPerPage);
-    if (currentPage > totalPages) currentPage = 1;
+function renderList() {
+    const list = document.getElementById("lecturer-list");
+    list.innerHTML = "";
 
     const start = (currentPage - 1) * itemsPerPage;
-    const items = data.slice(start, start + itemsPerPage);
+    const pageItems = lecturers.slice(start, start + itemsPerPage);
 
-    listContainer.innerHTML = "";
+    pageItems.forEach(lec => {
+        list.innerHTML += `
+            <div class="lecturer-card" onclick="openDetail('${lec.key}')">
+                <img src="${lec.img}" alt="${lec.name}" />
+                <div class="star-rating">
+                    <i class="fa-solid fa-star"></i>
+                    <i class="fa-solid fa-star"></i>
+                    <i class="fa-solid fa-star"></i>
+                    <i class="fa-solid fa-star"></i>
+                    <i class="fa-regular fa-star"></i>
+                    <span class="star-score">4.5</span>
+                </div>
 
-    items.forEach(key => {
-        const lec = lecturers[key];
-        const card = document.createElement("div");
-        card.className = "lecturer-card";
-        card.onclick = () => openLecturerDetail(key);
-
-        card.innerHTML = `
-            <img src="${lec.img}">
-            <div class="card-info">
                 <h3>${lec.name}</h3>
-                <span class="card-title">${lec.title}</span>
-                <span class="dept">${lec.dept}</span>
+                <p class="lec-title">${lec.title}</p>
+
+                <div class="dept-tag">${lec.dept}</div>
             </div>
         `;
-        listContainer.appendChild(card);
     });
 
-    renderPagination(totalPages);
+    renderPagination();
 }
 
-function renderPagination(totalPages) {
-    paginationContainer.innerHTML = "";
-    if (totalPages <= 1) return;
+function renderPagination() {
+    const totalPages = Math.ceil(lecturers.length / itemsPerPage);
+    const pag = document.getElementById("pagination");
+    pag.innerHTML = "";
 
-    const prev = document.createElement("button");
-    prev.textContent = "← Trước";
-    prev.disabled = currentPage === 1;
-    prev.onclick = () => { currentPage--; renderList(); };
-    paginationContainer.appendChild(prev);
-
-    for (let i = 1; i <= totalPages; i++) {
-        const btn = document.createElement("button");
-        btn.textContent = i;
-        btn.className = (i === currentPage) ? "active-page" : "";
-        btn.onclick = () => { currentPage = i; renderList(); };
-        paginationContainer.appendChild(btn);
+    if (currentPage > 1) {
+        pag.innerHTML += `<button onclick="goPage(${currentPage - 1})">←</button>`;
     }
 
-    const next = document.createElement("button");
-    next.textContent = "Tiếp →";
-    next.disabled = currentPage === totalPages;
-    next.onclick = () => { currentPage++; renderList(); };
-    paginationContainer.appendChild(next);
+    for (let i = 1; i <= totalPages; i++) {
+        pag.innerHTML += `
+            <button class="${i === currentPage ? 'active' : ''}" onclick="goPage(${i})">${i}</button>
+        `;
+    }
+
+    if (currentPage < totalPages) {
+        pag.innerHTML += `<button onclick="goPage(${currentPage + 1})">→</button>`;
+    }
 }
 
-function openLecturerDetail(key) {
-    const lec = lecturers[key];
+function goPage(p) {
+    currentPage = p;
+    renderList();
+}
+
+/* ===========================
+        MODAL
+   =========================== */
+function openDetail(key) {
+    const lec = lecturers.find(l => l.key === key);
+    if (!lec) return;
 
     document.getElementById("modal-content").innerHTML = `
         <div class="modal-profile">
-            <img class="modal-img" src="${lec.img}">
+            <img src="${lec.img}" class="modal-img" />
             <div>
                 <h2>${lec.name}</h2>
-                <b>${lec.title}</b><br>
-                ${lec.dept}<br><br>
-
-                <b>Phòng:</b> ${lec.office || "(đang cập nhật)"}<br>
-                <b>Email:</b> ${lec.email}<br>
-                ${lec.phone ? `<b>Điện thoại:</b> ${lec.phone}<br>` : ""}
-
-                <div class="modal-tab">
-                    <b>Đào tạo:</b>
-                    <ul>${lec.train.map(t => `<li>${t}</li>`).join("")}</ul>
-
-                    <b>Công tác:</b>
-                    <ul>${lec.work.map(w => `<li>${w}</li>`).join("")}</ul>
-
-                    <b>Lĩnh vực:</b>
-                    <ul>${lec.area.map(a => `<li>${a}</li>`).join("")}</ul>
-                </div>
+                <p><b>${lec.title}</b></p>
+                <p>${lec.dept}</p>
+                <p>${lec.desc}</p>
             </div>
         </div>
     `;
 
-    document.getElementById("detail-modal-bg").style.display = "block";
-    document.getElementById("lecturer-modal").style.display = "block";
+    document.getElementById("modal-bg").style.display = "block";
+    document.getElementById("modal").style.display = "block";
 }
 
 function closeModal() {
-    document.getElementById("detail-modal-bg").style.display = "none";
-    document.getElementById("lecturer-modal").style.display = "none";
+    document.getElementById("modal-bg").style.display = "none";
+    document.getElementById("modal").style.display = "none";
 }
 
-document.getElementById("search-btn").onclick = () => {
-    currentPage = 1;
-    renderList(document.getElementById("search-input").value);
-};
+/* ===========================
+        CHATBOT
+   =========================== */
+function toggleChatbot() {
+    const box = document.getElementById("chatbot-box");
+    box.style.display = box.style.display === "block" ? "none" : "block";
+}
 
-window.addEventListener("DOMContentLoaded", () => renderList());
+function sendChat() {
+    const input = document.getElementById("chat-input");
+    const msg = input.value.trim();
+    if (!msg) return;
+
+    const box = document.getElementById("chatbot-messages");
+    box.innerHTML += `<div class="chatbot-message user">${msg}</div>`;
+    input.value = "";
+
+    setTimeout(() => {
+        box.innerHTML += `<div class="chatbot-message bot">Mình đã nhận! Muốn tìm ai tiếp theo?</div>`;
+        box.scrollTop = box.scrollHeight;
+    }, 500);
+
+    box.scrollTop = box.scrollHeight;
+}
+
+/* ===========================
+        KHỞI TẠO
+   =========================== */
+window.onload = () => renderList();
 </script>
 
 </body>
