@@ -260,6 +260,9 @@
             </div>
         </div>
     </div>
+
+    <!-- SCRIPTS: PHẦN 2/4 (dữ liệu) sẽ bắt đầu tiếp theo -->
+<script>
 // =========================
 //   PHẦN 2/4 — DỮ LIỆU GIẢNG VIÊN
 // =========================
@@ -636,6 +639,8 @@ const lecturers = [
     }
 
 ];
+</script>
+<script>
 // =========================
 //   PHẦN 3/4 — RENDER + PHÂN TRANG
 // =========================
@@ -747,199 +752,226 @@ function closeModal() {
 // Auto load trang 1
 renderPage(1);
 
+</script>
 <script>
 // =============================
-// PHẦN 4/4 — SCRIPT HOÀN CHỈNH
+// PHẦN 4/4 — FIX + SEARCH + CHATBOT
 // =============================
 
-// Truy cập nhanh
+// --- Utility: get element safely
 const $ = (id) => document.getElementById(id);
 
-// Số giảng viên mỗi trang
-const PER_PAGE = 3;
+// --- Config
+const PER_PAGE = 3; // 3 giảng viên / trang
 
-// ------------------------------
-// RENDER TRANG + PHÂN TRANG
-// ------------------------------
+// --- Render (ghi đè nếu đã tồn tại)
 function renderPage(page = 1, keyword = "") {
     const grid = $("lecturer-grid");
     const pag = $("pagination");
-    if (!grid || !pag) return;
+    if(!grid || !pag) return;
 
     const q = (keyword || "").toLowerCase().trim();
 
-    // Lọc
+    // Lọc theo từ khoá (tìm trong name, dept, area)
     const filtered = lecturers.filter(l => {
-        const haystack = (l.name + " " + l.dept + " " + (l.area || []).join(" ")).toLowerCase();
-        return !q || haystack.includes(q);
+        const hay = (l.name + " " + (l.dept||"") + " " + (l.area||[]).join(" ")).toLowerCase();
+        return !q || hay.includes(q);
     });
 
     const totalItems = filtered.length;
     const totalPages = Math.max(1, Math.ceil(totalItems / PER_PAGE));
-    if (page < 1) page = 1;
-    if (page > totalPages) page = totalPages;
+    if(page < 1) page = 1;
+    if(page > totalPages) page = totalPages;
 
     const start = (page - 1) * PER_PAGE;
     const pageData = filtered.slice(start, start + PER_PAGE);
 
-    // Render thẻ giảng viên
+    // Clear and render cards
     grid.innerHTML = "";
     pageData.forEach(lec => {
-        const div = document.createElement("div");
-        div.className = "card";
-        div.onclick = () => openDetail(lec.key);
-        div.innerHTML = `
-            <img src="${lec.img}" alt="${lec.name}">
-            <h3>${lec.name}</h3>
-            <div class="title">${lec.title}</div>
-            <div class="dept-tag">${lec.dept}</div>
+        const el = document.createElement("div");
+        el.className = "card";
+        // clicking card opens modal by key
+        el.onclick = () => openDetail(lec.key);
+        el.innerHTML = `
+            <img src="${lec.img}" alt="${escapeHtml(lec.name)}" />
+            <h3>${escapeHtml(lec.name)}</h3>
+            <div class="title">${escapeHtml(lec.title)}</div>
+            <div class="dept-tag">${escapeHtml(lec.dept)}</div>
         `;
-        grid.appendChild(div);
+        grid.appendChild(el);
     });
 
-    // Render phân trang
+    // Render pagination
     pag.innerHTML = "";
-
+    // Prev
     if (page > 1) {
-        const prev = document.createElement("button");
-        prev.className = "page-btn";
-        prev.innerText = "←";
-        prev.onclick = () => renderPage(page - 1, q);
-        pag.appendChild(prev);
+        const b = document.createElement("button");
+        b.className = "page-btn";
+        b.innerText = "←";
+        b.onclick = () => renderPage(page - 1, q);
+        pag.appendChild(b);
     }
 
     for (let i = 1; i <= totalPages; i++) {
         const b = document.createElement("button");
         b.className = "page-btn" + (i === page ? " active" : "");
         b.innerText = i;
-        b.onclick = () => renderPage(i, q);
+        b.onclick = ((p) => () => renderPage(p, q))(i);
         pag.appendChild(b);
     }
 
+    // Next
     if (page < totalPages) {
-        const next = document.createElement("button");
-        next.className = "page-btn";
-        next.innerText = "→";
-        next.onclick = () => renderPage(page + 1, q);
-        pag.appendChild(next);
+        const b = document.createElement("button");
+        b.className = "page-btn";
+        b.innerText = "→";
+        b.onclick = () => renderPage(page + 1, q);
+        pag.appendChild(b);
     }
 }
 
-// ------------------------------
-// MODAL CHI TIẾT
-// ------------------------------
-function openDetail(key) {
-    const lec = lecturers.find(x => x.key === key);
-    if (!lec) return;
+// --- Escape simple HTML to avoid accidental markup injection
+function escapeHtml(str){
+    if(!str && str!==0) return "";
+    return String(str)
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;");
+}
 
-    const modal = $("modal");
-    const bg = $("modal-bg");
-    const box = $("modal-content");
+// --- Open detail modal by key
+function openDetail(key){
+    // accept either key string or lecturer object
+    const lec = (typeof key === "string") ? lecturers.find(x => x.key === key) : key;
+    if(!lec) return;
 
-    box.innerHTML = `
-        <div style="display:flex; gap:18px; flex-wrap:wrap;">
-            <img src="${lec.img}" class="modal-img">
+    const modal = $("modal") || $("detail-modal") || $("lecturer-modal");
+    const modalBg = $("modal-bg") || $("detail-modal-bg");
 
-            <div style="flex:1; min-width:240px;">
-                <h2>${lec.name}</h2>
-                <b>${lec.title}</b>
-                <div style="margin:6px 0; color:#2b3b7a;">${lec.dept}</div>
+    const content = $("modal-content") || $("modalContent") || $("modal-body");
+    if(!modal || !modalBg || !content) return;
 
-                <div><b>Phòng:</b> ${lec.office}</div>
-                <div><b>Email:</b> ${lec.email}</div>
-                ${lec.phone ? `<div><b>Điện thoại:</b> ${lec.phone}</div>` : ""}
-
-                <h4 style="margin-top:12px;">🎓 Quá trình đào tạo</h4>
-                <ul>${lec.train.map(t => `<li>${t}</li>`).join("")}</ul>
-
-                <h4 style="margin-top:8px;">💼 Quá trình công tác</h4>
-                <ul>${lec.work.map(w => `<li>${w}</li>`).join("")}</ul>
-
-                ${lec.area ? `
-                    <h4 style="margin-top:8px;">🔬 Lĩnh vực nghiên cứu</h4>
-                    <ul>${lec.area.map(a => `<li>${a}</li>`).join("")}</ul>
-                ` : ""}
+    content.innerHTML = `
+        <div style="display:flex;gap:18px;align-items:flex-start;flex-wrap:wrap;">
+            <img src="${lec.img}" class="modal-img" style="width:140px;height:190px;border-radius:10px;object-fit:cover" />
+            <div style="flex:1;min-width:200px">
+                <h2>${escapeHtml(lec.name)}</h2>
+                <div><b>${escapeHtml(lec.title)}</b></div>
+                <div style="color:#2b3b7a;margin:6px 0">${escapeHtml(lec.dept)}</div>
+                <div><b>Phòng:</b> ${escapeHtml(lec.office || "(đang cập nhật)")}</div>
+                <div><b>Email:</b> ${escapeHtml(lec.email || "")}</div>
+                ${lec.phone ? `<div><b>Điện thoại:</b> ${escapeHtml(lec.phone)}</div>` : ""}
+                <div style="margin-top:12px;">
+                    <h4 style="margin:8px 0 6px">🎓 Quá trình đào tạo</h4>
+                    <ul>${(lec.train||[]).map(t=>`<li>${escapeHtml(t)}</li>`).join("")}</ul>
+                </div>
+                <div style="margin-top:6px;">
+                    <h4 style="margin:8px 0 6px">💼 Quá trình công tác</h4>
+                    <ul>${(lec.work||[]).map(w=>`<li>${escapeHtml(w)}</li>`).join("")}</ul>
+                </div>
+                ${lec.area ? `<div style="margin-top:6px;"><h4 style="margin:8px 0 6px">🔬 Lĩnh vực nghiên cứu</h4><ul>${lec.area.map(a=>`<li>${escapeHtml(a)}</li>`).join("")}</ul></div>` : ""}
             </div>
         </div>
     `;
 
     modal.style.display = "block";
-    bg.style.display = "block";
+    modalBg.style.display = "block";
+
+    // close on bg click handled already if BG has onclick
 }
 
-function closeModal() {
-    $("modal").style.display = "none";
-    $("modal-bg").style.display = "none";
+// --- Close modal (hide all known modal ids)
+function closeModal(){
+    const ids = ["modal","detail-modal","lecturer-modal"];
+    ids.forEach(id => {
+        const el = $(id);
+        if(el) el.style.display = "none";
+    });
+    const bg = $("modal-bg") || $("detail-modal-bg") || $("detail-modal-bg");
+    if(bg) bg.style.display = "none";
 }
 
-// ------------------------------
-// SEARCH
-// ------------------------------
-function searchLecturers() {
-    const q = $("search").value;
+// --- Search handler (button onclick in header calls this)
+function searchLecturers(){
+    const q = ($("search") && $("search").value) || "";
     renderPage(1, q);
 }
 
-// Enter để search
-$("search")?.addEventListener("keydown", e => {
-    if (e.key === "Enter") searchLecturers();
-});
+// Hook Enter key on search input
+(function(){
+    const s = $("search");
+    if(s){
+        s.addEventListener("keydown", (e) => {
+            if(e.key === "Enter") searchLecturers();
+        });
+    }
+})();
 
-// ------------------------------
-// CHATBOT
-// ------------------------------
-function toggleChatbot() {
+
+// =====================
+// CHATBOT (toggle + simple replies + open modal shortcut)
+// =====================
+
+function toggleChatbot(){
     const box = $("chatbot-box");
-    box.style.display = box.style.display === "block" ? "none" : "block";
+    if(!box) return;
+    box.style.display = (box.style.display === "block") ? "none" : "block";
 }
 
-function sendChatbotMessage() {
+function sendChatbotMessage(){
     const input = $("chatbot-input");
-    const msgBox = $("chatbot-messages");
-
+    const messages = $("chatbot-messages");
+    if(!input || !messages) return;
     const text = input.value.trim();
-    if (!text) return;
+    if(!text) return;
 
-    msgBox.innerHTML += `<div class="chatbot-message user">${text}</div>`;
-    msgBox.scrollTop = msgBox.scrollHeight;
+    // Append user message
+    messages.innerHTML += `<div class="chatbot-message user">${escapeHtml(text)}</div>`;
+    messages.scrollTop = messages.scrollHeight;
     input.value = "";
 
+    // Bot thinking...
     setTimeout(() => {
-        const t = text.toLowerCase();
+        // try to find best match by name
+        const q = text.toLowerCase();
+        const match = lecturers.find(l => l.name.toLowerCase().includes(q) || (l.area||[]).join(" ").toLowerCase().includes(q));
 
-        const found = lecturers.find(l =>
-            l.name.toLowerCase().includes(t)
-        );
-
-        if (found) {
-            msgBox.innerHTML += `
-                <div class="chatbot-message bot">
-                    Bạn muốn xem <b>${found.name}</b>?
-                    <a href="#" onclick="openDetail('${found.key}'); return false;">Mở chi tiết</a>
-                </div>
-            `;
+        if(match){
+            // If found, give option to open detail
+            messages.innerHTML += `<div class="chatbot-message bot">Tìm thấy: <b>${escapeHtml(match.name)}</b>. <a href="#" onclick="openDetail('${match.key}'); return false;" style="color:var(--primary);font-weight:700">Xem chi tiết</a></div>`;
+        } else if (/trang|page|số/i.test(text) ){
+            messages.innerHTML += `<div class="chatbot-message bot">Bạn có thể nhập số trang hoặc dùng phân trang phía dưới để chuyển trang.</div>`;
         } else {
-            msgBox.innerHTML += `
-                <div class="chatbot-message bot">
-                    Mình chưa hiểu, bạn thử gõ tên giảng viên nhé.
-                </div>
-            `;
+            // generic reply with a few suggestions
+            const suggestions = lecturers.slice(0,3).map(l=>`<a href="#" onclick="openDetail('${l.key}'); return false;">${escapeHtml(l.name)}</a>`).join(' · ');
+            messages.innerHTML += `<div class="chatbot-message bot">Mình chưa hiểu hoàn toàn. Bạn có thể thử gõ tên giảng viên (ví dụ: "Lê Hiếu Học") hoặc chọn: ${suggestions}</div>`;
         }
-
-        msgBox.scrollTop = msgBox.scrollHeight;
-    }, 500);
+        messages.scrollTop = messages.scrollHeight;
+    }, 450);
 }
 
-// ------------------------------
-// KHỞI TẠO
-// ------------------------------
-window.addEventListener("DOMContentLoaded", () => {
-    // Cho phép click nền để tắt modal
-    $("modal-bg")?.addEventListener("click", closeModal);
+// allow pressing Enter in chatbot input
+(function(){
+    const ci = $("chatbot-input");
+    if(ci){
+        ci.addEventListener("keydown", (e) => {
+            if(e.key === "Enter") sendChatbotMessage();
+        });
+    }
+})();
 
-    // Render lần đầu
-    renderPage(1);
+
+// =====================
+// Initialize (override previous broken initializations)
+// =====================
+window.addEventListener('DOMContentLoaded', ()=> {
+    // ensure modal bg closes modal when clicked
+    const modalBg = $("modal-bg") || $("detail-modal-bg") || null;
+    if(modalBg) modalBg.addEventListener('click', closeModal);
+
+    // initial render
+    renderPage(1, $("search") ? $("search").value : "");
 });
 </script>
-
-
