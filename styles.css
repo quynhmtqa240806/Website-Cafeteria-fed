@@ -1,308 +1,119 @@
-/* =============== RESET =============== */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: "Segoe UI", sans-serif;
+:root{
+  --blue:#176bd7;
+  --brand:#1b2c6d;
+  --muted:#6b7280;
+  --card-bg:#fff;
+  --surface:#f6f8fb;
 }
 
-body {
-    background: #f5f7fb;
-    color: #1b2c6d;
+/* Reset + base */
+*{box-sizing:border-box}
+body{
+  margin:0; font-family:Inter, "Poppins", Arial, sans-serif;
+  background:#f7f9fb; color:var(--brand);
+  -webkit-font-smoothing:antialiased;
+}
+a{color:inherit; text-decoration:none}
+
+/* HEADER */
+.site-header{
+  display:flex; align-items:center; gap:24px;
+  padding:18px 32px; background:#fff;
+  box-shadow:0 2px 12px rgba(30,50,120,0.06);
+  position:sticky; top:0; z-index:50;
+}
+.logo-zone{display:flex; align-items:center; gap:12px}
+.logo{height:40px}
+.brand{font-weight:800; color:var(--brand); font-size:1.15rem}
+.main-nav{margin-left:24px; display:flex; gap:18px; align-items:center}
+.main-nav a{color:#47507a; font-weight:600; padding:6px 10px; border-radius:8px}
+.main-nav a.active{background: #eaf2ff; color:var(--blue)}
+.search-bar{margin-left:auto; display:flex; gap:8px; align-items:center}
+.search-bar input{padding:8px 12px; border-radius:20px; border:1.5px solid #e1e6f2; width:320px; background:#fff}
+.search-bar button{border:none; background:var(--blue); color:#fff; padding:8px 12px; border-radius:8px; cursor:pointer}
+
+/* MAIN */
+.container{max-width:1200px; margin:28px auto; padding:0 18px}
+.hero h1{margin:0 0 6px; font-size:1.6rem; color:var(--brand)}
+.lead{margin:0 0 18px; color:var(--muted)}
+
+/* GRID */
+.grid{
+  display:grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap:22px;
+  margin-bottom:18px;
+}
+.card{
+  background:var(--card-bg);
+  border-radius:14px;
+  padding:18px;
+  box-shadow:0 6px 22px rgba(20,40,100,0.06);
+  display:flex; flex-direction:column; align-items:center;
+  min-height:300px;
+  transition:transform .14s, box-shadow .14s;
+}
+.card:hover{ transform:translateY(-6px); box-shadow:0 12px 30px rgba(20,40,100,0.08) }
+
+.card-top{ width:100%; display:flex; justify-content:center; margin-bottom:12px; }
+.card-img{
+  width:160px; height:210px; object-fit:cover; border-radius:12px;
+  background:#eef4fb; box-shadow:0 6px 20px rgba(100,120,200,0.06);
+  cursor:pointer;
 }
 
-/* =============== HEADER =============== */
-.site-header {
-    width: 100%;
-    padding: 14px 2vw;
-    background: #fff;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    border-bottom: 2px solid #dce3f4;
-    position: sticky;
-    top: 0;
-    z-index: 20;
-}
+.card-body{text-align:center}
+.card-name{margin:6px 0 6px; font-size:1rem}
+.card-name a{color:var(--brand); font-weight:700}
+.card-title{color:var(--blue); font-weight:600; margin-bottom:6px}
+.card-dept{background:#eef5ff; color:var(--blue); padding:6px 10px; border-radius:8px; display:inline-block; font-size:0.9rem}
 
-.logo-zone {
-    display: flex;
-    align-items: center;
-    gap: 12px;
+/* pagination */
+.pagination{display:flex; gap:8px; justify-content:center; margin:8px 0 50px}
+.page-btn{
+  border:1px solid #e3e8f6; background:#fff; padding:8px 12px; border-radius:8px; cursor:pointer;
 }
+.page-btn.active{background:var(--blue); color:#fff; border-color:var(--blue)}
+.page-btn:disabled{opacity:0.5; cursor:not-allowed}
+.page-btn i{font-size:0.9rem}
 
-.brand {
-    font-size: 20px;
-    font-weight: 700;
-    color: #1b2c6d;
-}
+/* modal */
+.modal-bg{position:fixed; inset:0; background:rgba(13,30,70,0.12); z-index:120}
+.modal{position:fixed; z-index:121; left:50%; top:50%; transform:translate(-50%,-50%); background:#fff; padding:22px; border-radius:12px; box-shadow:0 12px 40px rgba(20,40,100,0.18); width:min(920px,94vw); max-height:85vh; overflow:auto}
+.modal-close{position:absolute; right:18px; top:12px; background:transparent; border:none; font-size:1.4rem; cursor:pointer; color:var(--brand)}
+.modal-profile{display:flex; gap:18px}
+.modal-img{width:160px; height:220px; object-fit:cover; border-radius:10px; background:#eef4fb}
+.modal-info h2{margin:0 0 6px}
+.modal-info p{margin:6px 0; color:#344063}
+.modal-info ul{padding-left:18px; margin:8px 0 16px}
 
-nav a {
-    margin: 0 10px;
-    color: #1b2c6d;
-    font-weight: 600;
-    text-decoration: none;
-}
-nav a:hover {
-    color: #2772b2;
-}
+/* chatbot */
+.chatbot-widget{position:fixed; right:24px; bottom:24px; z-index:200; display:flex; flex-direction:column; align-items:flex-end; gap:8px}
+.chatbot-toggle{background:var(--blue); color:#fff; border:none; padding:10px 16px; border-radius:10px; cursor:pointer; box-shadow:0 6px 20px rgba(23,107,215,0.18)}
+.chatbot-box{width:320px; background:#fff; border-radius:10px; box-shadow:0 8px 30px rgba(20,40,100,0.15); overflow:hidden}
+.chatbot-head{background:var(--blue); color:#fff; padding:10px; font-weight:700}
+.chatbot-messages{max-height:180px; overflow:auto; padding:12px; background:#f6fbff}
+.msg{margin:8px 0; padding:10px 12px; border-radius:12px; display:inline-block; max-width:86%}
+.msg.bot{background:#e6f0ff; color:var(--brand)}
+.msg.user{background:var(--blue); color:#fff; float:right}
+.chatbot-action{display:flex; gap:8px; padding:10px; background:#eef6ff}
+.chatbot-action input{flex:1; padding:8px 10px; border-radius:8px; border:1px solid #dbeafe}
+.chatbot-action button{background:#0b63c8; color:#fff; border:none; padding:8px 12px; border-radius:8px; cursor:pointer}
 
-.search-bar {
-    display: flex;
-    align-items: center;
-    gap: 6px;
-}
+/* utilities */
+.empty{padding:36px; text-align:center; color:var(--muted)}
+.muted{color:var(--muted)}
 
-.search-bar input {
-    padding: 8px 10px;
-    border: 1px solid #c7d2ec;
-    border-radius: 6px;
-    width: 200px;
-    outline: none;
+/* responsive */
+@media (max-width:1100px){
+  .grid{grid-template-columns:repeat(2,1fr)}
+  .search-bar input{width:220px}
 }
-.search-bar button {
-    background: #2772b2;
-    border: 0;
-    color: #fff;
-    padding: 8px 14px;
-    border-radius: 6px;
-    cursor: pointer;
-}
-
-/* =============== GRID CARD =============== */
-.card-list {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 18px;
-    margin-top: 20px;
-}
-
-.lecturer-card {
-    background: #ffffff;
-    padding: 12px;
-    border-radius: 14px;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.07);
-    cursor: pointer;
-    transition: 0.25s;
-}
-.lecturer-card:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 6px 16px rgba(0,0,0,0.10);
-}
-
-.lecturer-card img {
-    width: 100%;
-    height: 215px;
-    object-fit: cover;
-    border-radius: 12px;
-}
-
-.star-rating {
-    margin-top: 6px;
-    color: #ffb400;
-    display: flex;
-    align-items: center;
-    gap: 4px;
-}
-.star-score {
-    margin-left: 6px;
-    font-size: 14px;
-    color: #1b2c6d;
-}
-
-.card-info h3 {
-    margin-top: 8px;
-    font-size: 18px;
-}
-.card-title {
-    color: #576189;
-    font-size: 14px;
-}
-.dept {
-    font-size: 13px;
-    color: #7a8bb5;
-}
-
-/* =============== PAGINATION =============== */
-.pagination {
-    margin: 24px auto;
-    display: flex;
-    justify-content: center;
-    gap: 8px;
-}
-
-.pagination button {
-    padding: 8px 12px;
-    border: none;
-    background: #d5e0f8;
-    border-radius: 6px;
-    cursor: pointer;
-    transition: 0.2s;
-}
-
-.pagination button.active {
-    background: #1b2c6d;
-    color: white;
-    font-weight: 600;
-}
-
-.pagination button:hover {
-    background: #2772b2;
-    color: white;
-}
-
-/* =============== MODAL =============== */
-.modal-bg {
-    position: fixed;
-    inset: 0;
-    background: rgba(0,0,0,0.45);
-    display: none;
-    z-index: 90;
-}
-
-.modal {
-    width: 850px;
-    max-width: 92%;
-    background: #fff;
-    padding: 22px;
-    border-radius: 14px;
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    display: none;
-    z-index: 100;
-    max-height: 85vh;
-    overflow-y: auto;
-}
-
-.close-btn {
-    float: right;
-    font-size: 32px;
-    cursor: pointer;
-}
-
-.modal-profile {
-    display: flex;
-    gap: 20px;
-}
-
-.modal-img {
-    width: 240px;
-    height: 300px;
-    object-fit: cover;
-    border-radius: 12px;
-}
-
-.modal-info h2 {
-    margin-bottom: 8px;
-    color: #1b2c6d;
-}
-
-.modal-info h3 {
-    margin-top: 14px;
-    color: #1b2c6d;
-}
-
-.modal-info ul {
-    margin-left: 18px;
-    color: #42558a;
-    margin-top: 6px;
-}
-
-/* =============== CHATBOT =============== */
-.chatbot-widget {
-    position: fixed;
-    bottom: 18px;
-    right: 18px;
-    z-index: 200;
-}
-
-.chatbot-btn {
-    background: #2772b2;
-    color: #fff;
-    padding: 12px 18px;
-    border: 0;
-    border-radius: 10px;
-    cursor: pointer;
-    font-size: 15px;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-}
-
-.chatbot-box {
-    width: 320px;
-    background: #fff;
-    border-radius: 12px;
-    margin-top: 10px;
-    border: 2px solid #dce3f4;
-    display: none;
-}
-
-.chatbot-head {
-    padding: 10px;
-    background: #1b2c6d;
-    color: white;
-    font-weight: bold;
-    border-radius: 10px 10px 0 0;
-}
-
-.chatbot-messages {
-    padding: 10px;
-    height: 260px;
-    overflow-y: auto;
-}
-
-.chatbot-message {
-    padding: 8px 10px;
-    margin-bottom: 8px;
-    border-radius: 8px;
-    width: fit-content;
-    max-width: 80%;
-}
-
-.chatbot-message.bot {
-    background: #dce3f4;
-    color: #1b2c6d;
-}
-
-.chatbot-message.user {
-    background: #2772b2;
-    color: #fff;
-    margin-left: auto;
-}
-
-.chatbot-action {
-    padding: 8px;
-    display: flex;
-    gap: 6px;
-    border-top: 1px solid #dce3f4;
-}
-
-.chatbot-action input {
-    flex: 1;
-    padding: 8px;
-    border: 1px solid #c7d2ec;
-    border-radius: 6px;
-}
-
-.chatbot-action button {
-    padding: 8px 12px;
-    background: #1b2c6d;
-    color: white;
-    border: none;
-    border-radius: 6px;
-    cursor: pointer;
-}
-
-/* =============== RESPONSIVE =============== */
-@media (max-width: 900px) {
-    .card-list {
-        grid-template-columns: repeat(2, 1fr);
-    }
-}
-
-@media (max-width: 600px) {
-    .card-list {
-        grid-template-columns: repeat(1, 1fr);
-    }
+@media (max-width:640px){
+  .grid{grid-template-columns:1fr}
+  .site-header{flex-direction:column; align-items:flex-start; gap:12px}
+  .search-bar{width:100%}
+  .search-bar input{width:100%}
+  .chatbot-box{width:300px}
+  .modal{width:94vw; height:auto; max-height:90vh}
 }
