@@ -1,347 +1,467 @@
-<!-- ... Tiêu đề, header, menu ... -->
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8" />
+    <title>BOX FED - Bookstore Style</title>
+    <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"/>
+</head>
+<body>
+    <header class="site-header">
+        <div class="logo-zone">
+            <img src="img/logo-bk.png" alt="Logo BK" height="38"/>
+            <span class="brand">BK LECTURER STORE</span>
+        </div>
+        <nav>
+            <a href="#">Trang chủ</a>
+            <a href="#">Giảng viên</a>
+            <a href="#">Review</a>
+            <a href="#">Chatbot</a>
+            <a href="#">Liên hệ</a>
+        </nav>
+        <div class="search-bar">
+            <input type="text" placeholder="Tìm giảng viên..." />
+            <button><i class="fa-solid fa-search"></i></button>
+        </div>
+    </header>
+    <main>
+        <section class="card-list">
+            <!-- CARD GIẢNG VIÊN -->
+            <div class="lecturer-card" onclick="openLecturerDetail('lehieuhoc')">
+                <img src="img/lehieuhoc.jpg" alt="PGS.TS. Lê Hiếu Học" />
+                <div class="star-rating">
+                    <!-- 5 sao -->
+                    <i class="fa-solid fa-star"></i>
+                    <i class="fa-solid fa-star"></i>
+                    <i class="fa-solid fa-star"></i>
+                    <i class="fa-solid fa-star"></i>
+                    <i class="fa-regular fa-star"></i>
+                    <span class="star-score">4.6</span>
+                </div>
+                <div class="card-info">
+                    <h3>PGS.TS. Lê Hiếu Học</h3>
+                    <span class="card-title">Trưởng khoa</span>
+                    <span class="dept">Khoa KH&CN Giáo dục</span>
+                </div>
+            </div>
+            <div class="lecturer-card" onclick="openLecturerDetail('haiphamthithanh')">
+                <img src="img/haiphamthithanh.jpg" alt="PGS.TS. Phạm Thị Thanh Hải" />
+                <div class="star-rating">
+                    <!-- 4 sao -->
+                    <i class="fa-solid fa-star"></i>
+                    <i class="fa-solid fa-star"></i>
+                    <i class="fa-solid fa-star"></i>
+                    <i class="fa-solid fa-star"></i>
+                    <i class="fa-regular fa-star"></i>
+                    <span class="star-score">4.1</span>
+                </div>
+                <div class="card-info">
+                    <h3>PGS.TS. Phạm Thị Thanh Hải</h3>
+                    <span class="card-title">Phó trưởng khoa</span>
+                    <span class="dept">Khoa KH&CN Giáo dục</span>
+                </div>
+            </div>
+            <!-- ... Copy block cho nhiều giảng viên ... -->
+        </section>
+    </main>
 
-<section class="card-list">
-    <!-- PGS.TS. Lê Hiếu Học -->
-    <div class="lecturer-card" onclick="openLecturerDetail('lehieuhoc')">
-        <img src="img/lehieuhoc.jpg" alt="PGS.TS. Lê Hiếu Học" />
-        <div class="star-rating">
-            <i class="fa-solid fa-star"></i>
-            <i class="fa-solid fa-star"></i>
-            <i class="fa-solid fa-star"></i>
-            <i class="fa-solid fa-star"></i>
-            <i class="fa-regular fa-star"></i>
-            <span class="star-score">4.6</span>
-        </div>
-        <div class="card-info">
-            <h3>PGS.TS. Lê Hiếu Học</h3>
-            <span class="card-title">Trưởng khoa</span>
-            <span class="dept">Khoa Khoa học & Công nghệ Giáo dục</span>
-        </div>
+    <!-- MODAL POPUP THÔNG TIN GIẢNG VIÊN -->
+    <div class="modal-bg" id="detail-modal-bg" onclick="closeModal()" style="display:none;"></div>
+    <div class="modal" id="lecturer-modal" style="display:none;">
+        <span class="close-btn" onclick="closeModal()">&times;</span>
+        <div id="modal-content"></div>
     </div>
-    <!-- PGS.TS. Phạm Thị Thanh Hải -->
-    <div class="lecturer-card" onclick="openLecturerDetail('haiphamthithanh')">
-        <img src="img/haiphamthithanh.jpg" alt="PGS.TS. Phạm Thị Thanh Hải" />
-        <div class="star-rating">
-            <i class="fa-solid fa-star"></i>
-            <i class="fa-solid fa-star"></i>
-            <i class="fa-solid fa-star"></i>
-            <i class="fa-solid fa-star"></i>
-            <i class="fa-regular fa-star"></i>
-            <span class="star-score">4.1</span>
-        </div>
-        <div class="card-info">
-            <h3>PGS.TS. Phạm Thị Thanh Hải</h3>
-            <span class="card-title">Phó trưởng khoa, Giảng viên cao cấp</span>
-            <span class="dept">Khoa Khoa học & Công nghệ Giáo dục</span>
-        </div>
-    </div>
-    <!-- TS. Nguyễn Thị Huyền -->
-    <div class="lecturer-card" onclick="openLecturerDetail('nguyenthihuyen')">
-        <img src="img/nguyenthihuyen.jpg" alt="TS. Nguyễn Thị Huyền" />
-        <div class="star-rating">
-            <i class="fa-solid fa-star"></i>
-            <i class="fa-solid fa-star"></i>
-            <i class="fa-solid fa-star"></i>
-            <i class="fa-solid fa-star"></i>
-            <i class="fa-regular fa-star"></i>
-            <span class="star-score">4.2</span>
-        </div>
-        <div class="card-info">
-            <h3>TS. Nguyễn Thị Huyền</h3>
-            <span class="card-title">Giảng viên, Giám đốc CTĐT ngành Công nghệ Giáo dục</span>
-            <span class="dept">Khoa Khoa học & Công nghệ Giáo dục</span>
-        </div>
-    </div>
-    <!-- ThS. Bùi Ngọc Sơn -->
-    <div class="lecturer-card" onclick="openLecturerDetail('buingocson')">
-        <img src="img/buingocson.jpg" alt="ThS. Bùi Ngọc Sơn" />
-        <div class="star-rating">
-            <i class="fa-solid fa-star"></i>
-            <i class="fa-solid fa-star"></i>
-            <i class="fa-solid fa-star"></i>
-            <i class="fa-regular fa-star"></i>
-            <i class="fa-regular fa-star"></i>
-            <span class="star-score">3.8</span>
-        </div>
-        <div class="card-info">
-            <h3>ThS. Bùi Ngọc Sơn</h3>
-            <span class="card-title">Giảng viên</span>
-            <span class="dept">Bộ môn Sư phạm các ngành kỹ thuật</span>
-        </div>
-    </div>
-    <!-- TS. Nguyễn Thị Thanh Tú -->
-    <div class="lecturer-card" onclick="openLecturerDetail('nguyenthithanhtu')">
-        <img src="img/nguyenthithanhtu.jpg" alt="TS. Nguyễn Thị Thanh Tú" />
-        <div class="star-rating">
-            <i class="fa-solid fa-star"></i>
-            <i class="fa-solid fa-star"></i>
-            <i class="fa-solid fa-star"></i>
-            <i class="fa-solid fa-star"></i>
-            <i class="fa-regular fa-star"></i>
-            <span class="star-score">4.3</span>
-        </div>
-        <div class="card-info">
-            <h3>TS. Nguyễn Thị Thanh Tú</h3>
-            <span class="card-title">Giảng viên</span>
-            <span class="dept">Bộ môn Sư phạm các ngành kỹ thuật</span>
-        </div>
-    </div>
-    <!-- TS. Vũ Đình Minh -->
-    <div class="lecturer-card" onclick="openLecturerDetail('vudinhminh')">
-        <img src="img/vudinhminh.jpg" alt="TS. Vũ Đình Minh" />
-        <div class="star-rating">
-            <i class="fa-solid fa-star"></i>
-            <i class="fa-solid fa-star"></i>
-            <i class="fa-solid fa-star"></i>
-            <i class="fa-regular fa-star"></i>
-            <i class="fa-regular fa-star"></i>
-            <span class="star-score">3.9</span>
-        </div>
-        <div class="card-info">
-            <h3>TS. Vũ Đình Minh</h3>
-            <span class="card-title">Giảng viên</span>
-            <span class="dept">Bộ môn Sư phạm các ngành kỹ thuật</span>
-        </div>
-    </div>
-    <!-- Tiếp tục COPY cho các giảng viên khác, đổi tên cho đúng file ảnh -->
-    <!-- TS. Nguyễn Thị Thanh Thủy -->
-    <div class="lecturer-card" onclick="openLecturerDetail('nguyenthithanhthuy')">
-        <img src="img/nguyenthithanhthuy.jpg" alt="TS. Nguyễn Thị Thanh Thủy" />
-        <div class="star-rating">
-            <i class="fa-solid fa-star"></i>
-            <i class="fa-solid fa-star"></i>
-            <i class="fa-solid fa-star"></i>
-            <i class="fa-regular fa-star"></i>
-            <i class="fa-regular fa-star"></i>
-            <span class="star-score">3.8</span>
-        </div>
-        <div class="card-info">
-            <h3>TS. Nguyễn Thị Thanh Thủy</h3>
-            <span class="card-title">Giảng viên</span>
-            <span class="dept">Bộ môn Sư phạm các ngành kỹ thuật</span>
-        </div>
-    </div>
-    <!-- ThS. Đặng Thu Hương -->
-    <div class="lecturer-card" onclick="openLecturerDetail('dangthuhuong')">
-        <img src="img/dangthuhuong.jpg" alt="ThS. Đặng Thu Hương" />
-        <div class="star-rating">
-            <i class="fa-solid fa-star"></i>
-            <i class="fa-solid fa-star"></i>
-            <i class="fa-solid fa-star"></i>
-            <i class="fa-regular fa-star"></i>
-            <i class="fa-regular fa-star"></i>
-            <span class="star-score">3.7</span>
-        </div>
-        <div class="card-info">
-            <h3>ThS. Đặng Thu Hương</h3>
-            <span class="card-title">Giảng viên thực hành</span>
-            <span class="dept">Khoa Khoa học & Công nghệ Giáo dục</span>
-        </div>
-    </div>
-    <!-- ThS. Nguyễn Yến Chi -->
-    <div class="lecturer-card" onclick="openLecturerDetail('nguyenyenchi')">
-        <img src="img/nguyenyenchi.jpg" alt="ThS. Nguyễn Yến Chi" />
-        <div class="star-rating">
-            <i class="fa-solid fa-star"></i>
-            <i class="fa-solid fa-star"></i>
-            <i class="fa-solid fa-star"></i>
-            <i class="fa-regular fa-star"></i>
-            <i class="fa-regular fa-star"></i>
-            <span class="star-score">3.7</span>
-        </div>
-        <div class="card-info">
-            <h3>ThS. Nguyễn Yến Chi</h3>
-            <span class="card-title">Giảng viên</span>
-            <span class="dept">Khoa Khoa học & Công nghệ Giáo dục</span>
-        </div>
-    </div>
-    <!-- CN. Nguyễn Trần Khánh Phương -->
-    <div class="lecturer-card" onclick="openLecturerDetail('nguyentrankhanhphuong')">
-        <img src="img/nguyentrankhanhphuong.jpg" alt="CN. Nguyễn Trần Khánh Phương" />
-        <div class="star-rating">
-            <i class="fa-solid fa-star"></i>
-            <i class="fa-solid fa-star"></i>
-            <i class="fa-solid fa-star"></i>
-            <i class="fa-regular fa-star"></i>
-            <i class="fa-regular fa-star"></i>
-            <span class="star-score">3.5</span>
-        </div>
-        <div class="card-info">
-            <h3>CN. Nguyễn Trần Khánh Phương</h3>
-            <span class="card-title">Giảng viên tạo nguồn</span>
-            <span class="dept">Khoa Khoa học & Công nghệ Giáo dục</span>
-        </div>
-    </div>
-    <!-- TS. Nguyễn Thị Duyên -->
-    <div class="lecturer-card" onclick="openLecturerDetail('nguyenthiduyen')">
-        <img src="img/nguyenthiduyen.jpg" alt="TS. Nguyễn Thị Duyên" />
-        <div class="star-rating">
-            <i class="fa-solid fa-star"></i>
-            <i class="fa-solid fa-star"></i>
-            <i class="fa-solid fa-star"></i>
-            <i class="fa-solid fa-star"></i>
-            <i class="fa-regular fa-star"></i>
-            <span class="star-score">4.2</span>
-        </div>
-        <div class="card-info">
-            <h3>TS. Nguyễn Thị Duyên</h3>
-            <span class="card-title">Giảng viên</span>
-            <span class="dept">Bộ môn Khoa học & Công nghệ giáo dục</span>
-        </div>
-    </div>
-    <!-- TS. Nguyễn Văn Hạnh -->
-    <div class="lecturer-card" onclick="openLecturerDetail('nguyenvanhanh')">
-        <img src="img/nguyenvanhanh.jpg" alt="TS. Nguyễn Văn Hạnh" />
-        <div class="star-rating">
-            <i class="fa-solid fa-star"></i>
-            <i class="fa-solid fa-star"></i>
-            <i class="fa-solid fa-star"></i>
-            <i class="fa-regular fa-star"></i>
-            <i class="fa-regular fa-star"></i>
-            <span class="star-score">3.9</span>
-        </div>
-        <div class="card-info">
-            <h3>TS. Nguyễn Văn Hạnh</h3>
-            <span class="card-title">Giảng viên</span>
-            <span class="dept">Bộ môn Khoa học & Công nghệ giáo dục</span>
-        </div>
-    </div>
-    <!-- PGS.TS. Bùi Thị Thúy Hằng -->
-    <div class="lecturer-card" onclick="openLecturerDetail('buithithuyhang')">
-        <img src="img/buithithuyhang.jpg" alt="PGS.TS. Bùi Thị Thúy Hằng" />
-        <div class="star-rating">
-            <i class="fa-solid fa-star"></i>
-            <i class="fa-solid fa-star"></i>
-            <i class="fa-solid fa-star"></i>
-            <i class="fa-solid fa-star"></i>
-            <i class="fa-regular fa-star"></i>
-            <span class="star-score">4.3</span>
-        </div>
-        <div class="card-info">
-            <h3>PGS.TS. Bùi Thị Thúy Hằng</h3>
-            <span class="card-title">Giảng viên cao cấp</span>
-            <span class="dept">Khoa Khoa học & Công nghệ Giáo dục</span>
-        </div>
-    </div>
-    <!-- PGS.TS. Lê Huy Tùng -->
-    <div class="lecturer-card" onclick="openLecturerDetail('lehuytung')">
-        <img src="img/lehuytung.jpg" alt="PGS.TS. Lê Huy Tùng" />
-        <div class="star-rating">
-            <i class="fa-solid fa-star"></i>
-            <i class="fa-solid fa-star"></i>
-            <i class="fa-solid fa-star"></i>
-            <i class="fa-solid fa-star"></i>
-            <i class="fa-regular fa-star"></i>
-            <span class="star-score">4.2</span>
-        </div>
-        <div class="card-info">
-            <h3>PGS.TS. Lê Huy Tùng</h3>
-            <span class="card-title">Giảng viên chính; Phó Viện trưởng Viện Đào tạo Liên tục</span>
-            <span class="dept">Viện Sư phạm Kỹ thuật</span>
-        </div>
-    </div>
-    <!-- PGS.TS. Phạm Mạnh Hà -->
-    <div class="lecturer-card" onclick="openLecturerDetail('phammanhha')">
-        <img src="img/phammanhha.jpg" alt="PGS.TS. Phạm Mạnh Hà" />
-        <div class="star-rating">
-            <i class="fa-solid fa-star"></i>
-            <i class="fa-solid fa-star"></i>
-            <i class="fa-solid fa-star"></i>
-            <i class="fa-solid fa-star"></i>
-            <i class="fa-regular fa-star"></i>
-            <span class="star-score">4.2</span>
-        </div>
-        <div class="card-info">
-            <h3>PGS.TS. Phạm Mạnh Hà</h3>
-            <span class="card-title">Giảng viên cao cấp</span>
-            <span class="dept">Khoa Khoa học & Công nghệ Giáo dục</span>
-        </div>
-    </div>
-    <!-- TS. Dương Thị Thùy Mai -->
-    <div class="lecturer-card" onclick="openLecturerDetail('duongthithuymai')">
-        <img src="img/duongthithuymai.jpg" alt="TS. Dương Thị Thùy Mai" />
-        <div class="star-rating">
-            <i class="fa-solid fa-star"></i>
-            <i class="fa-solid fa-star"></i>
-            <i class="fa-solid fa-star"></i>
-            <i class="fa-regular fa-star"></i>
-            <i class="fa-regular fa-star"></i>
-            <span class="star-score">3.8</span>
-        </div>
-        <div class="card-info">
-            <h3>TS. Dương Thị Thùy Mai</h3>
-            <span class="card-title">Giảng viên; Phó Giám đốc Trung tâm Đào tạo Liên tục</span>
-            <span class="dept">Viện Sư phạm Kỹ thuật</span>
-        </div>
-    </div>
-    <!-- TS. Nguyễn Tiến Long -->
-    <div class="lecturer-card" onclick="openLecturerDetail('nguyentienlong')">
-        <img src="img/nguyentienlong.jpg" alt="TS. Nguyễn Tiến Long" />
-        <div class="star-rating">
-            <i class="fa-solid fa-star"></i>
-            <i class="fa-solid fa-star"></i>
-            <i class="fa-solid fa-star"></i>
-            <i class="fa-solid fa-star"></i>
-            <i class="fa-regular fa-star"></i>
-            <span class="star-score">4.0</span>
-        </div>
-        <div class="card-info">
-            <h3>TS. Nguyễn Tiến Long</h3>
-            <span class="card-title">Giảng viên; Phó Viện trưởng</span>
-            <span class="dept">Viện Sư phạm Kỹ thuật</span>
-        </div>
-    </div>
-    <!-- ThS. Phạm Hồng Hạnh -->
-    <div class="lecturer-card" onclick="openLecturerDetail('phamhonghanh')">
-        <img src="img/phamhonghanh.jpg" alt="ThS. Phạm Hồng Hạnh" />
-        <div class="star-rating">
-            <i class="fa-solid fa-star"></i>
-            <i class="fa-solid fa-star"></i>
-            <i class="fa-solid fa-star"></i>
-            <i class="fa-regular fa-star"></i>
-            <i class="fa-regular fa-star"></i>
-            <span class="star-score">3.7</span>
-        </div>
-        <div class="card-info">
-            <h3>ThS. Phạm Hồng Hạnh</h3>
-            <span class="card-title">Giảng viên</span>
-            <span class="dept">Viện Sư phạm Kỹ thuật</span>
-        </div>
-    </div>
-    <!-- TS. Hoàng Thị Quỳnh Lan -->
-    <div class="lecturer-card" onclick="openLecturerDetail('hoangthiquynhlan')">
-        <img src="img/hoangthiquynhlan.jpg" alt="TS. Hoàng Thị Quỳnh Lan" />
-        <div class="star-rating">
-            <i class="fa-solid fa-star"></i>
-            <i class="fa-solid fa-star"></i>
-            <i class="fa-solid fa-star"></i>
-            <i class="fa-regular fa-star"></i>
-            <i class="fa-regular fa-star"></i>
-            <span class="star-score">3.8</span>
-        </div>
-        <div class="card-info">
-            <h3>TS. Hoàng Thị Quỳnh Lan</h3>
-            <span class="card-title">Giảng viên</span>
-            <span class="dept">Bộ môn Khoa học & Công nghệ Giáo dục</span>
-        </div>
-    </div>
-    <!-- TS. Trần Thị Thanh Hà -->
-    <div class="lecturer-card" onclick="openLecturerDetail('tranthithanhha')">
-        <img src="img/tranthithanhha.jpg" alt="TS. Trần Thị Thanh Hà" />
-        <div class="star-rating">
-            <i class="fa-solid fa-star"></i>
-            <i class="fa-solid fa-star"></i>
-            <i class="fa-solid fa-star"></i>
-            <i class="fa-regular fa-star"></i>
-            <i class="fa-regular fa-star"></i>
-            <span class="star-score">3.8</span>
-        </div>
-        <div class="card-info">
-            <h3>TS. Trần Thị Thanh Hà</h3>
-            <span class="card-title">Giảng viên</span>
-            <span class="dept">Khoa Khoa học & Công nghệ Giáo dục</span>
-        </div>
-    </div>
-</section>
 
-<!-- ... Tiếp tục phần MODAL, JS, chatbot... -->
+    <!-- CHATBOT SIDEBAR -->
+    <div class="chatbot-widget">
+        <button onclick="toggleChatbot()" class="chatbot-btn"><i class="fa-solid fa-robot"></i> Trợ lý</button>
+        <div class="chatbot-box" id="chatbot-box">
+            <div class="chatbot-head">Chatbot Tâm sự Giảng Viên</div>
+            <div class="chatbot-messages" id="chatbot-messages">
+                <div class="chatbot-message bot">Chào bạn! Hãy hỏi hoặc chia sẻ nhé.</div>
+            </div>
+            <div class="chatbot-action">
+                <input type="text" id="chatbot-input" placeholder="Nhập nội dung..." />
+                <button onclick="sendChatbotMsg()">Gửi</button>
+            </div>
+        </div>
+    </div>
+    <script>
+    // LECTURER DETAIL POPUP
+    const lecturers = {
+       const lecturers = {
+    le_hieu_hoc: {
+    img: "img/le_hieu_hoc.jpg",
+    name: "PGS.TS. Lê Hiếu Học",
+    title: "Trưởng khoa",
+    dept: "Khoa Khoa học & Công nghệ Giáo dục, Đại học Bách khoa Hà Nội",
+    office: "",
+    email: "hoc.lehieu@hust.edu.vn",
+    phone: "+84 24 3868 1432",
+
+    train: [
+        "2001 – 2005: Tiến sĩ Xã hội học & Nghiên cứu Xã hội, Đại học Trento (Ý)",
+        "1999 – 2000: Thạc sĩ Quản trị Kinh doanh (Quản lý Công nghệ), AIT Bangkok",
+        "1998 – 1999: Văn bằng Sau đại học Quản trị Kinh doanh, Swiss – AIT Vietnam MDP",
+        "1994 – 1996: Cử nhân Ngữ văn Anh, Đại học Mở Hà Nội",
+        "1991 – 1996: Cử nhân Kinh tế Xây dựng & Quản lý, Đại học Xây dựng Hà Nội"
+    ],
+
+    work: [
+        "2022 – nay: Trưởng khoa Khoa học & Công nghệ Giáo dục, ĐHBK Hà Nội",
+        "2019 – 2022: Phó Hiệu trưởng, Trường Đại học Phenikaa",
+        "2019 – 2020: Trưởng khoa Kinh tế & Kinh doanh, Đại học Phenikaa",
+        "2018 – 2019: PGS, Trường Kinh tế & Quản lý, ĐHBK Hà Nội",
+        "2000 – 2018: Giảng viên, Trường Kinh tế & Quản lý, ĐHBK Hà Nội",
+        "2013 – 2019: Giám đốc Trung tâm Truyền thông & Quan hệ công chúng, ĐHBK Hà Nội",
+        "1996 – 1998: Chuyên viên quản lý dự án, Tổng Công ty CONSTREXIM"
+    ],
+
+    area: [
+        "Quản trị & Quản lý chất lượng (ISO/TQM)",
+        "Đạo đức kinh doanh & Trách nhiệm xã hội doanh nghiệp (CSR)",
+        "Liên kết Đại học – Doanh nghiệp, chuyển giao công nghệ"
+    ]
+},
+pham_thi_thanh_hai: {
+    img: "img/pham_thi_thanh_hai.jpg",
+    name: "PGS.TS. Phạm Thị Thanh Hải",
+    title: "Phó Trưởng khoa, Giảng viên cao cấp",
+    dept: "Khoa Khoa học & Công nghệ Giáo dục, Đại học Bách khoa Hà Nội",
+    office: "Phòng 325, C7",
+    email: "hai.phamthithanh@hust.edu.vn",
+    phone: "",
+
+    train: [
+        "2013: Tiến sĩ Quản lý Giáo dục, Trường ĐHSP Hà Nội",
+        "2005: Thạc sĩ Quản lý Giáo dục, Trường Đại học Vinh",
+        "1993: Cử nhân Tiếng Anh & Tiếng Nga, Trường Sư phạm Ngoại ngữ – ĐHQG Hà Nội"
+    ],
+
+    work: [
+        "2023 – nay: Giảng viên, Khoa Khoa học & Công nghệ Giáo dục, ĐHBK Hà Nội",
+        "2015 – 2022: Giảng viên cao cấp, Trường Đại học Giáo dục – ĐHQGHN",
+        "2015 – 2022: Trưởng phòng Khoa học & Hợp tác Phát triển, Đại học Giáo dục",
+        "2007 – 2014: Điều phối viên giám sát – đánh giá, Dự án Giáo dục đại học 2 & VNEN",
+        "1997 – 2007: Điều phối viên dự án, Trường Đại học Vinh"
+    ],
+
+    area: [
+        "Quản lý giáo dục",
+        "Công nghệ giáo dục",
+        "Đánh giá chương trình đào tạo"
+    ]
+},
+nguyen_thi_huyen: {
+    img: "img/nguyen_thi_huyen.jpg",
+    name: "TS. Nguyễn Thị Huyền",
+    title: "Giảng viên / Giám đốc chương trình Công nghệ Giáo dục",
+    dept: "Nhóm Công nghệ Giáo dục, Khoa KH&CN Giáo dục, ĐHBK Hà Nội",
+    office: "M329, C7",
+    email: "huyen.nguyenthi2@hust.edu.vn",
+    phone: "+84 24 3868 2451",
+
+    train: [
+        "2016 – 2019: Tiến sĩ Công nghệ Giáo dục, National Central University (Taiwan)",
+        "2012 – 2014: Thạc sĩ Khoa học Máy tính, National Central University (Taiwan)",
+        "2009: Kỹ sư Công nghệ Thực phẩm, Học viện Nông nghiệp Việt Nam"
+    ],
+
+    work: [
+        "2020 – nay: Giảng viên, Trường ĐHBK Hà Nội",
+        "2019 – 2021: Kỹ sư phân tích nghiệp vụ, Viettel Business Solutions",
+        "2010 – 2015: Kỹ sư phần mềm, Wistron Corporation (Taiwan)"
+    ],
+
+    area: [
+        "Mobile Learning, Microlearning",
+        "Interactive Learning Systems",
+        "Game-based Learning",
+        "GenAI & Learning Design"
+    ]
+},
+bui_ngoc_son: {
+    img: "img/bui_ngoc_son.jpg",
+    name: "ThS. Bùi Ngọc Sơn",
+    title: "Giảng viên",
+    dept: "Bộ môn Sư phạm các ngành kỹ thuật, Viện Sư phạm Kỹ thuật, ĐHBK Hà Nội",
+    office: "402, D5",
+    email: "son.buingoc@hust.edu.vn",
+    phone: "+84 24 38681432",
+
+    train: [
+        "2004: Thạc sĩ Sư phạm Dạy nghề, ĐHBK Hà Nội & Đại học Dresden",
+        "2000: Kỹ sư Điều khiển học kỹ thuật, ĐHBK Hà Nội"
+    ],
+
+    work: [
+        "2000 – nay: Giảng viên, Viện Sư phạm Kỹ thuật, Đại học Bách Khoa Hà Nội"
+    ],
+
+    area: [
+        "Kiểm tra – đánh giá trong giáo dục",
+        "Phát triển chương trình đào tạo",
+        "Công nghệ giáo dục (VR/AR, E-learning)"
+    ]
+},
+nguyen_thi_thanh_tu: {
+    img: "img/nguyen_thi_thanh_tu.jpg",
+    name: "TS. Nguyễn Thị Thanh Tú",
+    title: "Giảng viên",
+    dept: "Bộ môn Sư phạm các ngành kỹ thuật, Viện Sư phạm Kỹ thuật, ĐHBK Hà Nội",
+    office: "302, D3–D5",
+    email: "tu.nguyenthithanh@hust.edu.vn",
+    phone: "+84 24 38682451",
+
+    train: [
+        "2014: Tiến sĩ Công nghệ Thông tin, ĐHBK Hà Nội",
+        "2007: Thạc sĩ Công nghệ Thông tin, Đại học Ulsan (Hàn Quốc)",
+        "2004: Kỹ sư Công nghệ Thông tin, ĐHBK Hà Nội"
+    ],
+
+    work: [
+        "2020 – nay: Giảng viên, Bộ môn Sư phạm các ngành kỹ thuật, ĐHBK Hà Nội",
+        "2004 – 2020: Cán bộ, Trung tâm Mạng Thông tin, Trường ĐHBK Hà Nội"
+    ],
+
+    area: [
+        "Phát triển khóa học trực tuyến",
+        "Đại học thông minh",
+        "Hệ thống giám sát – bảo mật mạng"
+    ]
+},
+vu_dinh_minh: {
+    img: "img/vu_dinh_minh.jpg",
+    name: "TS. Vũ Đình Minh",
+    title: "Giảng viên",
+    dept: "Bộ môn Sư phạm các ngành kỹ thuật, Viện Sư phạm Kỹ thuật, ĐHBK Hà Nội",
+    office: "M329, C7",
+    email: "minh.vudinh@hust.edu.vn",
+    phone: "+84 24 3868 2451",
+
+    train: [
+        "2020: Tiến sĩ Công nghệ Thông tin, Shibaura Institute of Technology (Nhật Bản)",
+        "2014: Thạc sĩ Công nghệ Thông tin, ĐHBK Hà Nội",
+        "2009: Kỹ sư Công nghệ Thông tin, Đại học Mở Hà Nội"
+    ],
+
+    work: [
+        "2022 – nay: Giảng viên, Bộ môn Sư phạm các ngành kỹ thuật, ĐHBK Hà Nội",
+        "2011 – 2020: Cán bộ Trung tâm Mạng Thông tin, ĐHBK Hà Nội",
+        "2009 – 2011: Kỹ sư phần mềm, Tập đoàn CMC"
+    ],
+
+    area: [
+        "Phân tích dữ liệu",
+        "Công nghệ giáo dục",
+        "Hệ thống trao đổi trực tuyến"
+    ]
+},
+nguyen_thi_thanh_thuy: {
+    img: "img/nguyen_thi_thanh_thuy.jpg",
+    name: "TS. Nguyễn Thị Thanh Thủy",
+    title: "Giảng viên",
+    dept: "Bộ môn Sư phạm các ngành kỹ thuật, Viện Sư phạm Kỹ thuật, ĐHBK Hà Nội",
+    office: "M329, C7",
+    email: "thuy.nguyenthithanh@hust.edu.vn",
+    phone: "+84 24 38682451",
+
+    train: [
+        "2021: Tiến sĩ Quản lý Giáo dục, Viện Khoa học Giáo dục Việt Nam",
+        "2014: Thạc sĩ Quản trị Kinh doanh, Đại học Quốc gia Hà Nội",
+        "2011: Cử nhân Quản trị Kinh doanh"
+    ],
+
+    work: [
+        "2022 – nay: Giảng viên, Bộ môn Sư phạm các ngành kỹ thuật, ĐHBK Hà Nội",
+        "2012 – 2023: Nghiên cứu viên, Viện Khoa học Giáo dục Việt Nam"
+    ],
+
+    area: [
+        "Khoa học giáo dục",
+        "Quản lý giáo dục",
+        "Phân tích và dự báo nhu cầu đào tạo nhân lực"
+    ]
+},
+dang_thu_huong: {
+    img: "img/dang_thu_huong.jpg",
+    name: "ThS. Đặng Thu Hương",
+    title: "Giảng viên thực hành",
+    dept: "Nhóm Công nghệ Giáo dục, Khoa KH&CN Giáo dục, ĐHBK Hà Nội",
+    office: "329, C7",
+    email: "huong.dangthu@hust.edu.vn",
+    phone: "+84 979168089",
+
+    train: [
+        "2016: Thạc sĩ Lý luận và Phương pháp dạy học kỹ thuật, ĐHBK Hà Nội",
+        "2013: Cử nhân Sư phạm Kỹ thuật Tin học, ĐHBK Hà Nội"
+    ],
+
+    work: [
+        "2013 – nay: Giảng viên thực hành, Viện Sư phạm Kỹ thuật, ĐHBK Hà Nội",
+        "2014 – nay: Bí thư Liên chi đoàn Viện Sư phạm Kỹ thuật"
+    ],
+
+    area: [
+        "Quản lý giáo dục",
+        "Công nghệ giáo dục",
+        "E-learning và B-learning"
+    ]
+},
+nguyen_yen_chi: {
+    img: "img/nguyen_yen_chi.jpg",
+    name: "ThS. Nguyễn Yến Chi",
+    title: "Giảng viên",
+    dept: "Khoa Khoa học & Công nghệ Giáo dục, ĐHBK Hà Nội",
+    office: "M329, C7",
+    email: "chi.nguyenyen@hust.edu.vn",
+    phone: "+84 912 997 301",
+
+    train: [
+        "2023 – nay: Nghiên cứu sinh Lý luận và Phương pháp dạy học, ĐHBK Hà Nội",
+        "2019: Thạc sĩ Quản lý Giáo dục, University of Bristol (Anh)",
+        "2016: Cử nhân Kinh tế Đối ngoại, Đại học Ngoại thương"
+    ],
+
+    work: [
+        "2023 – nay: Trợ giảng, Khoa KH&CN Giáo dục, ĐHBK Hà Nội",
+        "2020 – 2023: Chuyên viên Văn phòng Đại học, ĐHBK Hà Nội"
+    ],
+
+    area: [
+        "Quản lý giáo dục",
+        "Công nghệ giáo dục",
+        "Học tập tự điều chỉnh"
+    ]
+},
+nguyen_tran_khanh_phuong: {
+    img: "img/nguyen_tran_khanh_phuong.jpg",
+    name: "CN. Nguyễn Trần Khánh Phương",
+    title: "Giảng viên tạo nguồn",
+    dept: "Nhóm Công nghệ Giáo dục, Khoa KH&CN Giáo dục, ĐHBK Hà Nội",
+    office: "M329, C7",
+    email: "phuong.nguyentrankhanh@hust.edu.vn",
+    phone: "",
+
+    train: [
+        "2025 – nay: Thạc sĩ Sư phạm Kỹ thuật, ĐHBK Hà Nội",
+        "2024: Cử nhân Nghệ thuật số, Đại học Stetson (Hoa Kỳ)"
+    ],
+
+    work: [
+        "2025 – nay: Giảng viên tạo nguồn, Khoa KH&CN Giáo dục, ĐHBK Hà Nội",
+        "2024 – 2025: Cán bộ Trung tâm Truyền thông & Tri thức số, ĐHBK Hà Nội"
+    ],
+
+    area: [
+        "Công nghệ giáo dục",
+        "Thiết kế – truyền thông số",
+        "Phát triển học liệu số"
+    ]
+},
+nguyen_thi_duyen: {
+    img: "img/nguyen_thi_duyen.jpg",
+    name: "TS. Nguyễn Thị Duyên",
+    title: "Giảng viên",
+    dept: "Bộ môn Khoa học & Công nghệ Giáo dục, Viện Sư phạm Kỹ thuật, ĐHBK Hà Nội",
+    office: "M327, C7",
+    email: "duyen.nguyenthi@hust.edu.vn",
+    phone: "+84 24 38682451",
+
+    train: [
+        "2021: Tiến sĩ Lý luận và Lịch sử giáo dục, Viện Khoa học Giáo dục Việt Nam",
+        "2014: Thạc sĩ Lý luận và Lịch sử giáo dục, Trường ĐHSP Hà Nội",
+        "2004: Cử nhân Tâm lý giáo dục, Trường ĐHSP Hà Nội"
+    ],
+
+    work: [
+        "2023 – nay: Giảng viên, Bộ môn Khoa học & Công nghệ Giáo dục, ĐHBK Hà Nội",
+        "2004 – 2020: Giảng viên, Trường Đại học Sư phạm Kỹ thuật Hưng Yên"
+    ],
+
+    area: [
+        "Tâm lý ứng dụng",
+        "Giáo dục nghề nghiệp",
+        "Kỹ năng mềm và tư vấn hướng nghiệp"
+    ]
+},
+nguyen_van_hanh: {
+    img: "img/nguyen_van_hanh.jpg",
+    name: "TS. Nguyễn Văn Hạnh",
+    title: "Giảng viên",
+    dept: "Bộ môn Khoa học & Công nghệ Giáo dục, Viện Sư phạm Kỹ thuật, ĐHBK Hà Nội",
+    office: "302, D3–D5",
+    email: "hanh.nguyenvan@hust.edu.vn",
+    phone: "+84 24 38681432",
+
+    train: [
+        "2017: Tiến sĩ Khoa học Giáo dục, Trường ĐHSP Hà Nội",
+        "2013: Thạc sĩ Cơ khí Động lực, Trường ĐHBK Hà Nội",
+        "2008: Cử nhân Sư phạm Kỹ thuật, Trường ĐHSP Hà Nội"
+    ],
+
+    work: [
+        "2018 – nay: Giảng viên, Bộ môn Khoa học & Công nghệ Giáo dục, ĐHBK Hà Nội",
+        "2008 – 2018: Giảng viên, Trường ĐHSPKT Hưng Yên"
+    ],
+
+    area: [
+        "Công nghệ giáo dục",
+        "Giáo dục STEM",
+        "Học tập trải nghiệm"
+    ]
+},
+    
+
+});
+
+    };
+    function openLecturerDetail(key){
+        const lec = lecturers[key];
+        if(!lec) return;
+        let html = `<div class="modal-profile">
+           <img src="${lec.img}" alt="${lec.name}" class="modal-img"/>
+           <div>
+              <h2>${lec.name}</h2>
+              <div><b>${lec.title}</b></div>
+              <div><b>${lec.dept}</b></div>
+              <div><b>Email:</b> ${lec.email}</div>
+              ${lec.phone ? `<div><b>Điện thoại:</b> ${lec.phone}</div>` : ""}
+              <div class="modal-tab">
+                 <b>Đào tạo:</b>
+                 <ul>${lec.train?.map(item=>`<li>${item}</li>`).join('')}</ul>
+                 <b>Kinh nghiệm:</b>
+                 <ul>${lec.work?.map(item=>`<li>${item}</li>`).join('')}</ul>
+                 ${lec.area ? `<b>Lĩnh vực:</b><ul>${lec.area?.map(item=>`<li>${item}</li>`).join('')}</ul>`:""}
+              </div>
+           </div>
+        </div>`;
+        document.getElementById('modal-content').innerHTML = html;
+        document.getElementById('detail-modal-bg').style.display = "block";
+        document.getElementById('lecturer-modal').style.display = "block";
+    }
+    function closeModal(){
+        document.getElementById('detail-modal-bg').style.display = "none";
+        document.getElementById('lecturer-modal').style.display = "none";
+    }
+    // CHATBOT
+    function toggleChatbot(){
+        let box = document.getElementById('chatbot-box');
+        box.style.display = (box.style.display=="block") ? "none":"block";
+    }
+    function sendChatbotMsg(){
+        const input = document.getElementById('chatbot-input');
+        const msg = input.value.trim();
+        const messages = document.getElementById('chatbot-messages');
+        if(msg.length===0) return;
+        messages.innerHTML += `<div class="chatbot-message user">${msg}</div>`;
+        setTimeout(function(){
+            messages.innerHTML += `<div class="chatbot-message bot">Cảm ơn bạn đã chia sẻ! Nếu cần thông tin về giảng viên hãy hỏi nhé.</div>`;
+            messages.scrollTop = messages.scrollHeight;
+        },500);
+        input.value = "";
+        messages.scrollTop = messages.scrollHeight;
+    }
+    </script>
+</body>
+</html>
