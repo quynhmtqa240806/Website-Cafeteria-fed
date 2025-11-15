@@ -1,204 +1,227 @@
 <!DOCTYPE html>
 <html lang="vi">
 <head>
-    <meta charset="UTF-8" />
-    <title>BK LECTURER STORE - Trang chủ</title>
-    <meta name="viewport" content="width=device-width,initial-scale=1" />
-    <link rel="stylesheet" href="styles.css" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"/>
+    <meta charset="UTF-8">
+    <title>Danh sách giảng viên — BK</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" 
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
 </head>
+
 <body>
 
-    <!-- HEADER -->
-    <header class="site-header">
-        <div class="logo-zone">
-            <img src="img/logo-bk.png" alt="Logo BK" height="38"/>
-            <span class="brand">BK LECTURER STORE</span>
-        </div>
-
-        <nav>
-            <a href="index.html">Trang chủ</a>
-            <a href="lecturers.html">Giảng viên</a>
-            <a href="#">Review</a>
-            <a href="#">Chatbot</a>
-            <a href="#">Liên hệ</a>
-        </nav>
-
-        <div class="search-bar">
-            <input id="main-search" type="text" placeholder="Tìm giảng viên..." />
-            <button id="main-search-btn"><i class="fa-solid fa-search"></i></button>
-        </div>
-    </header>
-
-    <!-- HERO / Giới thiệu nhỏ -->
-    <main>
-        <section style="padding:28px 2vw 6px;background:linear-gradient(90deg,#f8fbff,#ffffff);border-bottom:1px solid #eef3ff;">
-            <div style="max-width:1100px;margin:0 auto;display:flex;gap:18px;align-items:center;">
-                <div style="flex:1">
-                    <h1 style="margin:0;color:#1b2c6d;font-size:1.6rem;">Danh sách giảng viên — Khoa Khoa học & Công nghệ Giáo dục</h1>
-                    <p style="margin:6px 0 0;color:#4b5785">Click vào ảnh hoặc tên để xem chi tiết. Nhấn "Xem tất cả giảng viên" để qua trang đầy đủ.</p>
-                </div>
-                <div>
-                    <a href="lecturers.html" class="chatbot-btn" style="border-radius:10px;padding:10px 16px;display:inline-block;">
-                        <i class="fa-solid fa-list"></i> Xem tất cả giảng viên
-                    </a>
-                </div>
-            </div>
-        </section>
-
-        <!-- LIST HIỂN THỊ 2 GIẢNG VIÊN NỔI BẬT -->
-        <section class="card-list" style="max-width:1100px;margin:22px auto;">
-            <!-- Thầy Học -->
-            <div class="lecturer-card" onclick="openLecturerDetail('le_hieu_hoc')">
-                <img src="img/le_hieu_hoc.jpg" alt="PGS.TS. Lê Hiếu Học" />
-                <div class="star-rating">
-                    <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
-                    <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
-                    <i class="fa-regular fa-star"></i>
-                    <span class="star-score">4.6</span>
-                </div>
-                <div class="card-info">
-                    <h3>PGS.TS. Lê Hiếu Học</h3>
-                    <span class="card-title">Trưởng khoa</span>
-                    <span class="dept">Khoa KH&CN Giáo dục</span>
-                </div>
-            </div>
-
-            <!-- Cô Hải -->
-            <div class="lecturer-card" onclick="openLecturerDetail('pham_thi_thanh_hai')">
-                <img src="img/pham_thi_thanh_hai.jpg" alt="PGS.TS. Phạm Thị Thanh Hải" />
-                <div class="star-rating">
-                    <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
-                    <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
-                    <i class="fa-regular fa-star"></i>
-                    <span class="star-score">4.1</span>
-                </div>
-                <div class="card-info">
-                    <h3>PGS.TS. Phạm Thị Thanh Hải</h3>
-                    <span class="card-title">Phó Trưởng khoa</span>
-                    <span class="dept">Khoa KH&CN Giáo dục</span>
-                </div>
-            </div>
-        </section>
-    </main>
-
-    <!-- MODAL CHUNG -->
-    <div id="detail-modal-bg" class="modal-bg" onclick="closeModal()" style="display:none;"></div>
-    <div id="lecturer-modal" class="modal" style="display:none;">
-        <span class="close-btn" onclick="closeModal()">&times;</span>
-        <div id="modal-content"></div>
+<header class="site-header">
+    <div class="logo-zone">
+        <img src="img/logo-bk.png" height="38">
+        <span class="brand">BK LECTURER STORE</span>
     </div>
 
-    <!-- CHATBOT (góc phải) -->
-    <div class="chatbot-widget">
-        <button onclick="toggleChatbot()" class="chatbot-btn"><i class="fa-solid fa-robot"></i> Trợ lý</button>
-        <div class="chatbot-box" id="chatbot-box">
-            <div class="chatbot-head">Chatbot Tâm sự Giảng Viên</div>
-            <div class="chatbot-messages" id="chatbot-messages">
-                <div class="chatbot-message bot">Chào bạn! Hãy hỏi hoặc chia sẻ nhé.</div>
-            </div>
-            <div class="chatbot-action">
-                <input type="text" id="chatbot-input" placeholder="Nhập nội dung..." />
-                <button onclick="sendChatbotMsg()">Gửi</button>
-            </div>
-        </div>
+    <nav>
+        <a class="active" href="index.html">Trang chủ</a>
+        <a href="#">Review</a>
+        <a href="#">Chatbot</a>
+        <a href="#">Liên hệ</a>
+    </nav>
+
+    <div class="search-bar">
+        <input id="search-input" type="text" placeholder="Tìm theo tên hoặc lĩnh vực...">
+        <button id="search-btn"><i class="fa-solid fa-search"></i></button>
     </div>
+</header>
+
+<main>
+    <section style="padding:20px 2vw; max-width:1200px; margin:auto;">
+        <h2 style="color:#1b2c6d">Danh sách giảng viên</h2>
+        <p style="color:#576189">Chọn giảng viên để xem chi tiết.</p>
+
+        <section id="full-list" class="card-list"></section>
+
+        <div id="pagination" style="text-align:center; margin:25px 0;"></div>
+    </section>
+</main>
+
+<!-- MODAL -->
+<div id="detail-modal-bg" class="modal-bg" onclick="closeModal()" style="display:none;"></div>
+<div id="lecturer-modal" class="modal" style="display:none;">
+    <span class="close-btn" onclick="closeModal()">&times;</span>
+    <div id="modal-content"></div>
+</div>
 
 <script>
-// DỮ LIỆU DÙNG CHUNG CHO CẢ INDEX & LECTURERS
+/* ========================== PHẦN 2 — DỮ LIỆU GIẢNG VIÊN =============================== */
+
 const lecturers = {
     le_hieu_hoc: {
         img: "img/le_hieu_hoc.jpg",
         name: "PGS.TS. Lê Hiếu Học",
         title: "Trưởng khoa",
-        dept: "Khoa Khoa học & Công nghệ Giáo dục, Đại học Bách Khoa Hà Nội",
+        dept: "Khoa Khoa học & Công nghệ Giáo dục",
         office: "(đang cập nhật)",
         email: "hoc.lehieu@hust.edu.vn",
         phone: "(+84) 24 3868 1432",
         train: [
             "2001 – 2005: Tiến sĩ Xã hội học & Nghiên cứu Xã hội, Đại học Trento, Ý",
-            "1999 – 2000: Thạc sĩ Quản trị Kinh doanh (Quản lý Công nghệ), AIT, Bangkok",
-            "1998 – 1999: Văn bằng Sau đại học Quản trị Kinh doanh, Swiss AIT Vietnam MDP",
-            "1994 – 1996: Cử nhân Ngữ văn Anh, Đại học Mở Hà Nội",
-            "1991 – 1996: Cử nhân Kinh tế Xây dựng & Quản lý, Đại học Xây dựng Hà Nội"
+            "1999 – 2000: Thạc sĩ MBA, AIT Bangkok"
         ],
         work: [
-            "04/2022 – nay: Trưởng khoa Khoa học & Công nghệ Giáo dục, ĐHBK Hà Nội",
-            "06/2019 – 03/2022: Phó Hiệu trưởng, Đại học Phenikaa",
-            "05/2018 – 05/2019: PGS, Trường Kinh tế & Quản lý, ĐHBK Hà Nội",
-            "09/2000 – 05/2018: Giảng viên, Trường Kinh tế & Quản lý, ĐHBK Hà Nội"
+            "2022 – nay: Trưởng khoa KH&CN Giáo dục, ĐHBK Hà Nội",
+            "2019 – 2022: Phó Hiệu trưởng ĐH Phenikaa"
         ],
-        area: [
-            "Quản trị, Quản lý chất lượng (TQM/ISO)",
-            "Đạo đức kinh doanh & Trách nhiệm xã hội doanh nghiệp (CSR)",
-            "Liên kết Đại học – Doanh nghiệp, chuyển giao công nghệ"
-        ]
+        area: ["Quản trị", "Quản lý chất lượng", "CSR", "Liên kết đại học - doanh nghiệp"]
     },
 
     pham_thi_thanh_hai: {
         img: "img/pham_thi_thanh_hai.jpg",
         name: "PGS.TS. Phạm Thị Thanh Hải",
         title: "Phó Trưởng khoa, Giảng viên cao cấp",
-        dept: "Khoa Khoa học & Công nghệ Giáo dục, Đại học Bách Khoa Hà Nội",
-        office: "325, C7, ĐHBK Hà Nội",
+        dept: "Khoa Khoa học & Công nghệ Giáo dục",
+        office: "Phòng 325, C7",
         email: "hai.phamthithanh@hust.edu.vn",
-        phone: "(đang cập nhật)",
-        train: [
-            "2013: Tiến sĩ Quản lý giáo dục, Trường ĐHSP Hà Nội",
-            "2005: Thạc sĩ Quản lý giáo dục, Trường Đại học Vinh",
-            "1993: Cử nhân Tiếng Anh; Cử nhân Tiếng Nga"
-        ],
-        work: [
-            "2023 – nay: Giảng viên, Khoa KH&CN Giáo dục, ĐHBK Hà Nội",
-            "2015 – 2022: Giảng viên cao cấp, Trường ĐH Giáo dục (ĐHQGHN)",
-            "2007 – 2014: Điều phối viên Giám sát & Đánh giá, Dự án Giáo dục Đại học 2"
-        ],
-        area: [
-            "Công nghệ giáo dục",
-            "Đánh giá chương trình đào tạo",
-            "Quản lý giáo dục"
-        ]
+        train: ["2013: Tiến sĩ Quản lý giáo dục", "2005: Thạc sĩ Quản lý giáo dục"],
+        work: ["2023 – nay: Giảng viên ĐHBK Hà Nội"],
+        area: ["Công nghệ giáo dục", "Đánh giá chương trình đào tạo"]
+    },
+
+    nguyen_thi_huyen: {
+        img: "img/nguyen_thi_huyen.jpg",
+        name: "TS. Nguyễn Thị Huyền",
+        title: "Giảng viên",
+        dept: "Khoa KH&CN Giáo dục",
+        office: "M329, C7",
+        email: "huyen.nguyenthi2@hust.edu.vn",
+        train: ["2019: Tiến sĩ Công nghệ Giáo dục – NCU Taiwan"],
+        work: ["2020 – nay: Giảng viên ĐHBK Hà Nội"],
+        area: ["Mobile learning", "Interactive learning", "GenAI Learning Design"]
+    },
+
+    bui_ngoc_son: {
+        img: "img/bui_ngoc_son.jpg",
+        name: "ThS. Bùi Ngọc Sơn",
+        title: "Giảng viên",
+        dept: "Viện Sư phạm Kỹ thuật",
+        office: "402 D5",
+        email: "son.buingoc@hust.edu.vn",
+        train: ["2004: Thạc sĩ SP Dạy nghề"],
+        work: ["2000 – nay: Giảng viên ĐHBK Hà Nội"],
+        area: ["Kiểm tra đánh giá", "Phát triển CTĐT"]
     }
 };
 
-// ---- Popup detail ----
-function openLecturerDetail(key){
+/* ===================== PHẦN 3 + 4 — HIỂN THỊ + PHÂN TRANG + MODAL ===================== */
+
+const itemsPerPage = 4;  
+let currentPage = 1;
+
+const listContainer = document.getElementById("full-list");
+const paginationContainer = document.getElementById("pagination");
+
+function renderList(filter = "") {
+    const q = filter.trim().toLowerCase();
+
+    const data = Object.keys(lecturers).filter(key => {
+        const lec = lecturers[key];
+        const s = (lec.name + " " + lec.dept + " " + (lec.area || []).join(" ")).toLowerCase();
+        return !q || s.includes(q);
+    });
+
+    const totalPages = Math.ceil(data.length / itemsPerPage);
+    if (currentPage > totalPages) currentPage = 1;
+
+    const start = (currentPage - 1) * itemsPerPage;
+    const items = data.slice(start, start + itemsPerPage);
+
+    listContainer.innerHTML = "";
+
+    items.forEach(key => {
+        const lec = lecturers[key];
+        const card = document.createElement("div");
+        card.className = "lecturer-card";
+        card.onclick = () => openLecturerDetail(key);
+
+        card.innerHTML = `
+            <img src="${lec.img}">
+            <div class="card-info">
+                <h3>${lec.name}</h3>
+                <span class="card-title">${lec.title}</span>
+                <span class="dept">${lec.dept}</span>
+            </div>
+        `;
+        listContainer.appendChild(card);
+    });
+
+    renderPagination(totalPages);
+}
+
+function renderPagination(totalPages) {
+    paginationContainer.innerHTML = "";
+    if (totalPages <= 1) return;
+
+    const prev = document.createElement("button");
+    prev.textContent = "← Trước";
+    prev.disabled = currentPage === 1;
+    prev.onclick = () => { currentPage--; renderList(); };
+    paginationContainer.appendChild(prev);
+
+    for (let i = 1; i <= totalPages; i++) {
+        const btn = document.createElement("button");
+        btn.textContent = i;
+        btn.className = (i === currentPage) ? "active-page" : "";
+        btn.onclick = () => { currentPage = i; renderList(); };
+        paginationContainer.appendChild(btn);
+    }
+
+    const next = document.createElement("button");
+    next.textContent = "Tiếp →";
+    next.disabled = currentPage === totalPages;
+    next.onclick = () => { currentPage++; renderList(); };
+    paginationContainer.appendChild(next);
+}
+
+function openLecturerDetail(key) {
     const lec = lecturers[key];
-    if(!lec) return;
-    let html = `<div class="modal-profile">
-        <img src="${lec.img}" class="modal-img" alt="${lec.name}"/>
-        <div>
-            <h2>${lec.name}</h2>
-            <div><b>${lec.title}</b></div>
-            <div>${lec.dept}</div>
-            <div><b>Phòng:</b> ${lec.office || "(đang cập nhật)"}</div>
-            <div><b>Email:</b> ${lec.email || ""}</div>
-            ${lec.phone ? `<div><b>Điện thoại:</b> ${lec.phone}</div>` : ""}
-            <div class="modal-tab">
-                <b>Quá trình đào tạo:</b>
-                <ul>${(lec.train||[]).map(t=>`<li>${t}</li>`).join('')}</ul>
-                <b>Quá trình công tác:</b>
-                <ul>${(lec.work||[]).map(w=>`<li>${w}</li>`).join('')}</ul>
-                ${lec.area ? `<b>Lĩnh vực nghiên cứu:</b><ul>${lec.area.map(a=>`<li>${a}</li>`).join('')}</ul>` : ""}
+
+    document.getElementById("modal-content").innerHTML = `
+        <div class="modal-profile">
+            <img class="modal-img" src="${lec.img}">
+            <div>
+                <h2>${lec.name}</h2>
+                <b>${lec.title}</b><br>
+                ${lec.dept}<br><br>
+
+                <b>Phòng:</b> ${lec.office || "(đang cập nhật)"}<br>
+                <b>Email:</b> ${lec.email}<br>
+                ${lec.phone ? `<b>Điện thoại:</b> ${lec.phone}<br>` : ""}
+
+                <div class="modal-tab">
+                    <b>Đào tạo:</b>
+                    <ul>${lec.train.map(t => `<li>${t}</li>`).join("")}</ul>
+
+                    <b>Công tác:</b>
+                    <ul>${lec.work.map(w => `<li>${w}</li>`).join("")}</ul>
+
+                    <b>Lĩnh vực:</b>
+                    <ul>${lec.area.map(a => `<li>${a}</li>`).join("")}</ul>
+                </div>
             </div>
         </div>
-    </div>`;
-    document.getElementById('modal-content').innerHTML = html;
-    document.getElementById('detail-modal-bg').style.display = "block";
-    document.getElementById('lecturer-modal').style.display = "block";
+    `;
+
+    document.getElementById("detail-modal-bg").style.display = "block";
+    document.getElementById("lecturer-modal").style.display = "block";
 }
-function closeModal(){ document.getElementById('detail-modal-bg').style.display='none'; document.getElementById('lecturer-modal').style.display='none'; }
 
-// ---- Chatbot small ----
-function toggleChatbot(){ let box = document.getElementById('chatbot-box'); box.style.display = (box.style.display==='block')? 'none':'block'; }
-function sendChatbotMsg(){ const input=document.getElementById('chatbot-input'); const msg=input.value.trim(); if(!msg) return; const messages=document.getElementById('chatbot-messages'); messages.innerHTML += `<div class="chatbot-message user">${msg}</div>`; setTimeout(()=>{ messages.innerHTML += `<div class="chatbot-message bot">Cảm ơn bạn! Mình có thể giúp tìm thông tin giảng viên.</div>`; messages.scrollTop = messages.scrollHeight; },500); input.value=''; messages.scrollTop = messages.scrollHeight; }
+function closeModal() {
+    document.getElementById("detail-modal-bg").style.display = "none";
+    document.getElementById("lecturer-modal").style.display = "none";
+}
 
-// ---- Main search quick -> mở lecturers.html và filter bằng query param ----
-document.getElementById('main-search-btn').addEventListener('click', ()=>{
-    const q = document.getElementById('main-search').value.trim();
-    if(!q) { location.href = 'lecturers.html'; return; }
-    location.href = 'lecturers.html?q=' + encodeURIComponent(q);
-});
+document.getElementById("search-btn").onclick = () => {
+    currentPage = 1;
+    renderList(document.getElementById("search-input").value);
+};
+
+window.addEventListener("DOMContentLoaded", () => renderList());
 </script>
 
 </body>
