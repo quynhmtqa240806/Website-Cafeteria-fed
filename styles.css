@@ -1,19 +1,28 @@
-/* ===========================
-      BASE + HEADER
-=========================== */
-body {
+/* =============== RESET =============== */
+* {
     margin: 0;
-    font-family: 'Poppins', Arial, sans-serif;
-    background: #f7f9fc;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Segoe UI", sans-serif;
 }
 
+body {
+    background: #f5f7fb;
+    color: #1b2c6d;
+}
+
+/* =============== HEADER =============== */
 .site-header {
+    width: 100%;
+    padding: 14px 2vw;
     background: #fff;
-    box-shadow: 0 2px 12px #dbdbed3a;
     display: flex;
     align-items: center;
-    padding: 16px 2vw;
-    gap: 24px;
+    justify-content: space-between;
+    border-bottom: 2px solid #dce3f4;
+    position: sticky;
+    top: 0;
+    z-index: 20;
 }
 
 .logo-zone {
@@ -23,261 +32,277 @@ body {
 }
 
 .brand {
-    color: #1f3077;
-    font-weight: 800;
-    font-size: 2rem;
-    letter-spacing: 1.5px;
+    font-size: 20px;
+    font-weight: 700;
+    color: #1b2c6d;
 }
 
 nav a {
-    text-decoration: none;
+    margin: 0 10px;
+    color: #1b2c6d;
     font-weight: 600;
-    padding: 6px 16px;
-    border-radius: 8px;
-    color: #48517e;
-    transition: 0.2s;
-    font-size: 1.05rem;
+    text-decoration: none;
 }
-
 nav a:hover {
-    background: #e9edff;
-    color: #1a4cdf;
+    color: #2772b2;
 }
 
 .search-bar {
     display: flex;
     align-items: center;
-    margin-left: auto;
-    gap: 8px;
+    gap: 6px;
 }
 
 .search-bar input {
-    padding: 8px 16px;
-    border-radius: 20px;
-    border: 1.5px solid #d6dbee;
-    width: 230px;
-    font-size: 1rem;
+    padding: 8px 10px;
+    border: 1px solid #c7d2ec;
+    border-radius: 6px;
+    width: 200px;
+    outline: none;
 }
-
 .search-bar button {
+    background: #2772b2;
+    border: 0;
+    color: #fff;
     padding: 8px 14px;
-    border-radius: 50%;
-    background: #e8ecff;
-    border: none;
+    border-radius: 6px;
     cursor: pointer;
-    color: #2757d4;
-    font-size: 1.1rem;
 }
 
-/* ===========================
-          GRID LECTURER
-=========================== */
-.card-grid {
-    margin: 40px auto;
+/* =============== GRID CARD =============== */
+.card-list {
     display: grid;
-    max-width: 1100px;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 28px;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 18px;
+    margin-top: 20px;
 }
 
-.card {
-    background: white;
-    padding: 18px;
+.lecturer-card {
+    background: #ffffff;
+    padding: 12px;
     border-radius: 14px;
-    box-shadow: 0 3px 26px #e6e7ec3a;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.07);
     cursor: pointer;
-    transition: 0.2s;
-    text-align: center;
-    border: 2px solid #f0f3ff;
+    transition: 0.25s;
+}
+.lecturer-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 6px 16px rgba(0,0,0,0.10);
 }
 
-.card:hover {
-    box-shadow: 0 6px 30px #cdd9f433;
-    border-color: #92b6ff;
-}
-
-.card img {
-    width: 160px;
-    height: 210px;
+.lecturer-card img {
+    width: 100%;
+    height: 215px;
     object-fit: cover;
     border-radius: 12px;
-    box-shadow: 0 2px 16px #dde3fc80;
 }
 
-.card h3 {
-    margin: 12px 0 6px;
-    font-size: 1.05rem;
+.star-rating {
+    margin-top: 6px;
+    color: #ffb400;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+.star-score {
+    margin-left: 6px;
+    font-size: 14px;
     color: #1b2c6d;
 }
 
-.card .title {
-    color: #2959d7;
-    font-size: 0.95rem;
+.card-info h3 {
+    margin-top: 8px;
+    font-size: 18px;
+}
+.card-title {
+    color: #576189;
+    font-size: 14px;
+}
+.dept {
+    font-size: 13px;
+    color: #7a8bb5;
 }
 
-/* ===========================
-        PAGINATION
-=========================== */
+/* =============== PAGINATION =============== */
 .pagination {
+    margin: 24px auto;
     display: flex;
     justify-content: center;
-    margin: 25px 0 40px;
-    gap: 10px;
+    gap: 8px;
 }
 
-.page-btn {
-    padding: 8px 15px;
-    border-radius: 8px;
-    border: 1px solid #d5dbef;
-    background: white;
+.pagination button {
+    padding: 8px 12px;
+    border: none;
+    background: #d5e0f8;
+    border-radius: 6px;
     cursor: pointer;
-    font-weight: 600;
-    font-size: 0.95rem;
     transition: 0.2s;
 }
 
-.page-btn:hover {
-    background: #e9edff;
-}
-
-.page-btn.active {
-    background: #1e4bd8;
+.pagination button.active {
+    background: #1b2c6d;
     color: white;
-    border-color: #1e4bd8;
+    font-weight: 600;
 }
 
-/* ===========================
-            MODAL
-=========================== */
-#modal-bg {
+.pagination button:hover {
+    background: #2772b2;
+    color: white;
+}
+
+/* =============== MODAL =============== */
+.modal-bg {
     position: fixed;
     inset: 0;
-    background: rgba(33, 54, 111, 0.18);
+    background: rgba(0,0,0,0.45);
     display: none;
     z-index: 90;
 }
 
-#modal {
+.modal {
+    width: 850px;
+    max-width: 92%;
+    background: #fff;
+    padding: 22px;
+    border-radius: 14px;
     position: fixed;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    width: 520px;
-    max-width: 92vw;
-    background: white;
-    border-radius: 16px;
-    padding: 26px;
-    box-shadow: 0 4px 40px #1b2c6d44;
     display: none;
     z-index: 100;
+    max-height: 85vh;
+    overflow-y: auto;
 }
 
-.close-modal {
-    position: absolute;
-    right: 18px;
-    top: 12px;
-    font-size: 1.7rem;
+.close-btn {
+    float: right;
+    font-size: 32px;
     cursor: pointer;
-    color: #1b4de4;
 }
 
-#modal-content ul {
-    padding-left: 20px;
+.modal-profile {
+    display: flex;
+    gap: 20px;
 }
 
-#modal-content h2 {
-    margin-bottom: 6px;
-    font-size: 1.4rem;
+.modal-img {
+    width: 240px;
+    height: 300px;
+    object-fit: cover;
+    border-radius: 12px;
+}
+
+.modal-info h2 {
+    margin-bottom: 8px;
     color: #1b2c6d;
 }
 
-/* ===========================
-          CHATBOT FULL
-=========================== */
+.modal-info h3 {
+    margin-top: 14px;
+    color: #1b2c6d;
+}
+
+.modal-info ul {
+    margin-left: 18px;
+    color: #42558a;
+    margin-top: 6px;
+}
+
+/* =============== CHATBOT =============== */
 .chatbot-widget {
     position: fixed;
-    right: 25px;
-    bottom: 25px;
-    z-index: 9999;
+    bottom: 18px;
+    right: 18px;
+    z-index: 200;
 }
 
 .chatbot-btn {
-    background: #176bd7;
-    padding: 12px 22px;
-    border-radius: 10px 10px 0 0;
-    color: white;
-    font-weight: 700;
+    background: #2772b2;
+    color: #fff;
+    padding: 12px 18px;
+    border: 0;
+    border-radius: 10px;
     cursor: pointer;
-    border: none;
-    font-size: 1.05rem;
+    font-size: 15px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
 }
 
 .chatbot-box {
-    width: 280px;
-    background: white;
-    border-radius: 0 0 14px 14px;
-    box-shadow: 0 3px 20px #0003;
+    width: 320px;
+    background: #fff;
+    border-radius: 12px;
+    margin-top: 10px;
+    border: 2px solid #dce3f4;
     display: none;
 }
 
 .chatbot-head {
-    padding: 12px;
-    background: #176bd7;
+    padding: 10px;
+    background: #1b2c6d;
     color: white;
-    font-weight: 700;
+    font-weight: bold;
+    border-radius: 10px 10px 0 0;
 }
 
 .chatbot-messages {
-    max-height: 210px;
+    padding: 10px;
+    height: 260px;
     overflow-y: auto;
-    background: #f2f6ff;
-    padding: 12px;
 }
 
 .chatbot-message {
-    padding: 8px 12px;
-    border-radius: 12px;
-    margin: 6px 0;
-    max-width: 75%;
-    font-size: 0.9rem;
+    padding: 8px 10px;
+    margin-bottom: 8px;
+    border-radius: 8px;
+    width: fit-content;
+    max-width: 80%;
 }
 
 .chatbot-message.bot {
-    background: #e5edff;
-    color: #123a9e;
+    background: #dce3f4;
+    color: #1b2c6d;
 }
 
 .chatbot-message.user {
-    background: #176bd7;
-    color: white;
+    background: #2772b2;
+    color: #fff;
     margin-left: auto;
 }
 
 .chatbot-action {
+    padding: 8px;
     display: flex;
     gap: 6px;
-    padding: 10px;
-    background: #eef3ff;
+    border-top: 1px solid #dce3f4;
 }
 
-#chatbot-input {
+.chatbot-action input {
     flex: 1;
-    padding: 7px 12px;
-    border-radius: 7px;
-    border: 1px solid #cfd7f3;
+    padding: 8px;
+    border: 1px solid #c7d2ec;
+    border-radius: 6px;
 }
 
-/* ===========================
-        RESPONSIVE
-=========================== */
+.chatbot-action button {
+    padding: 8px 12px;
+    background: #1b2c6d;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+/* =============== RESPONSIVE =============== */
 @media (max-width: 900px) {
-    .card-grid {
+    .card-list {
         grid-template-columns: repeat(2, 1fr);
     }
 }
 
 @media (max-width: 600px) {
-    .card-grid {
-        grid-template-columns: 1fr;
+    .card-list {
+        grid-template-columns: repeat(1, 1fr);
     }
 }
